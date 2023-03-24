@@ -156,3 +156,21 @@ p .home-page-welcome-text {
   cursor: pointer;
   color: var(--secondaryColor);
 }
+
+.nav-btn-auth-register {
+  margin: 0 1rem;
+  color: var(--textColor);
+  text-decoration: none;
+  font-size: 1rem;
+  background-color: var(--secondaryColor);
+  border-width: 0;
+  border-radius: 8px;
+  font-size: 25px;
+  padding: 5px;
+}
+
+.nav-btn-auth-register:hover {
+  cursor: pointer;
+  color: var(--secondaryColor);
+  color: black;
+}

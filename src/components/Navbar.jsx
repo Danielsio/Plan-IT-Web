@@ -4,7 +4,7 @@ import { UserContext } from "../context/UserContext";
 
 function Navbar() {
   const navRef = useRef();
-  const { isAuthenticated, handleLogout, handleLogin } =
+  const { isAuthenticated, handleLogout, handleLogin, handleRegister } =
     useContext(UserContext);
 
   const showNavbar = () => {
@@ -26,9 +26,14 @@ function Navbar() {
             Logout
           </button>
         ) : (
-          <button className="nav-btn-auth" onClick={handleLogin}>
-            Login
-          </button>
+          <>
+            <button className="nav-btn-auth" onClick={handleLogin}>
+              Login
+            </button>
+            <button className="nav-btn-auth-register" onClick={handleRegister}>
+              Register
+            </button>
+          </>
         )}
         <button className="nav-btn nav-close-btn" onClick={showNavbar}>
           <FaTimes />

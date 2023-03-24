@@ -1,5 +1,4 @@
 import React from "react";
-import GoogleSignIn from "../components/GoogleSignIn";
 import "../styles/home.css";
 
 function Home() {
