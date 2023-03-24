@@ -1,8 +1,11 @@
 import { FaBars, FaTimes } from "react-icons/fa";
-import { useRef } from "react";
+import { useRef, useContext } from "react";
+import { UserContext } from "../context/UserContext";
 
 function Navbar() {
   const navRef = useRef();
+  const { isAuthenticated, handleLogout, handleLogin } =
+    useContext(UserContext);
 
   const showNavbar = () => {
     navRef.current.classList.toggle("responsive_nav");
@@ -13,9 +16,20 @@ function Navbar() {
       <h2>PlanIt</h2>
       <nav ref={navRef}>
         <a href="/">Home</a>
-        <a href="/profile">Profile</a>
-        <a href="/generate-calendar">Create Your Study Calendar</a>
+        {isAuthenticated && <a href="/profile">Profile</a>}
+        {isAuthenticated && (
+          <a href="/generate-calendar">Create Your Study Calendar</a>
+        )}
         <a href="/about">About</a>
+        {isAuthenticated ? (
+          <button className="nav-btn-auth" onClick={handleLogout}>
+            Logout
+          </button>
+        ) : (
+          <button className="nav-btn-auth" onClick={handleLogin}>
+            Login
+          </button>
+        )}
         <button className="nav-btn nav-close-btn" onClick={showNavbar}>
           <FaTimes />
         </button>

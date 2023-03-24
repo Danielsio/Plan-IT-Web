@@ -140,3 +140,16 @@ p .home-page-welcome-text {
 .date-picker {
   margin-top: 50px;
 }
+
+.nav-btn-auth {
+  margin: 0 1rem;
+  color: var(--textColor);
+  text-decoration: none;
+  font-size: 1rem;
+  background-color: var(--mainColor);
+}
+
+.nav-btn-auth:hover {
+  cursor: pointer;
+  color: var(--secondaryColor);
+}
