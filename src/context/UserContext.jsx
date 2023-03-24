@@ -58,7 +58,7 @@ const UserProvider = ({ children }) => {
     },
   });
 
-  const Register = useGoogleLogin({
+  const handleRegister = useGoogleLogin({
     scope:
       "email profile openid https://www.googleapis.com/auth/calendar https://www.googleapis.com/auth/userinfo.email",
     redirect_uri: "http://localhost:3000",
@@ -102,6 +102,7 @@ const UserProvider = ({ children }) => {
         setIsAuthenticated,
         handleLogin,
         handleLogout,
+        handleRegister,
       }}
     >
       {children}
