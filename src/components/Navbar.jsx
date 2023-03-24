@@ -13,7 +13,7 @@ function Navbar() {
 
   return (
     <header>
-      <h2>PlanIt</h2>
+      <h1>PlanIt</h1>
       <nav ref={navRef}>
         <a href="/">Home</a>
         {isAuthenticated && <a href="/profile">Profile</a>}
