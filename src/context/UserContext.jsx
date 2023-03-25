@@ -1,4 +1,4 @@
-import React, { createContext, useState, useEffect } from "react";
+import React, { createContext, useState, useEffect, useCallback } from "react";
 import api from "../api/axiosBackendConfig";
 import { useGoogleLogin } from "@react-oauth/google";
 
@@ -7,11 +7,11 @@ const UserContext = createContext(null);
 const UserProvider = ({ children }) => {
   /* local stoarge functions */
   const getSubjectIdFromLocalStorage = () => {
-    return localStorage.getItem("userEmail");
+    return localStorage.getItem("subjectId");
   };
 
   const setSubjectIdToLocalStorage = (sub) => {
-    localStorage.setItem("userEmail", sub);
+    localStorage.setItem("subjectId", sub);
   };
   /********************************************/
 
@@ -23,15 +23,24 @@ const UserProvider = ({ children }) => {
   /* event listner for changes of subjectId when another user loggs in*/
   useEffect(() => {
     setSubjectIdToLocalStorage(subjectId);
-    console.log(subjectId);
+    console.log("Saving sub to localStorage: " + subjectId);
+
+    console.log(typeof subjectId);
+    if (subjectId === "") {
+      setIsAuthenticated(false);
+    } else {
+      setIsAuthenticated(true);
+    }
   }, [subjectId]);
+
   /********************************************************************/
 
   /* Auth handlers functions  handleLogout, handleLogin, handleRegister */
-  const handleLogout = (sub) => {
+  const handleLogout = () => {
     setIsAuthenticated(false);
-    // maybe do some more logic
     setSubjectId("");
+    localStorage.removeItem("subjectId");
+    console.log("isAuthenticated: " + isAuthenticated);
     window.location.reload();
   };
 
