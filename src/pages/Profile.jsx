@@ -1,12 +1,32 @@
 import React, { useState, useEffect, useContext } from "react";
 import { UserContext } from "../context/UserContext";
 import "../styles/profile.css";
-import { Container, Row, Col, Image, ListGroup } from "react-bootstrap";
+import { Container, Row, Col, Image, ListGroup, Card } from "react-bootstrap";
 import api from "../api/axiosBackendConfig";
+import { ClipLoader } from "react-spinners";
+import { Button } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
 function Profile() {
-  const { isAuthenticated, subjectID } = useContext(UserContext);
+  const convertUserStudyTimeToHours = (userStudyTime) => {
+    const hour = userStudyTime / 100;
+    if (hour < 10) {
+      return "0" + hour.toString();
+    } else {
+      return hour.toString();
+    }
+  };
 
+  const convertUserStudyTimeToMinute = (userStudyTime) => {
+    const minute = userStudyTime % 100;
+    if (minute < 10) {
+      return "0" + minute.toString();
+    } else {
+      return minute.toString();
+    }
+  };
+
+  const { isAuthenticated, subjectID } = useContext(UserContext);
   const [userData, setUserData] = useState(null);
   const [loading, setLoading] = useState(true);
 
@@ -36,41 +56,68 @@ function Profile() {
     );
   }
 
-  if (loading) {
-    return <div>Loading...</div>;
-  }
-
-  return (
+  return loading ? (
+    <ClipLoader
+      className="spinner"
+      color="#29335c"
+      loading={loading}
+      size={100}
+    />
+  ) : (
     <Container>
       <Row>
         <Col>
-          <h1>{userData.name}</h1>
-          <Image src={userData.pictureUrl} alt={userData.name} fluid />
-          <p>Email: {userData.email}</p>
+          <Card>
+            <Image src={userData.pictureUrl} alt={userData.name} fluid />
+            <h1>Name: {userData.name}</h1>
+            <p>Email: {userData.email}</p>
+          </Card>
         </Col>
         <Col>
-          <h2>Preferences:</h2>
-          <ListGroup>
-            <ListGroup.Item>
-              Study Start Time: {userData.userPreferences.userStudyStartTime}
-            </ListGroup.Item>
-            <ListGroup.Item>
-              Study End Time: {userData.userPreferences.userStudyEndTime}
-            </ListGroup.Item>
-            <ListGroup.Item>
-              Break Time Size: {userData.userPreferences.userBreakTime} Minutes
-            </ListGroup.Item>
-            <ListGroup.Item>
-              Study Session Size: {userData.userPreferences.studySessionTime}{" "}
-              Minutes
-            </ListGroup.Item>
-            <ListGroup.Item>
-              Study On Holidays: {userData.userPreferences.isStudyOnHolyDays}
-            </ListGroup.Item>
-            <ListGroup.Item>
-              Study On Weekends: {userData.userPreferences.isStudyOnWeekends}
-            </ListGroup.Item>
-          </ListGroup>
+          <Card>
+            <h2>Preferences:</h2>
+            <ListGroup>
+              <ListGroup.Item>
+                Study Start Time:{" "}
+                {convertUserStudyTimeToHours(
+                  userData.userPreferences.userStudyStartTime
+                )}
+                :
+                {convertUserStudyTimeToMinute(
+                  userData.userPreferences.userStudyStartTime
+                )}
+              </ListGroup.Item>
+              <ListGroup.Item>
+                Study End Time:{" "}
+                {convertUserStudyTimeToHours(
+                  userData.userPreferences.userStudyEndTime
+                )}
+                :
+                {convertUserStudyTimeToMinute(
+                  userData.userPreferences.userStudyEndTime
+                )}
+              </ListGroup.Item>
+              <ListGroup.Item>
+                Break Time Size: {userData.userPreferences.userBreakTime}{" "}
+                Minutes
+              </ListGroup.Item>
+              <ListGroup.Item>
+                Study Session Size: {userData.userPreferences.studySessionTime}{" "}
+                Minutes
+              </ListGroup.Item>
+              <ListGroup.Item>
+                Study On Holidays: {userData.userPreferences.isStudyOnHolyDays}
+              </ListGroup.Item>
+              <ListGroup.Item>
+                Study On Weekends: {userData.userPreferences.isStudyOnWeekends}
+              </ListGroup.Item>
+            </ListGroup>
+          </Card>
+          <Link to="/edit-preferences">
+            <Button variant="primary" size="sm">
+              Edit Preferences
+            </Button>
+          </Link>
         </Col>
       </Row>
     </Container>

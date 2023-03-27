@@ -155,6 +155,7 @@ p .home-page-welcome-text {
 .nav-btn-auth:hover {
   cursor: pointer;
   color: var(--secondaryColor);
+  text-decoration: underline;
 }
 
 .nav-btn-auth-register {
@@ -173,4 +174,5 @@ p .home-page-welcome-text {
   cursor: pointer;
   color: var(--secondaryColor);
   color: black;
+  text-decoration: underline;
 }
