@@ -1,26 +1,32 @@
 import React, { useState, useEffect, useContext } from "react";
-import axios from "axios";
 import { UserContext } from "../context/UserContext";
 import "../styles/profile.css";
+import { Container, Row, Col, Image, ListGroup } from "react-bootstrap";
+import api from "../api/axiosBackendConfig";
 
 function Profile() {
-  const { isAuthenticated } = useContext(UserContext);
+  const { isAuthenticated, subjectID } = useContext(UserContext);
 
   const [userData, setUserData] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const fetchData = async () => {
+    /* get user from backend DB */
+    const getUserData = async () => {
       try {
-        const response = await axios.get("/profile");
+        const response = await api.get("/profile", {
+          params: { sub: subjectID },
+        });
         setUserData(response.data);
         setLoading(false);
       } catch (error) {
         console.log(error);
       }
     };
-    fetchData();
-  }, []);
+    if (isAuthenticated) {
+      getUserData();
+    }
+  }, [isAuthenticated]);
 
   if (!isAuthenticated) {
     return (
@@ -35,18 +41,39 @@ function Profile() {
   }
 
   return (
-    <div className="profile-container">
-      <h1>{userData.name}</h1>
-      <img src={userData.image} alt={userData.name} />
-      <p>Email: {userData.email}</p>
-      <h2>Preferences:</h2>
-      <ul>
-        <li>Field 1: {userData.preferences.field1}</li>
-        <li>Field 2: {userData.preferences.field2}</li>
-        <li>Field 3: {userData.preferences.field3}</li>
-      </ul>
-      {/* more user data can be displayed here */}
-    </div>
+    <Container>
+      <Row>
+        <Col>
+          <h1>{userData.name}</h1>
+          <Image src={userData.pictureUrl} alt={userData.name} fluid />
+          <p>Email: {userData.email}</p>
+        </Col>
+        <Col>
+          <h2>Preferences:</h2>
+          <ListGroup>
+            <ListGroup.Item>
+              Study Start Time: {userData.userPreferences.userStudyStartTime}
+            </ListGroup.Item>
+            <ListGroup.Item>
+              Study End Time: {userData.userPreferences.userStudyEndTime}
+            </ListGroup.Item>
+            <ListGroup.Item>
+              Break Time Size: {userData.userPreferences.userBreakTime} Minutes
+            </ListGroup.Item>
+            <ListGroup.Item>
+              Study Session Size: {userData.userPreferences.studySessionTime}{" "}
+              Minutes
+            </ListGroup.Item>
+            <ListGroup.Item>
+              Study On Holidays: {userData.userPreferences.isStudyOnHolyDays}
+            </ListGroup.Item>
+            <ListGroup.Item>
+              Study On Weekends: {userData.userPreferences.isStudyOnWeekends}
+            </ListGroup.Item>
+          </ListGroup>
+        </Col>
+      </Row>
+    </Container>
   );
 }
 

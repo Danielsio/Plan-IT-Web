@@ -6,40 +6,39 @@ const UserContext = createContext(null);
 
 const UserProvider = ({ children }) => {
   /* local stoarge functions */
-  const getSubjectIdFromLocalStorage = () => {
-    return localStorage.getItem("subjectId");
+  const getSubjectIDFromLocalStorage = () => {
+    return localStorage.getItem("subjectID");
   };
 
-  const setSubjectIdToLocalStorage = (sub) => {
-    localStorage.setItem("subjectId", sub);
+  const setSubjectIDToLocalStorage = (sub) => {
+    localStorage.setItem("subjectID", sub);
   };
   /********************************************/
 
-  /* subjectId & isAuthenticated state values */
-  const [subjectId, setSubjectId] = useState(getSubjectIdFromLocalStorage());
+  /* subjectID & isAuthenticated state values */
+  const [subjectID, setSubjectID] = useState(getSubjectIDFromLocalStorage());
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   /********************************************/
 
-  /* event listner for changes of subjectId when another user loggs in*/
+  /* event listner for changes of subjectID when another user loggs in*/
   useEffect(() => {
-    setSubjectIdToLocalStorage(subjectId);
-    console.log("Saving sub to localStorage: " + subjectId);
+    setSubjectIDToLocalStorage(subjectID);
+    console.log("Saving sub to localStorage: " + subjectID);
 
-    console.log(typeof subjectId);
-    if (subjectId === "") {
+    if (subjectID === "") {
       setIsAuthenticated(false);
     } else {
       setIsAuthenticated(true);
     }
-  }, [subjectId]);
+  }, [subjectID]);
 
   /********************************************************************/
 
   /* Auth handlers functions  handleLogout, handleLogin, handleRegister */
   const handleLogout = () => {
     setIsAuthenticated(false);
-    setSubjectId("");
-    localStorage.removeItem("subjectId");
+    setSubjectID("");
+    localStorage.removeItem("subjectID");
     console.log("isAuthenticated: " + isAuthenticated);
     window.location.reload();
   };
@@ -59,9 +58,9 @@ const UserProvider = ({ children }) => {
       const response = await api.post("/login", {}, { params: { code: code } });
 
       console.log(response);
-      // response.data should contains the subjectId of the user
+      // response.data should contains the subjectID of the user
       const { sub } = response.data;
-      setSubjectId(sub);
+      setSubjectID(sub);
       setIsAuthenticated(true);
       window.location.reload();
     },
@@ -82,9 +81,9 @@ const UserProvider = ({ children }) => {
       const response = await api.post("/login", {}, { params: { code: code } });
 
       console.log(response);
-      // response.data should contains the subjectId of the user
+      // response.data should contains the subjectID of the user
       const { sub } = response.data;
-      setSubjectId(sub);
+      setSubjectID(sub);
       setIsAuthenticated(true);
 
       // add logic to redirect user to a page to set is preferences;
@@ -105,8 +104,8 @@ const UserProvider = ({ children }) => {
   return (
     <UserContext.Provider
       value={{
-        subjectId,
-        setSubjectId,
+        subjectID,
+        setSubjectID,
         isAuthenticated,
         setIsAuthenticated,
         handleLogin,
