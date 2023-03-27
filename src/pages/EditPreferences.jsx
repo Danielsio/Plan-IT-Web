@@ -1,19 +1,69 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { Container, Form, Button } from "react-bootstrap";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import api from "../api/axiosBackendConfig";
 import { UserContext } from "../context/UserContext";
 
 function EditPreferences() {
   const { subjectID } = useContext(UserContext);
+
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  let oldUserPreferences = JSON.parse(
+    new URLSearchParams(location.search).get("oldUserPreferences")
+  );
+  console.log(oldUserPreferences);
+
+  /**
+   * converts the oldUserPreferences object to the correct format from backend values to frontend controls values
+   * @param oldUserPreferences represents the oldUserPreferences values
+   * @returns converted oldUserPreferences object
+   */
+  const convertOldUserPreferencesFromBackendValuesToFormControlsValues = (
+    oldUserPreferences
+  ) => {
+    const cpyUserPreferences = { ...oldUserPreferences };
+    // Convert userStudyStartTime to time format
+    const userStudyStartTime = cpyUserPreferences.userStudyStartTime
+      .toString()
+      .padStart(4, "0");
+    cpyUserPreferences.userStudyStartTime = `${userStudyStartTime.substr(
+      0,
+      2
+    )}:${userStudyStartTime.substr(2)}`;
+    // Convert userStudyEndTime to time format
+    const userStudyEndTime = cpyUserPreferences.userStudyEndTime
+      .toString()
+      .padStart(4, "0");
+    cpyUserPreferences.userStudyEndTime = `${userStudyEndTime.substr(
+      0,
+      2
+    )}:${userStudyEndTime.substr(2)}`;
+    // Convert other fields as needed
+    return cpyUserPreferences;
+  };
+  console.log(oldUserPreferences);
+  oldUserPreferences =
+    convertOldUserPreferencesFromBackendValuesToFormControlsValues(
+      oldUserPreferences
+    );
+  console.log(oldUserPreferences);
+
+  const [userPreferences, setUserPreferences] = useState({
+    userStudyStartTime: oldUserPreferences.userStudyStartTime,
+    userStudyEndTime: oldUserPreferences.userStudyEndTime,
+    userBreakTime: oldUserPreferences.userBreakTime,
+    studySessionTime: oldUserPreferences.studySessionTime,
+    isStudyOnHolyDays: oldUserPreferences.studyOnHolyDays ? "on" : "",
+    isStudyOnWeekends: oldUserPreferences.studyOnWeekends ? "on" : "",
+  });
+
   /**
    * converts the edited prefereces object to the correct format
-   * @param prefereces represents the edited user preferences
-   * @returns a new preferences object in the correct format
+   * @param prefereces represents the updated user preferences
    */
   const convertUserPreferencesToBackendValues = (preferences) => {
-    const startTimeStr = preferences.userStudyStartTime;
-
     preferences.userStudyStartTime = parseInt(
       preferences.userStudyStartTime.replace(":", "")
     );
@@ -25,16 +75,6 @@ function EditPreferences() {
     preferences.userBreakTime = parseInt(preferences.userBreakTime);
     preferences.studySessionTime = parseInt(preferences.studySessionTime);
   };
-
-  const [userPreferences, setUserPreferences] = useState({
-    userStudyStartTime: "",
-    userStudyEndTime: "",
-    userBreakTime: "",
-    studySessionTime: "",
-    isStudyOnHolyDays: false,
-    isStudyOnWeekends: false,
-  });
-  const navigate = useNavigate();
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -53,6 +93,8 @@ function EditPreferences() {
 
   const handleChange = (event) => {
     const { name, value, type, checked } = event.target;
+
+    console.log(event.target);
 
     if (type === "checkbox") {
       setUserPreferences({

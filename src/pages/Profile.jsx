@@ -1,11 +1,18 @@
 import React, { useState, useEffect, useContext } from "react";
 import { UserContext } from "../context/UserContext";
 import "../styles/profile.css";
-import { Container, Row, Col, Image, ListGroup, Card } from "react-bootstrap";
+import {
+  Container,
+  Button,
+  Row,
+  Col,
+  Image,
+  ListGroup,
+  Card,
+} from "react-bootstrap";
 import api from "../api/axiosBackendConfig";
 import { ClipLoader } from "react-spinners";
-import { Button } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 function Profile() {
   const convertUserStudyTimeToHours = (userStudyTime) => {
@@ -29,6 +36,17 @@ function Profile() {
   const { isAuthenticated, subjectID } = useContext(UserContext);
   const [userData, setUserData] = useState(null);
   const [loading, setLoading] = useState(true);
+
+  const navigate = useNavigate();
+
+  const handleEditPreferences = () => {
+    const oldUserPreferences = userData.userPreferences;
+    navigate(
+      `/edit-preferences?oldUserPreferences=${JSON.stringify(
+        oldUserPreferences
+      )}`
+    );
+  };
 
   useEffect(() => {
     /* get user from backend DB */
@@ -113,11 +131,9 @@ function Profile() {
               </ListGroup.Item>
             </ListGroup>
           </Card>
-          <Link to="/edit-preferences">
-            <Button variant="primary" size="sm">
-              Edit Preferences
-            </Button>
-          </Link>
+          <Button variant="primary" size="sm" onClick={handleEditPreferences}>
+            Edit Preferences
+          </Button>
         </Col>
       </Row>
     </Container>
