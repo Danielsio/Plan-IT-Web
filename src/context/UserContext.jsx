@@ -44,8 +44,7 @@ const UserProvider = ({ children }) => {
   };
 
   const handleLogin = useGoogleLogin({
-    scope:
-      "email profile openid https://www.googleapis.com/auth/calendar https://www.googleapis.com/auth/userinfo.email",
+    scope: "email profile openid https://www.googleapis.com/auth/calendar",
     redirect_uri: "http://localhost:3000",
     flow: "auth-code",
     onError: (err) => {

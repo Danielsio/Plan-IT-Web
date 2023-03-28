@@ -13,6 +13,7 @@ import {
 import api from "../api/axiosBackendConfig";
 import { ClipLoader } from "react-spinners";
 import { Link, useNavigate } from "react-router-dom";
+import ProfileCard from "../components/ProfileCard";
 
 function Profile() {
   const convertUserStudyTimeToHours = (userStudyTime) => {
@@ -86,62 +87,34 @@ function Profile() {
     <Container className="mt-5">
       <Row>
         <Col className="mr-5">
-          <Card>
-            <Image src={userData.pictureUrl} alt={userData.name} fluid />
-            <h1>Name: {userData.name}</h1>
-            <p>Email: {userData.email}</p>
-          </Card>
-        </Col>
-        <Col>
-          <Card>
-            <h2>Preferences:</h2>
-            <ListGroup>
-              <ListGroup.Item>
-                Study Start Time:{" "}
-                {convertUserStudyTimeToHours(
-                  userData.userPreferences.userStudyStartTime
-                )}
-                :
-                {convertUserStudyTimeToMinute(
-                  userData.userPreferences.userStudyStartTime
-                )}
-              </ListGroup.Item>
-              <ListGroup.Item>
-                Study End Time:{" "}
-                {convertUserStudyTimeToHours(
-                  userData.userPreferences.userStudyEndTime
-                )}
-                :
-                {convertUserStudyTimeToMinute(
-                  userData.userPreferences.userStudyEndTime
-                )}
-              </ListGroup.Item>
-              <ListGroup.Item>
-                Break Time Size: {userData.userPreferences.userBreakTime}{" "}
-                Minutes
-              </ListGroup.Item>
-              <ListGroup.Item>
-                Study Session Size: {userData.userPreferences.studySessionTime}{" "}
-                Minutes
-              </ListGroup.Item>
-              <ListGroup.Item>
-                Study On Holidays:{" "}
-                {userData.userPreferences.isStudyOnHolyDays ? "Yes" : "No"}
-              </ListGroup.Item>
-              <ListGroup.Item>
-                Study On Weekends:{" "}
-                {userData.userPreferences.isStudyOnWeekends ? "Yes" : "No"}
-              </ListGroup.Item>
-            </ListGroup>
-          </Card>
-          <Button
-            className="mt-3"
-            variant="primary"
-            size="sm"
+          <ProfileCard
+            name={userData.name}
+            email={userData.email}
+            picProfile={userData.pictureUrl}
+            startTime={
+              convertUserStudyTimeToHours(
+                userData.userPreferences.userStudyStartTime
+              ).toString() +
+              ":" +
+              convertUserStudyTimeToMinute(
+                userData.userPreferences.userStudyStartTime
+              ).toString()
+            }
+            endTime={
+              convertUserStudyTimeToHours(
+                userData.userPreferences.userStudyEndTime
+              ).toString() +
+              ":" +
+              convertUserStudyTimeToMinute(
+                userData.userPreferences.userStudyEndTime
+              ).toString()
+            }
+            breakTime={userData.userPreferences.userBreakTime}
+            SessionLength={userData.userPreferences.studySessionTime}
+            isStudyOnHolyDays={userData.userPreferences.isStudyOnHolyDays}
+            studyOnWeekends={userData.userPreferences.isStudyOnWeekends}
             onClick={handleEditPreferences}
-          >
-            Edit Preferences
-          </Button>
+          />
         </Col>
       </Row>
     </Container>
