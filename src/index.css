@@ -124,7 +124,7 @@ p .home-page-welcome-text {
 .generate-button {
   font-size: 16px;
   border-radius: 8px;
-  background-color: #29335c; /* Green */
+  background-color: #29335c;
   color: white;
   transition-duration: 0.4s;
   margin-top: 25px;
