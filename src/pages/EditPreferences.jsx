@@ -1,11 +1,13 @@
 import React, { useState, useContext, useEffect } from "react";
 import { Container, Form, Button } from "react-bootstrap";
 import { useNavigate, useLocation } from "react-router-dom";
+import { ClipLoader } from "react-spinners";
 import api from "../api/axiosBackendConfig";
 import { UserContext } from "../context/UserContext";
 
 function EditPreferences() {
   const { subjectID } = useContext(UserContext);
+  const [loading, setLoading] = useState(false);
 
   const location = useLocation();
   const navigate = useNavigate();
@@ -13,7 +15,6 @@ function EditPreferences() {
   let oldUserPreferences = JSON.parse(
     new URLSearchParams(location.search).get("oldUserPreferences")
   );
-  console.log(oldUserPreferences);
 
   /**
    * converts the oldUserPreferences object to the correct format from backend values to frontend controls values
@@ -43,12 +44,10 @@ function EditPreferences() {
     // Convert other fields as needed
     return cpyUserPreferences;
   };
-  console.log(oldUserPreferences);
   oldUserPreferences =
     convertOldUserPreferencesFromBackendValuesToFormControlsValues(
       oldUserPreferences
     );
-  console.log(oldUserPreferences);
 
   const [userPreferences, setUserPreferences] = useState({
     userStudyStartTime: oldUserPreferences.userStudyStartTime,
@@ -78,10 +77,12 @@ function EditPreferences() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    setLoading(true);
     convertUserPreferencesToBackendValues(userPreferences);
     api
       .post("/profile", userPreferences, { params: { sub: subjectID } })
       .then((response) => {
+        setLoading(false);
         // navigate back to profile page
         navigate("/profile");
       })
@@ -110,7 +111,7 @@ function EditPreferences() {
   };
 
   return (
-    <Container className="mx-auto w-50">
+    <Container className="mx-auto w-50 p-5">
       <h1>Edit Preferences</h1>
       <Form onSubmit={handleSubmit}>
         <Form.Group>
@@ -167,10 +168,18 @@ function EditPreferences() {
             label="Study On Weekends"
           />
         </Form.Group>
-        <Button variant="primary" type="submit">
+        <Button className="mt-2" variant="primary" type="submit">
           Save Changes
         </Button>
       </Form>
+      {loading && (
+        <ClipLoader
+          className="spinner"
+          color="#29335c"
+          loading={loading}
+          size={50}
+        />
+      )}
     </Container>
   );
 }

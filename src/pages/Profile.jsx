@@ -16,7 +16,7 @@ import { Link, useNavigate } from "react-router-dom";
 
 function Profile() {
   const convertUserStudyTimeToHours = (userStudyTime) => {
-    const hour = userStudyTime / 100;
+    const hour = Math.floor(userStudyTime / 100);
     if (hour < 10) {
       return "0" + hour.toString();
     } else {
@@ -55,6 +55,7 @@ function Profile() {
         const response = await api.get("/profile", {
           params: { sub: subjectID },
         });
+        console.log(response.data);
         setUserData(response.data);
         setLoading(false);
       } catch (error) {
@@ -82,9 +83,9 @@ function Profile() {
       size={100}
     />
   ) : (
-    <Container>
+    <Container className="mt-5">
       <Row>
-        <Col>
+        <Col className="mr-5">
           <Card>
             <Image src={userData.pictureUrl} alt={userData.name} fluid />
             <h1>Name: {userData.name}</h1>
@@ -124,14 +125,21 @@ function Profile() {
                 Minutes
               </ListGroup.Item>
               <ListGroup.Item>
-                Study On Holidays: {userData.userPreferences.isStudyOnHolyDays}
+                Study On Holidays:{" "}
+                {userData.userPreferences.isStudyOnHolyDays ? "Yes" : "No"}
               </ListGroup.Item>
               <ListGroup.Item>
-                Study On Weekends: {userData.userPreferences.isStudyOnWeekends}
+                Study On Weekends:{" "}
+                {userData.userPreferences.isStudyOnWeekends ? "Yes" : "No"}
               </ListGroup.Item>
             </ListGroup>
           </Card>
-          <Button variant="primary" size="sm" onClick={handleEditPreferences}>
+          <Button
+            className="mt-3"
+            variant="primary"
+            size="sm"
+            onClick={handleEditPreferences}
+          >
             Edit Preferences
           </Button>
         </Col>

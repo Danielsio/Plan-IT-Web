@@ -105,7 +105,7 @@ p .home-page-welcome-text {
 
 .footer {
   margin-top: auto;
-  background-color: #29335c;
+  background-color: var(--mainColor);
   color: white;
   text-align: center;
   padding: 20px;
@@ -175,4 +175,8 @@ p .home-page-welcome-text {
   color: var(--secondaryColor);
   color: black;
   text-decoration: underline;
+}
+
+body {
+  background-color: #f5f5f5;
 }
