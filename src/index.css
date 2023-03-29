@@ -117,31 +117,6 @@ p .home-page-welcome-text {
   flex-direction: column;
 }
 
-.about-text {
-  text-align: center;
-}
-
-.generate-button {
-  font-size: 16px;
-  border-radius: 8px;
-  background-color: #29335c;
-  color: white;
-  transition-duration: 0.4s;
-  margin-top: 25px;
-  padding: 10px;
-}
-
-.generate-button:hover {
-  background-color: white;
-  border: 2px solid #29335c;
-  color: black;
-  cursor: pointer;
-}
-
-.date-picker {
-  margin-top: 50px;
-}
-
 .nav-btn-auth {
   margin: 0 1rem;
   color: var(--textColor);
@@ -182,5 +157,5 @@ body {
 }
 
 .navbar-it-span {
-  color: #db2b39;
+  color: var(--secondaryColor);
 }
