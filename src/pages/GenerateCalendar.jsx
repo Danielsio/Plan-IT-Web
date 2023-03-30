@@ -76,7 +76,7 @@ const GenerateCalendar = () => {
   if (!isAuthenticated) {
     return (
       <div className="message-container">
-        <h1>Please Login Or Register to view Your Profile</h1>
+        <h1>Please Login Or Register to generate your calendar</h1>
       </div>
     );
   }
@@ -91,7 +91,7 @@ const GenerateCalendar = () => {
           variant="secondary"
           onClick={handleOpenCalendar}
         >
-          <FaCalendar />
+          <FaCalendar className="mb-1 mr-1" />
           Open Google Calendar
         </Button>
       </div>
