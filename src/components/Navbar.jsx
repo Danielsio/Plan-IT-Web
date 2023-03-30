@@ -1,6 +1,7 @@
-import { FaBars, FaTimes } from "react-icons/fa";
+import { FaBars, FaTimes, FaGoogle, FaHouseUser } from "react-icons/fa";
 import { useRef, useContext } from "react";
 import { UserContext } from "../context/UserContext";
+import { FcAbout } from "react-icons/fc";
 
 function Navbar() {
   const navRef = useRef();
@@ -17,12 +18,18 @@ function Navbar() {
         Plan<span className="navbar-it-span">IT</span>
       </h1>
       <nav ref={navRef}>
-        <a href="/">Home</a>
+        <a href="/">
+          <FaHouseUser className="mb-2 mr-1" />
+          Home
+        </a>
         {isAuthenticated && <a href="/profile">Profile</a>}
         {isAuthenticated && (
           <a href="/generate-calendar">Create Your Study Calendar</a>
         )}
-        <a href="/about">About</a>
+        <a href="/about">
+          <FcAbout className="mb-2 mr-1" />
+          About
+        </a>
         {isAuthenticated ? (
           <button className="nav-btn-auth" onClick={handleLogout}>
             Logout
@@ -30,9 +37,11 @@ function Navbar() {
         ) : (
           <>
             <button className="nav-btn-auth" onClick={handleLogin}>
+              <FaGoogle className="mb-2 mr-1" />
               Login
             </button>
             <button className="nav-btn-auth-register" onClick={handleRegister}>
+              <FaGoogle className="mb-2 mr-1" />
               Register
             </button>
           </>

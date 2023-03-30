@@ -5,13 +5,15 @@ import api from "../api/axiosBackendConfig";
 import { UserContext } from "../context/UserContext";
 import { Form, Row, Button, Col } from "react-bootstrap";
 import { ClipLoader } from "react-spinners";
+import "../styles/GenerateCalendar.css";
+import { FaCalendar } from "react-icons/fa";
 
 const GenerateCalendar = () => {
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
   const [loading, setLoading] = useState(false);
 
-  const { subjectID } = useContext(UserContext);
+  const { subjectID, isAuthenticated } = useContext(UserContext);
 
   const validateDatesPicked = () => {
     if (startDate >= endDate) {
@@ -67,38 +69,70 @@ const GenerateCalendar = () => {
     }
   };
 
+  const handleOpenCalendar = () => {
+    window.open("https://calendar.google.com/", "_blank");
+  };
+
+  if (!isAuthenticated) {
+    return (
+      <div className="message-container">
+        <h1>Please Login Or Register to view Your Profile</h1>
+      </div>
+    );
+  }
+
   return (
-    <div className="date-picker">
-      <center>
-        <h2>Select the start and end of your study period.</h2>
-        <div className="mb-3">
-          <label htmlFor="start-date-picker">Start Date:</label>
-          <DatePicker
-            id="start-date-picker"
-            selected={startDate}
-            onChange={(date) => setStartDate(date)}
-          />
-        </div>
-        <div className="mb-3">
-          <label htmlFor="end-date-picker">End Date:</label>
-          <DatePicker
-            id="end-date-picker"
-            selected={endDate}
-            onChange={(date) => setEndDate(date)}
-          />
-        </div>
-        <Button className="mt-3 p-2" variant="primary" onClick={handleGenerate}>
-          Generate Calendar
+    <div className="generate-calendar-container">
+      <h1 className="generate-calendar-title mt-3 ml-4">Your Study Plan:</h1>
+      <hr className="generate-calendar-hr" />
+      <div className="button-container">
+        <Button
+          className="mt-3 ml-3 p-2"
+          variant="secondary"
+          onClick={handleOpenCalendar}
+        >
+          <FaCalendar />
+          Open Google Calendar
         </Button>
-      </center>
-      {loading && (
-        <ClipLoader
-          className="ml-10"
-          color="#29335c"
-          loading={loading}
-          size={50}
-        />
-      )}
+      </div>
+      <div className="date-picker-container">
+        <div className="date-picker mt-5">
+          <center>
+            <h2>Select the start and end of your study period.</h2>
+            <div className="mb-3">
+              <label htmlFor="start-date-picker">Start Date:</label>
+              <DatePicker
+                id="start-date-picker"
+                selected={startDate}
+                onChange={(date) => setStartDate(date)}
+              />
+            </div>
+            <div className="mb-3">
+              <label htmlFor="end-date-picker">End Date:</label>
+              <DatePicker
+                id="end-date-picker"
+                selected={endDate}
+                onChange={(date) => setEndDate(date)}
+              />
+            </div>
+            <Button
+              className="mt-3 p-2"
+              variant="primary"
+              onClick={handleGenerate}
+            >
+              Generate Calendar
+            </Button>
+          </center>
+          {loading && (
+            <ClipLoader
+              className="ml-10"
+              color="#29335c"
+              loading={loading}
+              size={50}
+            />
+          )}
+        </div>
+      </div>
     </div>
   );
 };
