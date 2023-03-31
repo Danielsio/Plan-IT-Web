@@ -17,7 +17,7 @@ const ProfileCard = ({
     <div className="Profile-Card">
       <div className="upper-container">
         <div className="image-container">
-          <img
+          <img 
             src={picProfile}
             alt="profile Pic"
             height="100px"
