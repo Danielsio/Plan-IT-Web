@@ -25,11 +25,15 @@ const UserProvider = ({ children }) => {
     setSubjectIDToLocalStorage(subjectID);
     console.log("Saving sub to localStorage: " + subjectID);
 
-    if (subjectID === "") {
+    if (subjectID === "" || subjectID === "null" || subjectID === null) {
+      
       setIsAuthenticated(false);
     } else {
+      
       setIsAuthenticated(true);
     }
+    
+
   }, [subjectID]);
 
   /********************************************************************/
