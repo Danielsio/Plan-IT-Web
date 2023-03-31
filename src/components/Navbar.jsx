@@ -2,6 +2,9 @@ import { FaBars, FaTimes, FaGoogle, FaHouseUser } from "react-icons/fa";
 import { useRef, useContext } from "react";
 import { UserContext } from "../context/UserContext";
 import { FcAbout } from "react-icons/fc";
+import { CgProfile } from "react-icons/cg";
+import { FiLogOut } from "react-icons/fi";
+import { BsCalendar2Range } from "react-icons/bs";
 
 function Navbar() {
   const navRef = useRef();
@@ -22,9 +25,17 @@ function Navbar() {
           <FaHouseUser className="mb-2 mr-1" />
           Home
         </a>
-        {isAuthenticated && <a href="/profile">Profile</a>}
         {isAuthenticated && (
-          <a href="/generate-calendar">Create Your Study Calendar</a>
+          <a href="/profile">
+            <CgProfile className="mb-2 mr-1" />
+            Profile
+          </a>
+        )}
+        {isAuthenticated && (
+          <a href="/generate-calendar">
+            <BsCalendar2Range className="mb-2 mr-2" />
+            Create Your Study Calendar
+          </a>
         )}
         <a href="/about">
           <FcAbout className="mb-2 mr-1" />
@@ -32,6 +43,7 @@ function Navbar() {
         </a>
         {isAuthenticated ? (
           <button className="nav-btn-auth" onClick={handleLogout}>
+            <FiLogOut className="mb-1" />
             Logout
           </button>
         ) : (
