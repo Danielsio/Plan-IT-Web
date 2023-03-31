@@ -8,10 +8,10 @@ import { useContext } from "react";
 import { UserContext } from "../context/UserContext";
 
 function AppNavbar() {
-  const { isAuthenticated, handleLogout } = useContext(UserContext);
+  const { isAuthenticated, handleLogin, handleLogout} = useContext(UserContext);
 
   return (
-    <Navbar expand="md" className="navbar-bg-color">
+    <Navbar expand="md" className="navbar-bg-color" variant="dark">
       <Navbar.Brand href="/">
         Plan<span className="navbar-it-span">IT</span>
       </Navbar.Brand>
@@ -19,7 +19,7 @@ function AppNavbar() {
       <Navbar.Collapse id="responsive-navbar-nav">
         <Nav className="mr-auto"></Nav>
         <Nav className="ml-auto">
-          <Nav.Link href="/" className="navbar-text-color">
+          <Nav.Link href="/">
             <FaHouseUser className="mb-2 mr-1" />
             Home
           </Nav.Link>
@@ -45,7 +45,9 @@ function AppNavbar() {
               Logout
             </Button>
           ) : (
-            <GoogleButton className="mr-3" />
+            <Button variant="light" onClick={handleLogin}>
+              Continue With Google
+            </Button>
           )}
         </Nav>
       </Navbar.Collapse>
