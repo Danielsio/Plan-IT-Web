@@ -1,10 +1,12 @@
 import { FaBars, FaTimes, FaGoogle, FaHouseUser } from "react-icons/fa";
 import { useRef, useContext } from "react";
 import { UserContext } from "../context/UserContext";
-import { FcAbout } from "react-icons/fc";
+import { AiOutlineInfoCircle } from "react-icons/ai";
 import { CgProfile } from "react-icons/cg";
 import { FiLogOut } from "react-icons/fi";
 import { BsCalendar2Range } from "react-icons/bs";
+import { Button } from "react-bootstrap";
+import GoogleButton from "react-google-button";
 
 function Navbar() {
   const navRef = useRef();
@@ -38,24 +40,20 @@ function Navbar() {
           </a>
         )}
         <a href="/about">
-          <FcAbout className="mb-2 mr-1" />
+          <AiOutlineInfoCircle className="mb-2 mr-1" />
           About
         </a>
         {isAuthenticated ? (
           <button className="nav-btn-auth" onClick={handleLogout}>
-            <FiLogOut className="mb-1" />
+            <FiLogOut className="mb-1 mr-1" />
             Logout
           </button>
         ) : (
           <>
-            <button className="nav-btn-auth" onClick={handleLogin}>
-              <FaGoogle className="mb-2 mr-1" />
-              Login
-            </button>
-            <button className="nav-btn-auth-register" onClick={handleRegister}>
-              <FaGoogle className="mb-2 mr-1" />
-              Register
-            </button>
+            <Button className="ml-3" size="lg" variant="light">
+              <FaGoogle className="mb-1 mr-1" />
+              Continue With Google
+            </Button>
           </>
         )}
         <button className="nav-btn nav-close-btn" onClick={showNavbar}>

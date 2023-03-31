@@ -133,23 +133,22 @@ p .home-page-welcome-text {
   text-decoration: underline;
 }
 
-.nav-btn-auth-register {
+.nav-btn-auth-login {
   margin: 0 1rem;
-  color: var(--textColor);
+  color: black;
   text-decoration: none;
   font-size: 1rem;
-  background-color: var(--secondaryColor);
+  background-color: white;
   border-width: 0;
   border-radius: 8px;
-  font-size: 25px;
-  padding: 5px;
+  font-size: 20px;
+  padding: 10px;
+  font-family: "Titillium Web", sans-serif;
 }
 
-.nav-btn-auth-register:hover {
+.nav-btn-auth-login:hover {
   cursor: pointer;
-  color: var(--secondaryColor);
-  color: black;
-  text-decoration: underline;
+  background-color: #cdcaca;
 }
 
 body {

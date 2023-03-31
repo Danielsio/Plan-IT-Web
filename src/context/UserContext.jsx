@@ -26,14 +26,10 @@ const UserProvider = ({ children }) => {
     console.log("Saving sub to localStorage: " + subjectID);
 
     if (subjectID === "" || subjectID === "null" || subjectID === null) {
-      
       setIsAuthenticated(false);
     } else {
-      
       setIsAuthenticated(true);
     }
-    
-
   }, [subjectID]);
 
   /********************************************************************/
@@ -65,31 +61,11 @@ const UserProvider = ({ children }) => {
       const { sub } = response.data;
       setSubjectID(sub);
       setIsAuthenticated(true);
-      window.location.reload();
-    },
-  });
 
-  const handleRegister = useGoogleLogin({
-    scope:
-      "email profile openid https://www.googleapis.com/auth/calendar https://www.googleapis.com/auth/userinfo.email",
-    redirect_uri: "http://localhost:3000",
-    flow: "auth-code",
-    onError: (err) => {
-      console.error(err);
-    },
-    onSuccess: async (res) => {
-      const { code } = res;
-
-      // Send axios post request to backend with response data
-      const response = await api.post("/login", {}, { params: { code: code } });
-
-      console.log(response);
-      // response.data should contains the subjectID of the user
-      const { sub } = response.data;
-      setSubjectID(sub);
-      setIsAuthenticated(true);
-
-      // add logic to redirect user to a page to set is preferences;
+      // check (if response.data.isNewUser)
+      {
+        // redirect to EditPreferences
+      }
     },
   });
 
@@ -113,7 +89,6 @@ const UserProvider = ({ children }) => {
         setIsAuthenticated,
         handleLogin,
         handleLogout,
-        handleRegister,
       }}
     >
       {children}
