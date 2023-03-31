@@ -25,15 +25,14 @@ const UserProvider = ({ children }) => {
     setSubjectIDToLocalStorage(subjectID);
     console.log("Saving sub to localStorage: " + subjectID);
 
-    console.log("isAuthenticated before check: " + isAuthenticated);
     if (subjectID === "" || subjectID === "null" || subjectID === null) {
-      console.log("inside if of isAuthenticated check: " + isAuthenticated);
+      
       setIsAuthenticated(false);
     } else {
-      console.log("inside else of isAuthenticated check: " + isAuthenticated);
+      
       setIsAuthenticated(true);
     }
-    console.log("isAuthenticated after check: " + isAuthenticated);
+    
 
   }, [subjectID]);
 

@@ -35,7 +35,6 @@ function Profile() {
   };
 
   const { isAuthenticated, subjectID } = useContext(UserContext);
-  console.log("isAuthenticated in profile check: " + isAuthenticated);
   const [userData, setUserData] = useState(null);
   const [loading, setLoading] = useState(true);
 
