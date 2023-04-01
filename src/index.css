@@ -158,3 +158,11 @@ body {
 .navbar-it-span {
   color: var(--secondaryColor);
 }
+
+.navbar-bg-color {
+  background-color: var(--mainColor);
+}
+
+.navbar-text-color {
+  color: var(--textColor);
+}
