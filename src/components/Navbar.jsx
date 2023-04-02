@@ -3,12 +3,12 @@ import { FaBars, FaTimes, FaGoogle, FaHouseUser } from "react-icons/fa";
 import { AiOutlineInfoCircle } from "react-icons/ai";
 import { CgProfile } from "react-icons/cg";
 import { BsCalendar2Range } from "react-icons/bs";
-import GoogleButton from "react-google-button";
 import { useContext } from "react";
 import { UserContext } from "../context/UserContext";
 
 function AppNavbar() {
-  const { isAuthenticated, handleLogin, handleLogout} = useContext(UserContext);
+  const { isAuthenticated, handleLogin, handleLogout } =
+    useContext(UserContext);
 
   return (
     <Navbar expand="md" className="navbar-bg-color" variant="dark">
@@ -36,7 +36,7 @@ function AppNavbar() {
             </Nav.Link>
           )}
           <Nav.Link href="/about">
-            <AiOutlineInfoCircle className="mb-2 mr-1" />
+            <AiOutlineInfoCircle className="mb-1 mr-1" />
             About
           </Nav.Link>
 

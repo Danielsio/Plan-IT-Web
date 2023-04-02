@@ -168,14 +168,14 @@ const GenerateCalendar = () => {
           backdrop="static"
           keyboard={false}
         >
-          <Modal.Header closeButton>
+          <Modal.Header>
             <Modal.Title>We Found Full Day Events !</Modal.Title>
           </Modal.Header>
           <Modal.Body>
             <h5>Please Choose:</h5>
             <ul>
               {fullDayEvents.map((event) => (
-                <li key={event.id}>
+                <li className="ml-2" key={event.id}>
                   <FullDayEventItem
                     date={event.start.date.value}
                     name={event.summary}

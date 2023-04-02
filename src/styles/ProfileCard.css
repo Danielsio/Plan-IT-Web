@@ -69,3 +69,7 @@ h4 {
   border: none;
   color: white;
 }
+
+.edit-preference-btn {
+  font-family: "Titillium Web", sans-serif;
+}

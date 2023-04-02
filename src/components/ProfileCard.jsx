@@ -17,7 +17,7 @@ const ProfileCard = ({
     <div className="Profile-Card">
       <div className="upper-container">
         <div className="image-container">
-          <img 
+          <img
             src={picProfile}
             alt="profile Pic"
             height="100px"
@@ -37,7 +37,7 @@ const ProfileCard = ({
           <h6>Study On Holidays: {StudyOnHolidays ? "Yes" : "No"}</h6>
           <h6>Study On Weekends: {studyOnWeekends ? "Yes" : "No"}</h6>
         </div>
-        <Button className="mt-2" onClick={onClick}>
+        <Button className="mt-2 edit-preference-btn" onClick={onClick}>
           Edit Preferences
         </Button>
       </div>
