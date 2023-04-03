@@ -1,5 +1,5 @@
-import { Navbar, Nav, NavDropdown, Button } from "react-bootstrap";
-import { FaBars, FaTimes, FaGoogle, FaHouseUser } from "react-icons/fa";
+import { Navbar, Nav, Button } from "react-bootstrap";
+import { FaHouseUser } from "react-icons/fa";
 import { AiOutlineInfoCircle } from "react-icons/ai";
 import { CgProfile } from "react-icons/cg";
 import { BsCalendar2Range } from "react-icons/bs";
@@ -26,6 +26,10 @@ function AppNavbar() {
       <Navbar.Collapse id="responsive-navbar-nav">
         <Nav className="mr-auto"></Nav>
         <Nav className="ml-auto">
+          <Nav.Link href="/">
+            <FaHouseUser className="mb-1 mr-1" />
+            Home
+          </Nav.Link>
           {isAuthenticated && (
             <Nav.Link href="/profile">
               <CgProfile className="mb-2 mr-1" />
