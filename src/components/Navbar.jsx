@@ -13,16 +13,19 @@ function AppNavbar() {
   return (
     <Navbar expand="md" className="navbar-bg-color" variant="dark">
       <Navbar.Brand href="/">
+        <img
+          alt=""
+          src="https://img.favpng.com/2/14/8/clip-art-portable-network-graphics-computer-icons-transparency-scalable-vector-graphics-png-favpng-B5WtdC7Pn8GwRxZavbJgGngCN.jpg"
+          width="30"
+          height="30"
+          className="d-inline-block align-top"
+        />{" "}
         Plan<span className="navbar-it-span">IT</span>
       </Navbar.Brand>
       <Navbar.Toggle aria-controls="responsive-navbar-nav" />
       <Navbar.Collapse id="responsive-navbar-nav">
         <Nav className="mr-auto"></Nav>
         <Nav className="ml-auto">
-          <Nav.Link href="/">
-            <FaHouseUser className="mb-2 mr-1" />
-            Home
-          </Nav.Link>
           {isAuthenticated && (
             <Nav.Link href="/profile">
               <CgProfile className="mb-2 mr-1" />
@@ -35,7 +38,7 @@ function AppNavbar() {
               Create Your Study Calendar
             </Nav.Link>
           )}
-          <Nav.Link href="/about">
+          <Nav.Link className="mr-2" href="/about">
             <AiOutlineInfoCircle className="mb-1 mr-1" />
             About
           </Nav.Link>
@@ -46,7 +49,7 @@ function AppNavbar() {
             </Button>
           ) : (
             <Button variant="light" onClick={handleLogin}>
-              Continue With Google
+              Login
             </Button>
           )}
         </Nav>
