@@ -5,7 +5,7 @@ import api from "../api/axiosBackendConfig";
 import { UserContext } from "../context/UserContext";
 import { Form, Row, Button, Col, Modal, Card } from "react-bootstrap";
 import { ClipLoader } from "react-spinners";
-import "../styles/GenerateCalendar.css";
+import "../styles/generateCalendar.css";
 import { FaCalendar } from "react-icons/fa";
 import FullDayEventItem from "../components/FullDayEventItem";
 
@@ -147,127 +147,105 @@ const GenerateCalendar = () => {
   }
 
   return (
-    <div className="generate-calendar-container">
-      <h1 className="generate-calendar-title mt-3 ml-4">Your Study Plan:</h1>
+    <div>
+      <h1 className="generate-calendar-title mt-4 ml-4">Your Study Plan:</h1>
       <hr className="generate-calendar-hr" />
-      <div className="button-container">
+      <div>
+        <Card className="generate-plan-card">
+          <Card.Body>
+            <Card.Title>Upcoming Study Session:</Card.Title>
+            <Card.Text>
+              There are no upcoming study sessions yet. Generate your study
+              plan.
+            </Card.Text>
+          </Card.Body>
+        </Card>
+
+        <Card className="generate-plan-card">
+          <Card.Body>
+            <Card.Title>Generated Study Plan:</Card.Title>
+            <Card.Text>
+              There is no study plan yet. Generate your study plan.
+            </Card.Text>
+          </Card.Body>
+        </Card>
+
         <Button
           className="mt-3 ml-3 p-2"
           variant="secondary"
+          size="lg"
           onClick={handleOpenCalendar}
         >
           <FaCalendar className="mb-1 mr-1" />
           Open Google Calendar
         </Button>
-        <Card
-          className="mx-auto mt-5 p-4"
-          style={{
-            width: "50%",
-            border: "1px solid #dcdcdc",
-            boxShadow: "0px 0px 10px #dcdcdc",
-          }}
-        >
-          <Card.Body>
-            <Card.Title>PlanIT</Card.Title>
-            <Card.Text>
-              A company that creates personalized curricula for students is one
-              that recognizes the unique learning needs and styles of each
-              individual student.
-            </Card.Text>
-            <Card.Text>
-              Rather than adhering to a one-size-fits-all approach, this company
-              takes into account a student's interests, strengths, and
-              weaknesses to craft a curriculum that maximizes their potential.
-            </Card.Text>
-            <Card.Text>
-              With personalized curricula, students can learn at their own pace,
-              focus on areas where they need more support, and explore topics
-              that excite them.
-            </Card.Text>
-            <Card.Text>
-              This approach can lead to improved academic performance, greater
-              engagement and motivation, and a more fulfilling learning
-              experience overall.
-            </Card.Text>
-            <Card.Text>
-              A company that specializes in personalized curricula demonstrates
-              a commitment to student success and can make a significant impact
-              on the lives of the students they serve.
-            </Card.Text>
-            <Card.Text>Version 1.0.0</Card.Text>
-          </Card.Body>
-        </Card>
-      </div>
 
-      {showModal && (
-        <Modal
-          show={showModal}
-          onHide={() => setShowModal(false)}
-          backdrop="static"
-          keyboard={false}
-        >
-          <Modal.Header>
-            <Modal.Title>We Found Full Day Events !</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
-            <h5>Please Choose:</h5>
-            <ul>
-              {fullDayEvents.map((event) => (
-                <li className="ml-2" key={event.id}>
-                  <FullDayEventItem
-                    date={event.start.date.value}
-                    name={event.summary}
-                    handleDecision={handleDecision}
-                  />
-                </li>
-              ))}
-            </ul>
-          </Modal.Body>
-          <Modal.Footer>
-            <Button variant="secondary" onClick={handleCloseModal}>
-              Continue Generate My Plan !
-            </Button>
-          </Modal.Footer>
-        </Modal>
-      )}
-
-      <div className="date-picker-container">
-        <div className="date-picker mt-5">
-          <center>
-            <h2>Select the start and end of your study period.</h2>
-            <div className="mb-3">
-              <label htmlFor="start-date-picker">Start Date:</label>
-              <DatePicker
-                id="start-date-picker"
-                selected={startDate}
-                onChange={(date) => setStartDate(date)}
-              />
-            </div>
-            <div className="mb-3">
-              <label htmlFor="end-date-picker">End Date:</label>
-              <DatePicker
-                id="end-date-picker"
-                selected={endDate}
-                onChange={(date) => setEndDate(date)}
-              />
-            </div>
-            <Button
-              className="mt-3 p-2"
-              variant="primary"
-              onClick={handleGenerate}
-            >
-              Generate Calendar
-            </Button>
-          </center>
-          {loading && (
-            <ClipLoader
-              className="ml-10"
-              color="#29335c"
-              loading={loading}
-              size={50}
+        {showModal && (
+          <Modal
+            show={showModal}
+            onHide={() => setShowModal(false)}
+            backdrop="static"
+            keyboard={false}
+          >
+            <Modal.Header>
+              <Modal.Title>We Found Full Day Events !</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+              <h5>Please Choose:</h5>
+              <ul>
+                {fullDayEvents.map((event) => (
+                  <li className="ml-2" key={event.id}>
+                    <FullDayEventItem
+                      date={event.start.date.value}
+                      name={event.summary}
+                      handleDecision={handleDecision}
+                    />
+                  </li>
+                ))}
+              </ul>
+            </Modal.Body>
+            <Modal.Footer>
+              <Button variant="secondary" onClick={handleCloseModal}>
+                Continue Generate My Plan !
+              </Button>
+            </Modal.Footer>
+          </Modal>
+        )}
+        <div className="date-picker-area">
+          <h2>Select the start and end of your study period.</h2>
+          <div className="mb-3">
+            <label htmlFor="start-date-picker">Start Date:</label>
+            <DatePicker
+              id="start-date-picker"
+              selected={startDate}
+              onChange={(date) => setStartDate(date)}
             />
-          )}
+          </div>
+          <div className="mb-3">
+            <label htmlFor="end-date-picker">End Date:</label>
+            <DatePicker
+              id="end-date-picker"
+              selected={endDate}
+              onChange={(date) => setEndDate(date)}
+            />
+          </div>
+          <Button
+            className="mt-3 p-2"
+            variant="primary"
+            size="lg"
+            onClick={handleGenerate}
+          >
+            Generate Calendar
+          </Button>
         </div>
+        {loading && (
+          <ClipLoader
+            className="ml-10"
+            color="#29335c"
+            loading={loading}
+            size={50}
+          />
+        )}
       </div>
     </div>
   );

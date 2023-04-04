@@ -7,10 +7,37 @@
 }
 .generate-calendar-title {
   font-size: 36px;
-  margin-top: 20;
 }
 
 .message-container {
   text-align: center;
   margin-top: 100px;
+}
+.generate-plan-card {
+  width: 30%;
+  border: 1px solid #4a4a4a;
+  border-radius: 10px;
+  box-shadow: 0px 1px 10px 1px black;
+  margin-right: auto;
+  padding: 2px;
+  margin: 20px;
+  display: inline-block;
+}
+
+.date-picker-area {
+  text-align: center;
+  margin-left: auto;
+  border: 1px solid #4a4a4a;
+  border-radius: 10px;
+  box-shadow: 0px 1px 10px 1px black;
+  padding: 50px;
+  margin: 5%;
+}
+
+.date-picker-area h2 {
+  font-size: 40px;
+}
+
+.date-picker-area label {
+  font-size: 20px;
 }
