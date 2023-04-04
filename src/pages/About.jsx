@@ -1,18 +1,12 @@
 import React from "react";
 import Card from "react-bootstrap/Card";
+import "../styles/about.css";
 
 const About = () => {
   return (
-    <Card
-      className="mx-auto mt-5 p-4"
-      style={{
-        width: "50%",
-        border: "1px solid #dcdcdc",
-        boxShadow: "0px 0px 10px #dcdcdc",
-      }}
-    >
+    <Card className="about-page-container">
       <Card.Body>
-        <Card.Title>PlanIT</Card.Title>
+        <Card.Title className="about-card-title">PlanIT</Card.Title>
         <Card.Text>
           A company that creates personalized curricula for students is one that
           recognizes the unique learning needs and styles of each individual

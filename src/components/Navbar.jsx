@@ -14,11 +14,11 @@ function AppNavbar() {
     <Navbar expand="md" className="navbar-bg-color" variant="dark">
       <Navbar.Brand href="/">
         <img
-          alt=""
+          alt="PlanIT-logo"
           src="https://img.favpng.com/2/14/8/clip-art-portable-network-graphics-computer-icons-transparency-scalable-vector-graphics-png-favpng-B5WtdC7Pn8GwRxZavbJgGngCN.jpg"
           width="30"
           height="30"
-          className="d-inline-block align-top"
+          className="d-inline-block align-top navbar-logo"
         />{" "}
         Plan<span className="navbar-it-span">IT</span>
       </Navbar.Brand>

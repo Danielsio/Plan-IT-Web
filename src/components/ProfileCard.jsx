@@ -37,7 +37,11 @@ const ProfileCard = ({
           <h6>Study On Holidays: {StudyOnHolidays ? "Yes" : "No"}</h6>
           <h6>Study On Weekends: {studyOnWeekends ? "Yes" : "No"}</h6>
         </div>
-        <Button className="mt-2 edit-preference-btn" onClick={onClick}>
+        <Button
+          size="lg"
+          className="mt-2 edit-preference-btn"
+          onClick={onClick}
+        >
           Edit Preferences
         </Button>
       </div>

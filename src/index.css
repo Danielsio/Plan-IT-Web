@@ -81,7 +81,7 @@ body {
 }
 
 .navbar-it-span {
-  color: var(--secondaryColor);
+  color: #14a44d;
 }
 
 .navbar-bg-color {
@@ -90,4 +90,7 @@ body {
 
 .navbar-text-color {
   color: var(--textColor);
+}
+.navbar-logo {
+  border: 0;
 }
