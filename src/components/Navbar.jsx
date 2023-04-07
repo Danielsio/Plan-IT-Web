@@ -15,7 +15,7 @@ function AppNavbar() {
       <Navbar.Brand href="/">
         <img
           alt="PlanIT-logo"
-          src=" /PlanIT-removebg-preview.png"
+          src="/PlanIT- with logo white.png"
           width="156"
           height="50"
           className="d-inline-block align-top navbar-logo"
