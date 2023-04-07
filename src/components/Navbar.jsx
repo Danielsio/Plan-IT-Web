@@ -47,7 +47,7 @@ function AppNavbar() {
           </Nav.Link>
 
           {isAuthenticated ? (
-            <Button variant="outline-secondary" onClick={handleLogout}>
+            <Button variant="outline-light" onClick={handleLogout}>
               Logout
             </Button>
           ) : (

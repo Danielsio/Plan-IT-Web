@@ -8,24 +8,9 @@
 }
 
 :root {
-  --mainColor: #4279D1;
-  --mainColorLight: #5767aa;
-  --secondaryColor: #db2b39;
+  --mainColor: #4279d1;
+  /* maybe use #277bff better more primary blue */
   --textColor: #eee;
-}
-
-.sign-up-button {
-  margin: 25px;
-  text-align: center;
-}
-
-.home-page-welcome-text {
-  text-align: center;
-  margin-top: 5%;
-}
-
-p .home-page-welcome-text {
-  font-weight: bold;
 }
 
 .footer {
@@ -42,55 +27,14 @@ p .home-page-welcome-text {
   flex-direction: column;
 }
 
-.nav-btn-auth {
-  margin: 0 1rem;
-  color: var(--textColor);
-  text-decoration: none;
-  font-size: 1rem;
-  background-color: var(--mainColor);
-  border-width: 0;
-  font-size: 25px;
-}
-
-.nav-btn-auth:hover {
-  cursor: pointer;
-  color: var(--secondaryColor);
-  text-decoration: underline;
-}
-
-.nav-btn-auth-login {
-  margin: 0 1rem;
-  color: black;
-  text-decoration: none;
-  font-size: 1rem;
-  background-color: white;
-  border-width: 0;
-  border-radius: 8px;
-  font-size: 20px;
-  padding: 10px;
-  font-family: "Titillium Web", sans-serif;
-}
-
-.nav-btn-auth-login:hover {
-  cursor: pointer;
-  background-color: #cdcaca;
-}
-
 body {
   background-color: #f5f5f5;
-}
-
-.navbar-it-span {
-  color: #14a44d;
 }
 
 .navbar-bg-color {
   background-color: var(--mainColor);
 }
 
-.navbar-text-color {
-  color: var(--textColor);
-}
 .navbar-logo {
   border: 0;
 }

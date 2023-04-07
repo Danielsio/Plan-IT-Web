@@ -14,6 +14,7 @@ import api from "../api/axiosBackendConfig";
 import { ClipLoader } from "react-spinners";
 import { Link, useNavigate } from "react-router-dom";
 import ProfileCard from "../components/ProfileCard";
+import { animated, useSpring } from "react-spring";
 
 function Profile() {
   const convertUserStudyTimeToHours = (userStudyTime) => {
@@ -86,7 +87,7 @@ function Profile() {
   ) : (
     <Container className="mt-5">
       <Row>
-        <Col className="mr-5">
+        <Col>
           <ProfileCard
             name={userData.name}
             email={userData.email}
