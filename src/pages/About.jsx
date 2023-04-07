@@ -6,7 +6,13 @@ const About = () => {
   return (
     <Card className="about-page-container">
       <Card.Body>
-        <Card.Title className="about-card-title">PlanIT</Card.Title>
+        <Card.Title className="about-card-title">
+        <img
+          alt="PlanIT-logo"
+          src="/PlanIT-without logo dark.png"
+          className="about-card-title-img"
+        />{" "}
+        </Card.Title>
         <Card.Text>
           A company that creates personalized curricula for students is one that
           recognizes the unique learning needs and styles of each individual
