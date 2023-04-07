@@ -17,7 +17,6 @@ const GenerateCalendar = () => {
   const [fullDayEvents, setFullDayEvents] = useState([]);
   const [decisions, setDecisions] = useState([]);
 
-  // prevState == [false, false, false]
   const handleDecision = (date) => {
     setDecisions((prevState) => {
       return { ...prevState, [date]: !prevState[date] };
@@ -147,106 +146,109 @@ const GenerateCalendar = () => {
   }
 
   return (
-    <div>
-      <h1 className="generate-calendar-title mt-4 ml-4">Your Study Plan:</h1>
+    <div className="container">
+      <h1 className="generate-calendar-title mt-4">Your Study Plan:</h1>
       <hr className="generate-calendar-hr" />
-      <div>
-        <Card className="generate-plan-card">
-          <Card.Body>
-            <Card.Title>Upcoming Study Session:</Card.Title>
-            <Card.Text>
-              There are no upcoming study sessions yet. Generate your study
-              plan.
-            </Card.Text>
-          </Card.Body>
-        </Card>
-
-        <Card className="generate-plan-card">
-          <Card.Body>
-            <Card.Title>Generated Study Plan:</Card.Title>
-            <Card.Text>
-              There is no study plan yet. Generate your study plan.
-            </Card.Text>
-          </Card.Body>
-        </Card>
-
-        <Button
-          className="mt-3 ml-3 p-2"
-          variant="secondary"
-          size="lg"
-          onClick={handleOpenCalendar}
-        >
-          <FaCalendar className="mb-1 mr-1" />
-          Open Google Calendar
-        </Button>
-
-        {showModal && (
-          <Modal
-            show={showModal}
-            onHide={() => setShowModal(false)}
-            backdrop="static"
-            keyboard={false}
-          >
-            <Modal.Header>
-              <Modal.Title>We Found Full Day Events !</Modal.Title>
-            </Modal.Header>
-            <Modal.Body>
-              <h5>Please Choose:</h5>
-              <ul>
-                {fullDayEvents.map((event) => (
-                  <li className="ml-2" key={event.id}>
-                    <FullDayEventItem
-                      date={event.start.date.value}
-                      name={event.summary}
-                      handleDecision={handleDecision}
-                    />
-                  </li>
-                ))}
-              </ul>
-            </Modal.Body>
-            <Modal.Footer>
-              <Button variant="secondary" onClick={handleCloseModal}>
-                Continue Generate My Plan !
-              </Button>
-            </Modal.Footer>
-          </Modal>
-        )}
-        <div className="date-picker-area">
-          <h2>Select the start and end of your study period.</h2>
-          <div className="mb-3">
-            <label htmlFor="start-date-picker">Start Date:</label>
-            <DatePicker
-              id="start-date-picker"
-              selected={startDate}
-              onChange={(date) => setStartDate(date)}
-            />
-          </div>
-          <div className="mb-3">
-            <label htmlFor="end-date-picker">End Date:</label>
-            <DatePicker
-              id="end-date-picker"
-              selected={endDate}
-              onChange={(date) => setEndDate(date)}
-            />
-          </div>
+      <div className="row">
+        <div className="col-lg-6">
+          <Card className="generate-plan-card">
+            <Card.Body>
+              <Card.Title>Upcoming Study Session:</Card.Title>
+              <Card.Text>
+                There are no upcoming study sessions yet. Generate your study
+                plan.
+              </Card.Text>
+            </Card.Body>
+          </Card>
+        </div>
+        <div className="col-lg-6">
+          <Card className="generate-plan-card">
+            <Card.Body>
+              <Card.Title>Generated Study Plan:</Card.Title>
+              <Card.Text>
+                There is no study plan yet. Generate your study plan.
+              </Card.Text>
+            </Card.Body>
+          </Card>
+        </div>
+      </div>
+      <div className="row">
+        <div className="col-lg-3 mt-3">
           <Button
-            className="mt-3 p-2"
-            variant="primary"
+            variant="secondary"
             size="lg"
-            onClick={handleGenerate}
+            block
+            onClick={handleOpenCalendar}
           >
-            Generate Calendar
+            <FaCalendar className="mb-1 mr-1" />
+            Open Google Calendar
           </Button>
         </div>
-        {loading && (
-          <ClipLoader
-            className="ml-10"
-            color="#29335c"
-            loading={loading}
-            size={50}
-          />
-        )}
+        <div className="col-lg-9 mt-3">
+          {showModal && (
+            <Modal
+              show={showModal}
+              onHide={() => setShowModal(false)}
+              backdrop="static"
+              keyboard={false}
+            >
+              <Modal.Header>
+                <Modal.Title>We Found Full Day Events !</Modal.Title>
+              </Modal.Header>
+              <Modal.Body>
+                <h5>Please Choose:</h5>
+                <ul>
+                  {fullDayEvents.map((event) => (
+                    <li className="ml-2" key={event.id}>
+                      <FullDayEventItem
+                        date={event.start.date.value}
+                        name={event.summary}
+                        handleDecision={handleDecision}
+                      />
+                    </li>
+                  ))}
+                </ul>
+              </Modal.Body>
+              <Modal.Footer>
+                <Button variant="secondary" onClick={handleCloseModal}>
+                  Continue Generate My Plan !
+                </Button>
+              </Modal.Footer>
+            </Modal>
+          )}
+          <div className="date-picker-area">
+            <h2>Select the start and end of your study period.</h2>
+            <div className="mb-3">
+              <label htmlFor="start-date-picker">Start Date:</label>
+              <DatePicker
+                id="start-date-picker"
+                selected={startDate}
+                onChange={(date) => setStartDate(date)}
+                className="form-control"
+              />
+            </div>
+            <div className="mb-3">
+              <label htmlFor="end-date-picker">End Date:</label>
+              <DatePicker
+                id="end-date-picker"
+                selected={endDate}
+                onChange={(date) => setEndDate(date)}
+                className="form-control"
+              />
+            </div>
+            <Button variant="primary" size="lg" block onClick={handleGenerate}>
+              Generate Calendar
+            </Button>
+          </div>
+        </div>
       </div>
+      {loading && (
+        <div className="row mt-3">
+          <div className="col-12 text-center">
+            <ClipLoader color="#29335c" loading={loading} size={50} />
+          </div>
+        </div>
+      )}
     </div>
   );
 };

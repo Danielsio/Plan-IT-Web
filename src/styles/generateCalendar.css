@@ -1,43 +1,58 @@
-.date-picker {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  margin-right: 50px;
-  height: 100%;
-}
-.generate-calendar-title {
-  font-size: 36px;
-}
-
-.message-container {
-  text-align: center;
-  margin-top: 100px;
-}
-.generate-plan-card {
-  width: 30%;
-  border: 1px solid #4a4a4a;
-  border-radius: 10px;
-  box-shadow: 0px 1px 10px 1px black;
-  margin-right: auto;
-  padding: 2px;
-  margin: 20px;
-  display: inline-block;
+/* For screens smaller than 768px */
+@media (max-width: 767px) {
+  .date-picker {
+    align-items: center;
+    margin-right: 0;
+  }
+  .generate-plan-card {
+    width: 90%;
+    margin: 10px;
+  }
+  .date-picker-area {
+    padding: 25px;
+    margin: 10px;
+  }
+  .date-picker-area h2 {
+    font-size: 30px;
+  }
+  .date-picker-area label {
+    font-size: 16px;
+  }
 }
 
-.date-picker-area {
-  text-align: center;
-  margin-left: auto;
-  border: 1px solid #4a4a4a;
-  border-radius: 10px;
-  box-shadow: 0px 1px 10px 1px black;
-  padding: 50px;
-  margin: 25px;
+/* For screens between 768px and 992px */
+@media (min-width: 768px) and (max-width: 991px) {
+  .date-picker {
+    align-items: center;
+    margin-right: 0;
+  }
+  .generate-plan-card {
+    width: 60%;
+    margin: 10px;
+  }
+  .date-picker-area {
+    padding: 25px;
+    margin: 10px;
+  }
+  .date-picker-area h2 {
+    font-size: 30px;
+  }
+  .date-picker-area label {
+    font-size: 16px;
+  }
 }
 
-.date-picker-area h2 {
-  font-size: 40px;
+/* For screens between 992px and 1200px */
+@media (min-width: 992px) and (max-width: 1199px) {
+  .generate-plan-card {
+    width: 45%;
+    margin: 10px;
+  }
 }
 
-.date-picker-area label {
-  font-size: 20px;
+/* For screens larger than 1200px */
+@media (min-width: 1200px) {
+  .date-picker {
+    margin-right: 50px;
+  }
 }
