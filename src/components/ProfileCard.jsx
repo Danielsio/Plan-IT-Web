@@ -1,4 +1,4 @@
-import { Button } from "react-bootstrap";
+import { Button, Col, Row } from "react-bootstrap";
 import "../styles/ProfileCard.css";
 
 const ProfileCard = ({
@@ -14,9 +14,9 @@ const ProfileCard = ({
   onClick,
 }) => {
   return (
-    <div className="Profile-Card">
-      <div className="upper-container">
-        <div className="image-container">
+    <div className="Profile-Card card">
+      <div className="upper-container card-body">
+        <div className="image-container d-flex justify-content-center">
           <img
             src={picProfile}
             alt="profile Pic"
@@ -25,21 +25,65 @@ const ProfileCard = ({
           />
         </div>
       </div>
-      <div className="lower_container">
-        <h3>Name: {name}</h3>
-        <h4>Email: {email}</h4>
+
+      <div className="lower-container card-body">
+        <h3 className="card-title">Name: {name}</h3>
+        <h4 className="card-subtitle mb-2 text-muted">Email: {email}</h4>
         <div className="Preferences mt-2">
-          <h4 className="mb-2">Preferences:</h4>
-          <h6>Study Start Time: {startTime} </h6>
-          <h6>Study End Time: {endTime}</h6>
-          <h6>Break Time Size: {breakTime} Minutes</h6>
-          <h6>Study Session Size: {SessionLength} Minutes</h6>
-          <h6>Study On Holidays: {StudyOnHolidays ? "Yes" : "No"}</h6>
-          <h6>Study On Weekends: {studyOnWeekends ? "Yes" : "No"}</h6>
+          <h4 className="text-center mb-3">Preferences:</h4>
+          <Row className="mb-2">
+            <Col xs={6}>
+              <h6 className="mb-0">Study Start Time:</h6>
+            </Col>
+            <Col xs={6}>
+              <h6 className="mb-0">{startTime}</h6>
+            </Col>
+          </Row>
+          <Row className="mb-2">
+            <Col xs={6}>
+              <h6 className="mb-0">Study End Time:</h6>
+            </Col>
+            <Col xs={6}>
+              <h6 className="mb-0">{endTime}</h6>
+            </Col>
+          </Row>
+          <Row className="mb-2">
+            <Col xs={6}>
+              <h6 className="mb-0">Break Time Size:</h6>
+            </Col>
+            <Col xs={6}>
+              <h6 className="mb-0">{breakTime} Minutes</h6>
+            </Col>
+          </Row>
+          <Row className="mb-2">
+            <Col xs={6}>
+              <h6 className="mb-0">Study Session Size:</h6>
+            </Col>
+            <Col xs={6}>
+              <h6 className="mb-0">{SessionLength} Minutes</h6>
+            </Col>
+          </Row>
+          <Row className="mb-2">
+            <Col xs={6}>
+              <h6 className="mb-0">Study On Holidays:</h6>
+            </Col>
+            <Col xs={6}>
+              <h6 className="mb-0">{StudyOnHolidays ? "Yes" : "No"}</h6>
+            </Col>
+          </Row>
+          <Row className="mb-2">
+            <Col xs={6}>
+              <h6 className="mb-0">Study On Weekends:</h6>
+            </Col>
+            <Col xs={6}>
+              <h6 className="mb-0">{studyOnWeekends ? "Yes" : "No"}</h6>
+            </Col>
+          </Row>
         </div>
+
         <Button
           size="lg"
-          className="mt-2 edit-preference-btn"
+          className="mt-2 edit-preference-btn mx-auto"
           onClick={onClick}
         >
           Edit Preferences
