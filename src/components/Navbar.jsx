@@ -15,12 +15,11 @@ function AppNavbar() {
       <Navbar.Brand href="/">
         <img
           alt="PlanIT-logo"
-          src="https://img.favpng.com/2/14/8/clip-art-portable-network-graphics-computer-icons-transparency-scalable-vector-graphics-png-favpng-B5WtdC7Pn8GwRxZavbJgGngCN.jpg"
-          width="30"
-          height="30"
+          src="/PlanIT- with logo white.png"
+          width="156"
+          height="50"
           className="d-inline-block align-top navbar-logo"
         />{" "}
-        Plan<span className="navbar-it-span">IT</span>
       </Navbar.Brand>
       <Navbar.Toggle aria-controls="responsive-navbar-nav" />
       <Navbar.Collapse id="responsive-navbar-nav">
