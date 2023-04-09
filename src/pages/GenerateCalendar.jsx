@@ -180,7 +180,10 @@ const GenerateCalendar = () => {
             block
             onClick={handleOpenCalendar}
           >
-            <FaCalendar className="mb-1 mr-1" />
+            <img src="/Google_Calendar_icon.svg.png" 
+            alt="" 
+            height={30} 
+            width={30}/>
             Open Google Calendar
           </Button>
         </div>
