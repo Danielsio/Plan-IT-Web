@@ -89,9 +89,9 @@ function Profile() {
       <Row>
         <Col>
           <ProfileCard
-            name={userData.name}
-            email={userData.email}
-            picProfile={userData.pictureUrl}
+            name={userData.profile.name}
+            email={userData.profile.email}
+            picProfile={userData.profile.pictureUrl}
             startTime={
               convertUserStudyTimeToHours(
                 userData.userPreferences.userStudyStartTime
