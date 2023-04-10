@@ -92,6 +92,10 @@ function EditPreferences() {
     // Save the changes to the backend and redirect back to the profile page
   };
 
+  const handleCancel = (event) => {
+    navigate("/profile");
+  }
+
   const handleChange = (event) => {
     const { name, value, type, checked } = event.target;
 
@@ -168,6 +172,7 @@ function EditPreferences() {
             label="Study On Weekends"
           />
         </Form.Group>
+        <Button className="mt-2 mr-2" variant="secondary" onClick={handleCancel}>Cancel</Button>
         <Button className="mt-2" variant="primary" type="submit">
           Save Changes
         </Button>
