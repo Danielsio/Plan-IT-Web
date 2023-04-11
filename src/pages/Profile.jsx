@@ -17,6 +17,7 @@ import ProfileCard from "../components/ProfileCard";
 import { animated, useSpring } from "react-spring";
 
 function Profile() {
+  
   const convertUserStudyTimeToHours = (userStudyTime) => {
     const hour = Math.floor(userStudyTime / 100);
     if (hour < 10) {
@@ -64,9 +65,11 @@ function Profile() {
         console.log(error);
       }
     };
+
     if (isAuthenticated) {
       getUserData();
     }
+
   }, [isAuthenticated]);
 
   if (!isAuthenticated) {
@@ -91,8 +94,8 @@ function Profile() {
           <ProfileCard
             name={userData.profile.name}
             email={userData.profile.email}
-            picProfile={userData.profile.pictureUrl}
-            startTime={
+            pictureUrl={userData.profile.pictureUrl}
+            userStudyStartTime={
               convertUserStudyTimeToHours(
                 userData.userPreferences.userStudyStartTime
               ).toString() +
@@ -101,7 +104,7 @@ function Profile() {
                 userData.userPreferences.userStudyStartTime
               ).toString()
             }
-            endTime={
+            userStudyEndTime={
               convertUserStudyTimeToHours(
                 userData.userPreferences.userStudyEndTime
               ).toString() +
@@ -110,8 +113,8 @@ function Profile() {
                 userData.userPreferences.userStudyEndTime
               ).toString()
             }
-            breakTime={userData.userPreferences.userBreakTime}
-            SessionLength={userData.userPreferences.studySessionTime}
+            userBreakTime={userData.userPreferences.userBreakTime}
+            studySessionTime={userData.userPreferences.studySessionTime}
             studyOnHolidays={userData.userPreferences.studyOnHolidays}
             studyOnWeekends={userData.userPreferences.studyOnWeekends}
             onClick={handleEditPreferences}
