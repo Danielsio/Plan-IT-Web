@@ -4,11 +4,11 @@ import "../styles/ProfileCard.css";
 const ProfileCard = ({
   name,
   email,
-  picProfile,
-  startTime,
-  endTime,
-  breakTime,
-  SessionLength,
+  pictureUrl,
+  userStudyStartTime,
+  userStudyEndTime,
+  userBreakTime,
+  studySessionTime,
   studyOnHolidays,
   studyOnWeekends,
   onClick,
@@ -26,7 +26,7 @@ const ProfileCard = ({
           <div className="upper-container card-body">
             <div className="image-container d-flex justify-content-center">
               <img
-                src={picProfile}
+                src={pictureUrl}
                 alt="profile Pic"
                 height="100px"
                 width="100px"
@@ -54,7 +54,7 @@ const ProfileCard = ({
                     <h6 className="mb-0 title-in-preferences">Study Start Time:</h6>
                   </Col>
                   <Col xs={6}>
-                    <h6 className="mb-0">{startTime}</h6>
+                    <h6 className="mb-0">{userStudyStartTime}</h6>
                   </Col>
                 </Row>
                 <Row className="mb-2">
@@ -62,7 +62,7 @@ const ProfileCard = ({
                     <h6 className="mb-0 title-in-preferences">Study End Time:</h6>
                   </Col>
                   <Col xs={6}>
-                    <h6 className="mb-0">{endTime}</h6>
+                    <h6 className="mb-0">{userStudyEndTime}</h6>
                   </Col>
                 </Row>
                 <Row className="mb-2">
@@ -70,7 +70,7 @@ const ProfileCard = ({
                     <h6 className="mb-0 title-in-preferences">Break Time Size:</h6>
                   </Col>
                   <Col xs={6}>
-                    <h6 className="mb-0">{breakTime} Minutes</h6>
+                    <h6 className="mb-0">{userBreakTime} Minutes</h6>
                   </Col>
                 </Row>
                 <Row className="mb-2">
@@ -78,7 +78,7 @@ const ProfileCard = ({
                     <h6 className="mb-0 title-in-preferences">Study Session Size:</h6>
                   </Col>
                   <Col xs={6}>
-                    <h6 className="mb-0">{SessionLength} Minutes</h6>
+                    <h6 className="mb-0">{studySessionTime} Minutes</h6>
                   </Col>
                 </Row>
                 <Row className="mb-2">

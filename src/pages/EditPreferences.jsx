@@ -6,6 +6,7 @@ import api from "../api/axiosBackendConfig";
 import { UserContext } from "../context/UserContext";
 
 function EditPreferences() {
+
   const { subjectID } = useContext(UserContext);
   const [loading, setLoading] = useState(false);
 
@@ -42,6 +43,8 @@ function EditPreferences() {
       2
     )}:${userStudyEndTime.substr(2)}`;
     // Convert other fields as needed
+    console.log("cpyUserPreferences: ");
+    console.log(cpyUserPreferences);
     return cpyUserPreferences;
   };
   oldUserPreferences =
@@ -54,8 +57,8 @@ function EditPreferences() {
     userStudyEndTime: oldUserPreferences.userStudyEndTime,
     userBreakTime: oldUserPreferences.userBreakTime,
     studySessionTime: oldUserPreferences.studySessionTime,
-    isStudyOnHolidays: oldUserPreferences.studyOnHolidays ? "on" : "",
-    isStudyOnWeekends: oldUserPreferences.studyOnWeekends ? "on" : "",
+    studyOnHolidays: oldUserPreferences.studyOnHolidays,
+    studyOnWeekends: oldUserPreferences.studyOnWeekends
   });
 
   /**
@@ -73,12 +76,17 @@ function EditPreferences() {
 
     preferences.userBreakTime = parseInt(preferences.userBreakTime);
     preferences.studySessionTime = parseInt(preferences.studySessionTime);
+
   };
 
   const handleSubmit = (event) => {
     event.preventDefault();
     setLoading(true);
+    console.log("pref before convert: ");
+    console.log( userPreferences );
     convertUserPreferencesToBackendValues(userPreferences);
+    console.log("pref after convert: ");
+    console.log(userPreferences);
     api
       .post("/profile", userPreferences, { params: { sub: subjectID } })
       .then((response) => {
@@ -112,6 +120,8 @@ function EditPreferences() {
         [name]: value,
       });
     }
+
+    console.log(userPreferences);
   };
 
   return (
@@ -157,8 +167,8 @@ function EditPreferences() {
         <Form.Group>
           <Form.Check
             type="checkbox"
-            name="isStudyOnHolyDays"
-            checked={userPreferences.isStudyOnHolidays}
+            name="studyOnHolidays"
+            checked={userPreferences.studyOnHolidays}
             onChange={handleChange}
             label="Study On Holidays"
           />
@@ -166,8 +176,8 @@ function EditPreferences() {
         <Form.Group>
           <Form.Check
             type="checkbox"
-            name="isStudyOnWeekends"
-            checked={userPreferences.isStudyOnWeekends}
+            name="studyOnWeekends"
+            checked={userPreferences.studyOnWeekends}
             onChange={handleChange}
             label="Study On Weekends"
           />
