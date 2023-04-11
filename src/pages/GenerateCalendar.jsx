@@ -8,6 +8,7 @@ import { ClipLoader } from "react-spinners";
 import "../styles/generateCalendar.css";
 import { FaCalendar } from "react-icons/fa";
 import FullDayEventItem from "../components/FullDayEventItem";
+import { useNavigate } from "react-router-dom";
 
 const GenerateCalendar = () => {
   const [startDate, setStartDate] = useState(new Date());
@@ -16,6 +17,11 @@ const GenerateCalendar = () => {
   const [showModal, setShowModal] = useState(false);
   const [fullDayEvents, setFullDayEvents] = useState([]);
   const [decisions, setDecisions] = useState([]);
+  const [studyPlan, setStudyPlan] = useState(null);
+
+  const { subjectID, isAuthenticated } = useContext(UserContext);
+
+  const navigate = useNavigate();
 
   const handleDecision = (date) => {
     setDecisions((prevState) => {
@@ -27,7 +33,31 @@ const GenerateCalendar = () => {
     console.log(decisions);
   }, [decisions]);
 
-  const { subjectID, isAuthenticated } = useContext(UserContext);
+  // get latestStudyPlan from backend
+  useEffect(() => {
+    const fetchStudyPlan = async () => {
+      try {
+        const response = await api.get(
+          "/study-plan",
+          {},
+          {
+            params: {
+              sub: subjectID,
+            },
+          }
+        );
+
+        setStudyPlan(response.data.studyPlan);
+      } catch (error) {
+        console.error(error);
+        setStudyPlan(null);
+      }
+    };
+
+    if (isAuthenticated) {
+      fetchStudyPlan();
+    }
+  }, [isAuthenticated]);
 
   const validateDatesPicked = () => {
     if (startDate >= endDate) {
@@ -69,6 +99,7 @@ const GenerateCalendar = () => {
           setLoading(false);
           if (response.status === 201) {
             console.log(response.data);
+            setStudyPlan(response.data.studyPlan);
           } else if (
             response.status === 200 &&
             response.data.details === "Unhandled Full Days Events."
@@ -130,6 +161,7 @@ const GenerateCalendar = () => {
         setLoading(false);
         if (response.status === 201) {
           console.log("Calendar Has Been Created Seccessfully !! Hooray !!");
+          setStudyPlan(response.data.studyPlan);
         }
       })
       .catch((error) => {
@@ -139,11 +171,7 @@ const GenerateCalendar = () => {
   };
 
   if (!isAuthenticated) {
-    return (
-      <div className="message-container">
-        <h1>Please Login Or Register to generate your calendar</h1>
-      </div>
-    );
+    navigate("/");
   }
 
   return (
@@ -155,10 +183,7 @@ const GenerateCalendar = () => {
           <Card className="generate-plan-card">
             <Card.Body>
               <Card.Title>Upcoming Study Session:</Card.Title>
-              <Card.Text>
-                There are no upcoming study sessions yet. Generate your study
-                plan.
-              </Card.Text>
+              <Card.Text></Card.Text>
             </Card.Body>
           </Card>
         </div>
@@ -167,7 +192,23 @@ const GenerateCalendar = () => {
             <Card.Body>
               <Card.Title>Generated Study Plan:</Card.Title>
               <Card.Text>
-                There is no study plan yet. Generate your study plan.
+                {studyPlan ? (
+                  <>
+                    <div>Scanned Exams: {studyPlan.scannedExams}</div>
+                    <div>
+                      Start Date Time of Plan: {studyPlan.startDateTimeOfPlan}
+                    </div>
+                    <div>
+                      End Date Time of Plan: {studyPlan.endDataTimeOfPlan}
+                    </div>
+                    <div>
+                      Total Number of Study Sessions:{" "}
+                      {studyPlan.totalNumberOfStudySessions}
+                    </div>
+                  </>
+                ) : (
+                  <div>No study plan found.</div>
+                )}
               </Card.Text>
             </Card.Body>
           </Card>
@@ -175,14 +216,17 @@ const GenerateCalendar = () => {
       </div>
       <div className="row">
         <div className="col-lg-3 mt-3">
-          <Button className="google-calendar-btn"
+          <Button
+            className="google-calendar-btn"
             variant="secondary"
             size="lg"
             block
             onClick={handleOpenCalendar}
           >
-            <img className="mr-2 google-calendar-icon-btn" src="/Google_Calendar_icon.svg.png" 
-            alt="" 
+            <img
+              className="mr-2 google-calendar-icon-btn"
+              src="/Google_Calendar_icon.svg.png"
+              alt=""
             />
             Open Google Calendar
           </Button>
