@@ -30,9 +30,13 @@ const Home = () => {
         <Col xs={12} md={8} className="text-center">
           <animated.div style={welcomeTextAnimation}>
             <div>
-              <h1 className="mb-4 display-4 display-md-2">
-                Welcome To PlanIt!
-              </h1>
+            <img
+              alt="PlanIT-logo"
+              src="/PlanIT- logo and slogen white.png"
+              width="600"
+              height="338"
+              className="d-inline-block align-top navbar-logo"
+            />{" "}
               <h3 className="font-weight-bold h4">
                 The one and only platform that manages your exam period
                 automatically.
