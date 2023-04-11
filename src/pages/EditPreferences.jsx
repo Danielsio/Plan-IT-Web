@@ -43,6 +43,8 @@ function EditPreferences() {
       2
     )}:${userStudyEndTime.substr(2)}`;
     // Convert other fields as needed
+    console.log("cpyUserPreferences: ");
+    console.log(cpyUserPreferences);
     return cpyUserPreferences;
   };
   oldUserPreferences =
@@ -55,8 +57,8 @@ function EditPreferences() {
     userStudyEndTime: oldUserPreferences.userStudyEndTime,
     userBreakTime: oldUserPreferences.userBreakTime,
     studySessionTime: oldUserPreferences.studySessionTime,
-    studyOnHolidays: oldUserPreferences.studyOnHolidays ? "on" : "",
-    studyOnWeekends: oldUserPreferences.studyOnWeekends ? "on" : "",
+    studyOnHolidays: oldUserPreferences.studyOnHolidays,
+    studyOnWeekends: oldUserPreferences.studyOnWeekends
   });
 
   /**
@@ -75,14 +77,13 @@ function EditPreferences() {
     preferences.userBreakTime = parseInt(preferences.userBreakTime);
     preferences.studySessionTime = parseInt(preferences.studySessionTime);
 
-
   };
 
   const handleSubmit = (event) => {
     event.preventDefault();
     setLoading(true);
     console.log("pref before convert: ");
-    console.log( userPreferences);
+    console.log( userPreferences );
     convertUserPreferencesToBackendValues(userPreferences);
     console.log("pref after convert: ");
     console.log(userPreferences);
@@ -119,6 +120,8 @@ function EditPreferences() {
         [name]: value,
       });
     }
+
+    console.log(userPreferences);
   };
 
   return (
