@@ -112,8 +112,8 @@ function Profile() {
             }
             breakTime={userData.userPreferences.userBreakTime}
             SessionLength={userData.userPreferences.studySessionTime}
-            isStudyOnHolyDays={userData.userPreferences.isStudyOnHolyDays}
-            studyOnWeekends={userData.userPreferences.isStudyOnWeekends}
+            studyOnHolidays={userData.userPreferences.studyOnHolidays}
+            studyOnWeekends={userData.userPreferences.studyOnWeekends}
             onClick={handleEditPreferences}
           />
         </Col>
