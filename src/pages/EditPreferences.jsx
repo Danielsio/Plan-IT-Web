@@ -54,7 +54,7 @@ function EditPreferences() {
     userStudyEndTime: oldUserPreferences.userStudyEndTime,
     userBreakTime: oldUserPreferences.userBreakTime,
     studySessionTime: oldUserPreferences.studySessionTime,
-    isStudyOnHolyDays: oldUserPreferences.studyOnHolyDays ? "on" : "",
+    isStudyOnHolidays: oldUserPreferences.studyOnHolidays ? "on" : "",
     isStudyOnWeekends: oldUserPreferences.studyOnWeekends ? "on" : "",
   });
 
@@ -158,7 +158,7 @@ function EditPreferences() {
           <Form.Check
             type="checkbox"
             name="isStudyOnHolyDays"
-            checked={userPreferences.isStudyOnHolyDays}
+            checked={userPreferences.isStudyOnHolidays}
             onChange={handleChange}
             label="Study On Holidays"
           />

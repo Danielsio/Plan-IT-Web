@@ -9,7 +9,7 @@ const ProfileCard = ({
   endTime,
   breakTime,
   SessionLength,
-  StudyOnHolidays,
+  studyOnHolidays,
   studyOnWeekends,
   onClick,
 }) => {
@@ -86,7 +86,7 @@ const ProfileCard = ({
                     <h6 className="mb-0 title-in-preferences">Study On Holidays:</h6>
                   </Col>
                   <Col xs={6}>
-                    <h6 className="mb-0">{StudyOnHolidays ? "Yes" : "No"}</h6>
+                    <h6 className="mb-0">{studyOnHolidays ? "Yes" : "No"}</h6>
                   </Col>
                 </Row>
                 <Row className="mb-2">
