@@ -8,6 +8,7 @@ import { ClipLoader } from "react-spinners";
 import "../styles/generateCalendar.css";
 import { FaCalendar } from "react-icons/fa";
 import FullDayEventItem from "../components/FullDayEventItem";
+import Exam from "../components/Exam";
 import { useNavigate } from "react-router-dom";
 
 const GenerateCalendar = () => {
@@ -194,7 +195,18 @@ const GenerateCalendar = () => {
               <Card.Text>
                 {studyPlan ? (
                   <>
-                    <div>Scanned Exams: {studyPlan.scannedExams}</div>
+                    <div>
+                      Scanned Exams:{" "}
+                      <ul>
+                        {studyPlan.scannedExams.map((exam) => {
+                          return (
+                            <li>
+                              <Exam key={exam.course} course={exam.course} />
+                            </li>
+                          );
+                        })}
+                      </ul>
+                    </div>
                     <div>
                       Start Date Time of Plan: {studyPlan.startDateTimeOfPlan}
                     </div>
