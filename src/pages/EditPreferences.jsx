@@ -94,7 +94,7 @@ function EditPreferences() {
 
   const handleCancel = (event) => {
     navigate("/profile");
-  }
+  };
 
   const handleChange = (event) => {
     const { name, value, type, checked } = event.target;
@@ -113,6 +113,10 @@ function EditPreferences() {
       });
     }
   };
+
+  if (!isAuthenticated) {
+    navigate("/");
+  }
 
   return (
     <Container className="mx-auto w-50 p-5">
@@ -172,7 +176,13 @@ function EditPreferences() {
             label="Study On Weekends"
           />
         </Form.Group>
-        <Button className="mt-2 mr-2" variant="secondary" onClick={handleCancel}>Cancel</Button>
+        <Button
+          className="mt-2 mr-2"
+          variant="secondary"
+          onClick={handleCancel}
+        >
+          Cancel
+        </Button>
         <Button className="mt-2" variant="primary" type="submit">
           Save Changes
         </Button>

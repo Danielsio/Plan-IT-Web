@@ -70,11 +70,7 @@ function Profile() {
   }, [isAuthenticated]);
 
   if (!isAuthenticated) {
-    return (
-      <div className="message-container">
-        <h1>Please Login Or Register to view Your Profile</h1>
-      </div>
-    );
+    navigate("/");
   }
 
   return loading ? (
