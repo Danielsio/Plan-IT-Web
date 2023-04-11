@@ -56,3 +56,13 @@
     margin-right: 50px;
   }
 }
+
+.google-calendar-icon-btn {
+  border-width: 0;
+  height:30px;
+  width:30px;
+}
+
+.google-calendar-btn {
+  cursor: pointer;
+}

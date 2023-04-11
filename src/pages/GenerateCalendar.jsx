@@ -90,6 +90,7 @@ const GenerateCalendar = () => {
 
   const handleOpenCalendar = () => {
     window.open("https://calendar.google.com/", "_blank");
+    // we can use "/u/0/r/week/2023/4/17" to open calendar in a specific date
   };
 
   const handleShowModal = (eventsArray) => {
@@ -174,13 +175,15 @@ const GenerateCalendar = () => {
       </div>
       <div className="row">
         <div className="col-lg-3 mt-3">
-          <Button
+          <Button className="google-calendar-btn"
             variant="secondary"
             size="lg"
             block
             onClick={handleOpenCalendar}
           >
-            <FaCalendar className="mb-1 mr-1" />
+            <img className="mr-2 google-calendar-icon-btn" src="/Google_Calendar_icon.svg.png" 
+            alt="" 
+            />
             Open Google Calendar
           </Button>
         </div>

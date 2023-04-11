@@ -98,3 +98,9 @@ h4 {
 .Preferences h6 {
   display: inline-block;
 }
+
+.title-in-preferences {
+  font-weight: bold;
+}
+ 
+
