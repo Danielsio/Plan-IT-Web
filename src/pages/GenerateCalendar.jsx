@@ -200,8 +200,8 @@ const GenerateCalendar = () => {
                       <ul>
                         {studyPlan.scannedExams.map((exam) => {
                           return (
-                            <li>
-                              <Exam key={exam.course} courseName={exam.courseName} dateTimeISO={exam.dateTimeISO} />
+                            <li key={exam.courseName}>
+                              <Exam courseName={exam.courseName} dateTimeISO={exam.dateTimeISO} />
                             </li>
                           );
                         })}
@@ -232,7 +232,6 @@ const GenerateCalendar = () => {
             className="google-calendar-btn"
             variant="secondary"
             size="lg"
-            block
             onClick={handleOpenCalendar}
           >
             <img
@@ -295,7 +294,7 @@ const GenerateCalendar = () => {
                 className="form-control"
               />
             </div>
-            <Button variant="primary" size="lg" block onClick={handleGenerate}>
+            <Button variant="primary" size="lg" onClick={handleGenerate}>
               Generate Calendar
             </Button>
           </div>
