@@ -38,14 +38,11 @@ const GenerateCalendar = () => {
   useEffect(() => {
     const fetchStudyPlan = async () => {
       try {
-        const response = await api.get(
-          "/study-plan",
-          {
-            params: {
-              sub: subjectID,
-            },
-          }
-        );
+        const response = await api.get("/study-plan", {
+          params: {
+            sub: subjectID,
+          },
+        });
         console.log(response.data);
 
         setStudyPlan(response.data.studyPlan);
@@ -192,36 +189,37 @@ const GenerateCalendar = () => {
           <Card className="generate-plan-card">
             <Card.Body>
               <Card.Title>Generated Study Plan:</Card.Title>
-              <Card.Text>
-                {studyPlan ? (
-                  <>
-                    <div>
-                      Scanned Exams:{" "}
-                      <ul>
-                        {studyPlan.scannedExams.map((exam) => {
-                          return (
-                            <li key={exam.courseName}>
-                              <Exam courseName={exam.courseName} dateTimeISO={exam.dateTimeISO} />
-                            </li>
-                          );
-                        })}
-                      </ul>
-                    </div>
-                    <div>
-                      Start Date Time of Plan: {studyPlan.startDateTimeOfPlan}
-                    </div>
-                    <div>
-                      End Date Time of Plan: {studyPlan.endDateTimeOfPlan}
-                    </div>
-                    <div>
-                      Total Number of Study Sessions:{" "}
-                      {studyPlan.totalNumberOfStudySessions}
-                    </div>
-                  </>
-                ) : (
-                  <div>No study plan found.</div>
-                )}
-              </Card.Text>
+              {studyPlan ? (
+                <>
+                  <div>
+                    Scanned Exams:{" "}
+                    <ul>
+                      {studyPlan.scannedExams.map((exam) => {
+                        return (
+                          <li key={exam.courseName}>
+                            <Exam
+                              courseName={exam.courseName}
+                              dateTimeISO={exam.dateTimeISO}
+                            />
+                          </li>
+                        );
+                      })}
+                    </ul>
+                  </div>
+                  <div>
+                    Start Date Time of Plan: {studyPlan.startDateTimeOfPlan}
+                  </div>
+                  <div>
+                    End Date Time of Plan: {studyPlan.endDateTimeOfPlan}
+                  </div>
+                  <div>
+                    Total Number of Study Sessions:{" "}
+                    {studyPlan.totalNumberOfStudySessions}
+                  </div>
+                </>
+              ) : (
+                <div>No study plan found.</div>
+              )}
             </Card.Body>
           </Card>
         </div>
