@@ -40,13 +40,13 @@ const GenerateCalendar = () => {
       try {
         const response = await api.get(
           "/study-plan",
-          {},
           {
             params: {
               sub: subjectID,
             },
           }
         );
+        console.log(response.data);
 
         setStudyPlan(response.data.studyPlan);
       } catch (error) {
@@ -201,7 +201,7 @@ const GenerateCalendar = () => {
                         {studyPlan.scannedExams.map((exam) => {
                           return (
                             <li>
-                              <Exam key={exam.course} course={exam.course} />
+                              <Exam key={exam.course} courseName={exam.courseName} dateTimeISO={exam.dateTimeISO} />
                             </li>
                           );
                         })}
@@ -211,7 +211,7 @@ const GenerateCalendar = () => {
                       Start Date Time of Plan: {studyPlan.startDateTimeOfPlan}
                     </div>
                     <div>
-                      End Date Time of Plan: {studyPlan.endDataTimeOfPlan}
+                      End Date Time of Plan: {studyPlan.endDateTimeOfPlan}
                     </div>
                     <div>
                       Total Number of Study Sessions:{" "}
