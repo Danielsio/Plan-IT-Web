@@ -6,8 +6,7 @@ import api from "../api/axiosBackendConfig";
 import { UserContext } from "../context/UserContext";
 
 function EditPreferences() {
-
-  const { subjectID } = useContext(UserContext);
+  const { subjectID, isAuthenticated } = useContext(UserContext);
   const [loading, setLoading] = useState(false);
 
   const location = useLocation();
@@ -43,7 +42,6 @@ function EditPreferences() {
       2
     )}:${userStudyEndTime.substr(2)}`;
     // Convert other fields as needed
-    console.log("cpyUserPreferences: ");
     console.log(cpyUserPreferences);
     return cpyUserPreferences;
   };
@@ -58,7 +56,7 @@ function EditPreferences() {
     userBreakTime: oldUserPreferences.userBreakTime,
     studySessionTime: oldUserPreferences.studySessionTime,
     studyOnHolidays: oldUserPreferences.studyOnHolidays,
-    studyOnWeekends: oldUserPreferences.studyOnWeekends
+    studyOnWeekends: oldUserPreferences.studyOnWeekends,
   });
 
   /**
@@ -76,14 +74,13 @@ function EditPreferences() {
 
     preferences.userBreakTime = parseInt(preferences.userBreakTime);
     preferences.studySessionTime = parseInt(preferences.studySessionTime);
-
   };
 
   const handleSubmit = (event) => {
     event.preventDefault();
     setLoading(true);
     console.log("pref before convert: ");
-    console.log( userPreferences );
+    console.log(userPreferences);
     convertUserPreferencesToBackendValues(userPreferences);
     console.log("pref after convert: ");
     console.log(userPreferences);
