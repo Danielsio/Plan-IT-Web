@@ -189,6 +189,7 @@ const GenerateCalendar = () => {
           <Card className="generate-plan-card">
             <Card.Body>
               <Card.Title>Generated Study Plan:</Card.Title>
+
               {studyPlan ? (
                 <>
                   <div>
@@ -207,10 +208,14 @@ const GenerateCalendar = () => {
                     </ul>
                   </div>
                   <div>
-                    Start Date Time of Plan: {studyPlan.startDateTimeOfPlan}
+                    Start Date Time of Plan:{" "}
+                    {new Date(
+                      studyPlan.startDateTimeOfPlan
+                    ).toLocaleDateString()}
                   </div>
                   <div>
-                    End Date Time of Plan: {studyPlan.endDateTimeOfPlan}
+                    End Date Time of Plan:{" "}
+                    {new Date(studyPlan.endDateTimeOfPlan).toLocaleDateString()}
                   </div>
                   <div>
                     Total Number of Study Sessions:{" "}
