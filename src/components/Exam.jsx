@@ -1,11 +1,21 @@
 import React from "react";
+import { Row, Col } from "react-bootstrap";
 
-function Exam({ courseName, dateTimeISO}) {
+// <div>
+//   <h4>{courseName}</h4>
+//   <h6>{new Date(dateTimeISO).toLocaleDateString()}</h6>
+// </div>
+
+function Exam({ courseName, dateTimeISO }) {
   return (
-    <div>
-      <h4>{courseName}</h4>
-      <h6>{new Date(dateTimeISO).toLocaleDateString()}</h6>
-    </div>
+    <Row className="mb-2 row-preferences">
+      <Col xs={6}>
+        <h6 className="mb-0 title-in-preferences">{courseName}</h6>
+      </Col>
+      <Col xs={6}>
+        <h6 className="mb-0">{new Date(dateTimeISO).toLocaleDateString()}</h6>
+      </Col>
+    </Row>
   );
 }
 
