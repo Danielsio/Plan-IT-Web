@@ -196,7 +196,7 @@ const GenerateCalendar = () => {
       <hr className="generate-calendar-hr" />
 
       <Row>
-        <Col className="col-lg-6" sm={6}>
+        <Col md={7} lg={8}>
           {/*left*/}
           <Card className="card-container generate-plan-card">
             {" "}
@@ -220,6 +220,7 @@ const GenerateCalendar = () => {
                       })}
                     </ul>
                   </div>
+                  <hr></hr>
                   <Row className="mb-2 row-preferences">
                     <Col xs={6}>
                       <h6 className="mb-0 title-in-preferences">
@@ -227,7 +228,7 @@ const GenerateCalendar = () => {
                       </h6>
                     </Col>
                     <Col xs={6}>
-                      <h6 className="mb-0">
+                      <h6 className="mb-0 generated-plan-value">
                         {new Date(
                           studyPlan.startDateTimeOfPlan
                         ).toLocaleDateString()}
@@ -241,7 +242,7 @@ const GenerateCalendar = () => {
                       </h6>
                     </Col>
                     <Col xs={6}>
-                      <h6 className="mb-0">
+                      <h6 className="mb-0 generated-plan-value">
                         {new Date(
                           studyPlan.endDateTimeOfPlan
                         ).toLocaleDateString()}
@@ -255,7 +256,7 @@ const GenerateCalendar = () => {
                       </h6>
                     </Col>
                     <Col xs={6}>
-                      <h6 className="mb-0">
+                      <h6 className="mb-0 generated-plan-value">
                         {studyPlan.totalNumberOfStudySessions}
                       </h6>
                     </Col>
@@ -275,40 +276,42 @@ const GenerateCalendar = () => {
           </Card>
         </Col>
 
-        <Col className="col-lg-6" sm={6}>
+        <Col md={5} lg={4}>
           {/* right */}
 
-          <Card className="card-container generate-plan-card">
-            <h2>Select the start and end of your study period.</h2>
-            <div className="mb-3">
-              <label htmlFor="start-date-picker">Start Date:</label>
-              <DatePicker
-                id="start-date-picker"
-                selected={startDate}
-                onChange={(date) => setStartDate(date)}
-                className="form-control"
-              />
-            </div>
-            <div className="mb-3">
-              <label htmlFor="end-date-picker">End Date:</label>
-              <DatePicker
-                id="end-date-picker"
-                selected={endDate}
-                onChange={(date) => setEndDate(date)}
-                className="form-control"
-              />
-            </div>
-            <Button variant="primary" size="lg" onClick={handleGenerate}>
-              Generate Calendar
-            </Button>
-
-            {loading && (
-              <div className="row mt-3">
-                <div className="col-12 text-center">
-                  <ClipLoader color="#29335c" loading={loading} size={50} />
-                </div>
+          <Card className="card-container generate-plan-card select-dates-card">
+            <Card.Body>
+              <h2>Select the start and end of your study period.</h2>
+              <div className="mb-3">
+                <label htmlFor="start-date-picker">Start Date:</label>
+                <DatePicker
+                  id="start-date-picker"
+                  selected={startDate}
+                  onChange={(date) => setStartDate(date)}
+                  className="form-control"
+                />
               </div>
-            )}
+              <div className="mb-3">
+                <label htmlFor="end-date-picker">End Date:</label>
+                <DatePicker
+                  id="end-date-picker"
+                  selected={endDate}
+                  onChange={(date) => setEndDate(date)}
+                  className="form-control"
+                />
+              </div>
+              <Button variant="primary" size="lg" onClick={handleGenerate}>
+                Generate Calendar
+              </Button>
+
+              {loading && (
+                <div className="row mt-3">
+                  <div className="col-12 text-center">
+                    <ClipLoader color="#29335c" loading={loading} size={50} />
+                  </div>
+                </div>
+              )}
+            </Card.Body>
           </Card>
 
           <Button

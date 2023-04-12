@@ -13,7 +13,9 @@ function Exam({ courseName, dateTimeISO }) {
         <h6 className="mb-0 title-in-preferences">{courseName}</h6>
       </Col>
       <Col xs={6}>
-        <h6 className="mb-0">{new Date(dateTimeISO).toLocaleDateString()}</h6>
+        <h6 className="mb-0 generated-plan-value">
+          {new Date(dateTimeISO).toLocaleDateString()}
+        </h6>
       </Col>
     </Row>
   );

@@ -70,9 +70,14 @@
 .google-calendar-btn {
   cursor: pointer;
   margin: 16px 0 16px 0;
+  max-width: 100%;
 }
 
 .card-container.generate-plan-card {
   margin: 10px auto;
   width: 100%;
+}
+
+.generated-plan-value {
+  text-align: right;
 }
