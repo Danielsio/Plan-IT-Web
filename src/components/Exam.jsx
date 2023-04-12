@@ -4,7 +4,7 @@ function Exam({ courseName, dateTimeISO}) {
   return (
     <div>
       <h4>{courseName}</h4>
-      <h6>{dateTimeISO}</h6>
+      <h6>{new Date(dateTimeISO).toLocaleDateString()}</h6>
     </div>
   );
 }
