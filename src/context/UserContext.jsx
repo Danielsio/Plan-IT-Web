@@ -18,12 +18,15 @@ const UserProvider = ({ children }) => {
   /* subjectID & isAuthenticated state values */
   const [subjectID, setSubjectID] = useState(getSubjectIDFromLocalStorage());
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isAuthLoading, setIsAuthLoading] = useState(true);
+
   /********************************************/
 
   /* event listner for changes of subjectID when another user loggs in*/
   useEffect(() => {
     setSubjectIDToLocalStorage(subjectID);
-    console.log("Saving sub to localStorage: " + subjectID);
+    setIsAuthLoading(false);
+    console.log("the subVal in the localStorage: " + subjectID);
 
     if (subjectID === "" || subjectID === "null" || subjectID === null) {
       setIsAuthenticated(false);
@@ -87,6 +90,7 @@ const UserProvider = ({ children }) => {
         setSubjectID,
         isAuthenticated,
         setIsAuthenticated,
+        isAuthLoading,
         handleLogin,
         handleLogout,
       }}

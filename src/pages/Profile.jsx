@@ -17,7 +17,6 @@ import ProfileCard from "../components/ProfileCard";
 import { animated, useSpring } from "react-spring";
 
 function Profile() {
-  
   const convertUserStudyTimeToHours = (userStudyTime) => {
     const hour = Math.floor(userStudyTime / 100);
     if (hour < 10) {
@@ -36,7 +35,7 @@ function Profile() {
     }
   };
 
-  const { isAuthenticated, subjectID } = useContext(UserContext);
+  const { isAuthenticated, subjectID, isAuthLoading } = useContext(UserContext);
   const [userData, setUserData] = useState(null);
   const [loading, setLoading] = useState(true);
 
@@ -69,11 +68,20 @@ function Profile() {
     if (isAuthenticated) {
       getUserData();
     }
-
   }, [isAuthenticated]);
 
-  if (!isAuthenticated) {
-    navigate("/");
+  useEffect(() => {
+    if (!isAuthLoading && !isAuthenticated) {
+      navigate("/");
+    }
+  }, [isAuthLoading, isAuthenticated]);
+
+  if (isAuthLoading) {
+    return (
+      <Container>
+        <ClipLoader />
+      </Container>
+    );
   }
 
   return loading ? (

@@ -20,7 +20,7 @@ const GenerateCalendar = () => {
   const [decisions, setDecisions] = useState([]);
   const [studyPlan, setStudyPlan] = useState(null);
 
-  const { subjectID, isAuthenticated } = useContext(UserContext);
+  const { subjectID, isAuthenticated, isAuthLoading } = useContext(UserContext);
 
   const navigate = useNavigate();
 
@@ -168,8 +168,18 @@ const GenerateCalendar = () => {
       });
   };
 
-  if (!isAuthenticated) {
-    navigate("/");
+  useEffect(() => {
+    if (!isAuthLoading && !isAuthenticated) {
+      navigate("/");
+    }
+  }, [isAuthLoading, isAuthenticated]);
+
+  if (isAuthLoading) {
+    return (
+      <Container>
+        <ClipLoader />
+      </Container>
+    );
   }
 
   return (

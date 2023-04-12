@@ -6,7 +6,7 @@ import api from "../api/axiosBackendConfig";
 import { UserContext } from "../context/UserContext";
 
 function EditPreferences() {
-  const { subjectID, isAuthenticated } = useContext(UserContext);
+  const { subjectID, isAuthenticated, isAuthLoading } = useContext(UserContext);
   const [loading, setLoading] = useState(false);
 
   const location = useLocation();
@@ -121,8 +121,18 @@ function EditPreferences() {
     console.log(userPreferences);
   };
 
-  if (!isAuthenticated) {
-    navigate("/");
+  useEffect(() => {
+    if (!isAuthLoading && !isAuthenticated) {
+      navigate("/");
+    }
+  }, [isAuthLoading, isAuthenticated]);
+
+  if (isAuthLoading) {
+    return (
+      <Container>
+        <ClipLoader />
+      </Container>
+    );
   }
 
   return (
