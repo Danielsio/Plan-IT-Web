@@ -40,7 +40,6 @@ const GenerateCalendar = () => {
       try {
         const response = await api.get(
           "/study-plan",
-          {},
           {
             params: {
               sub: subjectID,
