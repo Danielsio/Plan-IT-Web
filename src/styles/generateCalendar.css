@@ -4,17 +4,21 @@
     align-items: center;
     margin-right: 0;
   }
+
   .generate-plan-card {
     width: 90%;
     margin: 10px;
   }
+
   .date-picker-area {
     padding: 25px;
     margin: 10px;
   }
+
   .date-picker-area h2 {
     font-size: 30px;
   }
+
   .date-picker-area label {
     font-size: 16px;
   }
@@ -59,10 +63,21 @@
 
 .google-calendar-icon-btn {
   border-width: 0;
-  height:30px;
-  width:30px;
+  height: 30px;
+  width: 30px;
 }
 
 .google-calendar-btn {
   cursor: pointer;
+  margin: 16px 0 16px 0;
+  max-width: 100%;
+}
+
+.card-container.generate-plan-card {
+  margin: 10px auto;
+  width: 100%;
+}
+
+.generated-plan-value {
+  text-align: right;
 }
