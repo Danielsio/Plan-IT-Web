@@ -1,9 +1,10 @@
 import React from "react";
 
-function Exam({ course }) {
+function Exam({ courseName, dateTimeISO}) {
   return (
     <div>
-      <h4>{course.courseName}</h4>
+      <h4>{courseName}</h4>
+      <h6>{dateTimeISO}</h6>
     </div>
   );
 }
