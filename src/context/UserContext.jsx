@@ -26,7 +26,8 @@ const UserProvider = ({ children }) => {
   useEffect(() => {
     setSubjectIDToLocalStorage(subjectID);
     setIsAuthLoading(false);
-    console.log("Saving sub to localStorage: " + subjectID);
+
+    console.log("the subVal in the localStorage: " + subjectID);
 
     if (subjectID === "" || subjectID === "null" || subjectID === null) {
       setIsAuthenticated(false);
