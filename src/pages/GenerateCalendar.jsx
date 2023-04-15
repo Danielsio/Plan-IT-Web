@@ -11,6 +11,8 @@ import {
   Modal,
   Card,
   Container,
+  ToastContainer,
+  Toast,
 } from "react-bootstrap";
 import { ClipLoader } from "react-spinners";
 import "../styles/generateCalendar.css";
@@ -27,6 +29,12 @@ const GenerateCalendar = () => {
   const [fullDayEvents, setFullDayEvents] = useState([]);
   const [decisions, setDecisions] = useState([]);
   const [studyPlan, setStudyPlan] = useState(null);
+  const [showToast, setShowToast] = useState(false);
+  const [toastBackgroundColor, setToastBackgroundColor] = useState("");
+  const [toastHeaderImgSrc, setToastHeaderImgSrc] = useState("");
+  const [toastHeaderMainTitle, setToastHeaderMainTitle] = useState("");
+  const [toastHeaderSubTitle, setToastHeaderSubTitle] = useState("");
+  const [toastBodyMessage, setToastBodyMessage] = useState("");
 
   const { subjectID, isAuthenticated, isAuthLoading } = useContext(UserContext);
 
@@ -37,6 +45,28 @@ const GenerateCalendar = () => {
       return { ...prevState, [date]: !prevState[date] };
     });
   };
+
+  const handleShowToast = (
+    tone,
+    headerImgSrc,
+    headerMainTitle,
+    headerSubTitle,
+    headerBodyMessage
+  ) => {
+    setToastBackgroundColor(tone);
+    setToastHeaderImgSrc(headerImgSrc);
+    setToastHeaderMainTitle(headerMainTitle);
+    setToastHeaderSubTitle(headerSubTitle);
+    setToastBodyMessage(headerBodyMessage);
+
+    setShowToast(true);
+  };
+
+  const handleCloseToast = () => {
+    setShowToast(false);
+  };
+
+  const TOAST_TONE_SUCCESS = "success";
 
   useEffect(() => {
     console.log(decisions);
@@ -106,6 +136,13 @@ const GenerateCalendar = () => {
           if (response.status === 201) {
             console.log(response.data);
             setStudyPlan(response.data.studyPlan);
+            handleShowToast(
+              TOAST_TONE_SUCCESS,
+              "/favicon.ico",
+              "Success!",
+              "alert",
+              "Your Calendar Was Succefully Generated."
+            );
           } else if (
             response.status === 200 &&
             response.data.details === "Unhandled Full Days Events."
@@ -361,6 +398,27 @@ const GenerateCalendar = () => {
           </Modal>
         )}
       </Row>
+
+      {showToast && (
+        <ToastContainer className="p-3 toast-container">
+          <Toast
+            className={`toast-card toast-card-${toastBackgroundColor}`}
+            onClose={handleCloseToast}
+            position="top-start"
+          >
+            <Toast.Header>
+              <img
+                src={toastHeaderImgSrc}
+                className="rounded mr-2 toast-card-header-icon"
+                alt=""
+              />
+              <strong className="mr-auto">{toastHeaderMainTitle}</strong>
+              <small className="mr-2 text-muted">{toastHeaderSubTitle}</small>
+            </Toast.Header>
+            <Toast.Body>{toastBodyMessage}</Toast.Body>
+          </Toast>
+        </ToastContainer>
+      )}
     </Container>
   );
 };
