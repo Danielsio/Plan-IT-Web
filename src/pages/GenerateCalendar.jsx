@@ -405,7 +405,6 @@ const GenerateCalendar = () => {
             className={`toast-card toast-card-${toastBackgroundColor}`}
             onClose={handleCloseToast}
             position="top-start"
-            bg="primary"
           >
             <Toast.Header>
               <img
