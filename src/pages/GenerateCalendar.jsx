@@ -250,6 +250,14 @@ const GenerateCalendar = () => {
       .catch((error) => {
         setLoading(false);
         console.log(error);
+
+        handleShowToast(
+          TOAST_TONE_ERROR,
+          "",
+          "Service Unavailable",
+          "alert",
+          "It looks that we have some problems right now. Please try again later."
+        );
       });
   };
 
