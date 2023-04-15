@@ -166,6 +166,19 @@ const GenerateCalendar = () => {
         .catch((error) => {
           setLoading(false);
           console.log(error);
+
+          if (
+            error.response.status === 409 &&
+            error.response.data.details === "No Exams Found."
+          ) {
+            handleShowToast(
+              TOAST_TONE_WARNING,
+              "",
+              "No Exams Were Found",
+              "alert",
+              `No exams were found between ${start.toLocaleDateString()} and ${end.toLocaleDateString()}.`
+            );
+          }
         });
     }
   };
