@@ -67,6 +67,7 @@ const GenerateCalendar = () => {
   };
 
   const TOAST_TONE_SUCCESS = "success";
+  const TOAST_TONE_WARNING = "warning";
 
   useEffect(() => {
     console.log(decisions);
@@ -98,6 +99,13 @@ const GenerateCalendar = () => {
   const validateDatesPicked = () => {
     if (startDate >= endDate) {
       console.error("Error: Start date must be before end date.");
+      handleShowToast(
+        TOAST_TONE_WARNING,
+        "",
+        "Invalid Parameters",
+        "alert",
+        "Start date must be before end date."
+      );
       return false;
     } else {
       return true;
