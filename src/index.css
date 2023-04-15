@@ -67,6 +67,13 @@ body {
   box-shadow: 0px 1px 10px 1px rgba(0, 0, 0, 0.1);
 }
 
+.toast-card .btn-close {
+  /* background: transparent url("/favicon.ico"); */
+  border-width: 0;
+  height: 30px;
+  width: 30px;
+}
+
 .toast-card-header-icon {
   height: 30px;
   width: 30px;
