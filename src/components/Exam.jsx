@@ -6,7 +6,7 @@ import { Row, Col } from "react-bootstrap";
 //   <h6>{new Date(dateTimeISO).toLocaleDateString()}</h6>
 // </div>
 
-function Exam({ courseName, dateTimeISO }) {
+function ExamItem({ courseName, dateTimeISO }) {
   return (
     <Row className="mb-2 row-preferences">
       <Col xs={6}>
@@ -21,4 +21,4 @@ function Exam({ courseName, dateTimeISO }) {
   );
 }
 
-export default Exam;
+export default ExamItem;

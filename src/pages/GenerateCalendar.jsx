@@ -11,12 +11,14 @@ import {
   Modal,
   Card,
   Container,
+  ToastContainer,
+  Toast,
 } from "react-bootstrap";
 import { ClipLoader } from "react-spinners";
 import "../styles/generateCalendar.css";
 import { FaCalendar } from "react-icons/fa";
 import FullDayEventItem from "../components/FullDayEventItem";
-import Exam from "../components/Exam";
+import ExamItem from "../components/Exam";
 import { useNavigate } from "react-router-dom";
 
 const GenerateCalendar = () => {
@@ -27,6 +29,12 @@ const GenerateCalendar = () => {
   const [fullDayEvents, setFullDayEvents] = useState([]);
   const [decisions, setDecisions] = useState([]);
   const [studyPlan, setStudyPlan] = useState(null);
+  const [showToast, setShowToast] = useState(false);
+  const [toastBackgroundColor, setToastBackgroundColor] = useState("");
+  const [toastHeaderImgSrc, setToastHeaderImgSrc] = useState("");
+  const [toastHeaderMainTitle, setToastHeaderMainTitle] = useState("");
+  const [toastHeaderSubTitle, setToastHeaderSubTitle] = useState("");
+  const [toastBodyMessage, setToastBodyMessage] = useState("");
 
   const { subjectID, isAuthenticated, isAuthLoading } = useContext(UserContext);
 
@@ -37,6 +45,33 @@ const GenerateCalendar = () => {
       return { ...prevState, [date]: !prevState[date] };
     });
   };
+
+  const handleShowToast = (
+    tone,
+    headerImgSrc,
+    headerMainTitle,
+    headerSubTitle,
+    headerBodyMessage
+  ) => {
+    setToastBackgroundColor(tone);
+    setToastHeaderImgSrc(headerImgSrc);
+    setToastHeaderMainTitle(headerMainTitle);
+    setToastHeaderSubTitle(headerSubTitle);
+    setToastBodyMessage(headerBodyMessage);
+
+    setShowToast(true);
+  };
+
+  const handleCloseToast = () => {
+    setShowToast(false);
+  };
+
+  const NO_PROBLEM = "No Problem";
+  const ERROR_FULL_DAY_EVENTS = "Unhandled Full Day Events.";
+
+  const TOAST_TONE_SUCCESS = "success";
+  const TOAST_TONE_WARNING = "warning";
+  const TOAST_TONE_ERROR = "error";
 
   useEffect(() => {
     console.log(decisions);
@@ -68,6 +103,13 @@ const GenerateCalendar = () => {
   const validateDatesPicked = () => {
     if (startDate >= endDate) {
       console.error("Error: Start date must be before end date.");
+      handleShowToast(
+        TOAST_TONE_WARNING,
+        "",
+        "Invalid Parameters",
+        "alert",
+        "Start date must be before end date."
+      );
       return false;
     } else {
       return true;
@@ -106,9 +148,16 @@ const GenerateCalendar = () => {
           if (response.status === 201) {
             console.log(response.data);
             setStudyPlan(response.data.studyPlan);
+            handleShowToast(
+              TOAST_TONE_SUCCESS,
+              "/favicon.ico",
+              "Success!",
+              "alert",
+              "Your Calendar Was Succefully Generated."
+            );
           } else if (
             response.status === 200 &&
-            response.data.details === "Unhandled Full Days Events."
+            response.data.details === ERROR_FULL_DAY_EVENTS
           ) {
             console.log(response.data);
             handleShowModal(response.data.fullDayEvents);
@@ -116,11 +165,39 @@ const GenerateCalendar = () => {
             console.error(
               `Error: Unexpected response status code: ${response.status}`
             );
+            handleShowToast(
+              TOAST_TONE_ERROR,
+              "",
+              "Service UnAvailable",
+              "alert",
+              "It looks that we have some problems right now. Please try again later."
+            );
           }
         })
         .catch((error) => {
           setLoading(false);
           console.log(error);
+
+          if (
+            error.response.status === 409 &&
+            error.response.data.details === "No Exams Found."
+          ) {
+            handleShowToast(
+              TOAST_TONE_WARNING,
+              "",
+              "No Exams Were Found",
+              "alert",
+              `No exams were found between ${start.toLocaleDateString()} and ${end.toLocaleDateString()}.`
+            );
+          } else {
+            handleShowToast(
+              TOAST_TONE_ERROR,
+              "",
+              "Service Unavailable",
+              "alert",
+              "It looks that we have some problems right now. Please try again later."
+            );
+          }
         });
     }
   };
@@ -168,11 +245,26 @@ const GenerateCalendar = () => {
         if (response.status === 201) {
           console.log("Calendar Has Been Created Seccessfully !! Hooray !!");
           setStudyPlan(response.data.studyPlan);
+          handleShowToast(
+            TOAST_TONE_SUCCESS,
+            "/favicon.ico",
+            "Success!",
+            "alert",
+            "Your Calendar Was Succefully Generated."
+          );
         }
       })
       .catch((error) => {
         setLoading(false);
         console.log(error);
+
+        handleShowToast(
+          TOAST_TONE_ERROR,
+          "",
+          "Service Unavailable",
+          "alert",
+          "It looks that we have some problems right now. Please try again later."
+        );
       });
   };
 
@@ -211,7 +303,7 @@ const GenerateCalendar = () => {
                       {studyPlan.scannedExams.map((exam) => {
                         return (
                           <li key={exam.courseName}>
-                            <Exam
+                            <ExamItem
                               courseName={exam.courseName}
                               dateTimeISO={exam.dateTimeISO}
                             />
@@ -361,6 +453,27 @@ const GenerateCalendar = () => {
           </Modal>
         )}
       </Row>
+
+      {showToast && (
+        <ToastContainer className="p-3 toast-container">
+          <Toast
+            className={`toast-card toast-card-${toastBackgroundColor}`}
+            onClose={handleCloseToast}
+            position="top-start"
+          >
+            <Toast.Header>
+              <img
+                src={toastHeaderImgSrc}
+                className="rounded mr-2 toast-card-header-icon"
+                alt=""
+              />
+              <strong className="mr-auto">{toastHeaderMainTitle}</strong>
+              <small className="mr-2 text-muted">{toastHeaderSubTitle}</small>
+            </Toast.Header>
+            <Toast.Body>{toastBodyMessage}</Toast.Body>
+          </Toast>
+        </ToastContainer>
+      )}
     </Container>
   );
 };
