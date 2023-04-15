@@ -18,7 +18,7 @@ import { ClipLoader } from "react-spinners";
 import "../styles/generateCalendar.css";
 import { FaCalendar } from "react-icons/fa";
 import FullDayEventItem from "../components/FullDayEventItem";
-import Exam from "../components/Exam";
+import ExamItem from "../components/Exam";
 import { useNavigate } from "react-router-dom";
 
 const GenerateCalendar = () => {
@@ -269,7 +269,7 @@ const GenerateCalendar = () => {
                       {studyPlan.scannedExams.map((exam) => {
                         return (
                           <li key={exam.courseName}>
-                            <Exam
+                            <ExamItem
                               courseName={exam.courseName}
                               dateTimeISO={exam.dateTimeISO}
                             />
