@@ -85,7 +85,11 @@ body {
 }
 
 .toast-card-warning {
-  background-color: #fcff55;
+  background-color: #ffc107;
+}
+
+.toast-card-error {
+  background-color: #dc3545;
 }
 
 .card-title {

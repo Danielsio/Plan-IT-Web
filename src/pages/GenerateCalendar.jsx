@@ -66,8 +66,12 @@ const GenerateCalendar = () => {
     setShowToast(false);
   };
 
+  const NO_PROBLEM = "No Problem";
+  const ERROR_FULL_DAY_EVENTS = "Unhandled Full Day Events.";
+
   const TOAST_TONE_SUCCESS = "success";
   const TOAST_TONE_WARNING = "warning";
+  const TOAST_TONE_ERROR = "error";
 
   useEffect(() => {
     console.log(decisions);
@@ -153,13 +157,20 @@ const GenerateCalendar = () => {
             );
           } else if (
             response.status === 200 &&
-            response.data.details === "Unhandled Full Days Events."
+            response.data.details === ERROR_FULL_DAY_EVENTS
           ) {
             console.log(response.data);
             handleShowModal(response.data.fullDayEvents);
           } else {
             console.error(
               `Error: Unexpected response status code: ${response.status}`
+            );
+            handleShowToast(
+              TOAST_TONE_ERROR,
+              "",
+              "Service UnAvailable",
+              "alert",
+              "It looks that we have some problems right now. Please try again later."
             );
           }
         })
@@ -177,6 +188,14 @@ const GenerateCalendar = () => {
               "No Exams Were Found",
               "alert",
               `No exams were found between ${start.toLocaleDateString()} and ${end.toLocaleDateString()}.`
+            );
+          } else {
+            handleShowToast(
+              TOAST_TONE_ERROR,
+              "",
+              "Service Unavailable",
+              "alert",
+              "It looks that we have some problems right now. Please try again later."
             );
           }
         });
