@@ -245,6 +245,13 @@ const GenerateCalendar = () => {
         if (response.status === 201) {
           console.log("Calendar Has Been Created Seccessfully !! Hooray !!");
           setStudyPlan(response.data.studyPlan);
+          handleShowToast(
+            TOAST_TONE_SUCCESS,
+            "/favicon.ico",
+            "Success!",
+            "alert",
+            "Your Calendar Was Succefully Generated."
+          );
         }
       })
       .catch((error) => {
