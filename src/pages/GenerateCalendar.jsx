@@ -19,6 +19,14 @@ import "../styles/generateCalendar.css";
 import { FaCalendar } from "react-icons/fa";
 import FullDayEventItem from "../components/FullDayEventItem";
 import ExamItem from "../components/Exam";
+import {
+  NO_PROBLEM,
+  ERROR_FULL_DAY_EVENTS,
+  ERROR_NO_EXAMS_FOUND,
+  TOAST_TONE_SUCCESS,
+  TOAST_TONE_WARNING,
+  TOAST_TONE_ERROR,
+} from "../utill/Constants";
 import { useNavigate } from "react-router-dom";
 
 const GenerateCalendar = () => {
@@ -65,13 +73,6 @@ const GenerateCalendar = () => {
   const handleCloseToast = () => {
     setShowToast(false);
   };
-
-  const NO_PROBLEM = "No Problem";
-  const ERROR_FULL_DAY_EVENTS = "Unhandled Full Day Events.";
-
-  const TOAST_TONE_SUCCESS = "success";
-  const TOAST_TONE_WARNING = "warning";
-  const TOAST_TONE_ERROR = "error";
 
   useEffect(() => {
     console.log(decisions);
@@ -145,7 +146,7 @@ const GenerateCalendar = () => {
         )
         .then((response) => {
           setLoading(false);
-          if (response.status === 201) {
+          if (response.status === 201 && response.data.details === NO_PROBLEM) {
             console.log(response.data);
             setStudyPlan(response.data.studyPlan);
             handleShowToast(
@@ -180,7 +181,7 @@ const GenerateCalendar = () => {
 
           if (
             error.response.status === 409 &&
-            error.response.data.details === "No Exams Found."
+            error.response.data.details === ERROR_NO_EXAMS_FOUND
           ) {
             handleShowToast(
               TOAST_TONE_WARNING,
