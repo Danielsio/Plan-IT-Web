@@ -164,7 +164,7 @@ const GenerateCalendar = () => {
             handleShowModal(response.data.fullDayEvents);
           } else {
             console.error(
-              `Error: Unexpected response status code: ${response.status}`
+              `Error: Unexpected response status code: ${response.status}\nresponse date: ${response.data}`
             );
             handleShowToast(
               TOAST_TONE_ERROR,
