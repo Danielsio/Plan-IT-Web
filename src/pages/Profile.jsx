@@ -58,7 +58,7 @@ function Profile() {
           params: { sub: subjectID },
         });
         console.log(response.data);
-        setUserData(response.data);
+        setUserData(response.data.user);
         setLoading(false);
       } catch (error) {
         console.log(error);
