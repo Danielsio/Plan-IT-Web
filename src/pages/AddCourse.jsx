@@ -19,7 +19,7 @@ import {
   TOAST_TONE_ERROR,
 } from "../utill/Constants";
 
-function EditCoursePage() {
+function EditCourse() {
   const location = useLocation();
   const navigate = useNavigate();
   const { subjectID } = useContext(UserContext);
@@ -37,25 +37,6 @@ function EditCoursePage() {
     recommendedStudyTime: "",
     courseSubjects: [],
   });
-
-  useEffect(() => {
-    async function getCourseDetails() {
-      const courseId = new URLSearchParams(location.search).get("id");
-      console.log(courseId);
-      try {
-        const response = await api.get(`/admin/course`, {
-          params: { sub: subjectID, courseId },
-        });
-        setCourse(response.data.courses[0]);
-        console.log(response.data.courses[0]);
-        setLoading(false);
-      } catch (error) {
-        console.error(error);
-      }
-    }
-
-    getCourseDetails();
-  }, [location.search]);
 
   const handleInputChange = (event) => {
     const target = event.target;
@@ -82,7 +63,7 @@ function EditCoursePage() {
     event.preventDefault();
 
     try {
-      const response = await api.put(`/admin/courses`, course, {
+      const response = await api.post(`/admin/courses`, course, {
         params: { sub: subjectID },
       });
       console.log(response.data);
@@ -133,7 +114,7 @@ function EditCoursePage() {
 
   return (
     <Container className="my-5">
-      <h1>Edit Course</h1>
+      <h1>Add New Course</h1>
       <Form onSubmit={handleSubmit}>
         <Form.Group controlId="formCourseName">
           <Form.Label>Course Name</Form.Label>
@@ -166,7 +147,7 @@ function EditCoursePage() {
         </Form.Group>
 
         <Form.Group controlId="formRecommendedStudyTime">
-          <Form.Label>Recommended Study Time (in hours)</Form.Label>
+          <Form.Label>Recommended Study Time (in days)</Form.Label>
           <Form.Control
             type="number"
             placeholder="Enter recommended study time"
@@ -176,10 +157,10 @@ function EditCoursePage() {
         </Form.Group>
 
         <Form.Group controlId="formSubjectsPracticePercentage">
-          <Form.Label>Subjects Practice Percentage</Form.Label>
+          <Form.Label>Subjects Practice Percentage </Form.Label>
           <Form.Control
             type="number"
-            placeholder="Enter subjects practice percentage"
+            placeholder="Enter subjects practice percentage (e.g - for 60% type 60)"
             value={course.subjectsPracticePercentage}
             onChange={handleInputChange}
           />
@@ -195,7 +176,7 @@ function EditCoursePage() {
                 value={subject}
                 onChange={(e) => handleSubjectsChange(e, index)}
               />
-              {index > 0 && (
+              {index >= 0 && (
                 <Button
                   variant="danger"
                   className="mt-2"
@@ -259,4 +240,4 @@ function EditCoursePage() {
   );
 }
 
-export default EditCoursePage;
+export default EditCourse;

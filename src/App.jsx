@@ -8,8 +8,9 @@ import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import React, { useContext } from "react";
 import { UserProvider } from "./context/UserContext";
-import AdminDashboardPage from "./pages/AdminDashboardPage";
-import EditCoursePage from "./pages/AdminEditCoursePage";
+import AdminDashboard from "./pages/AdminDashboard";
+import EditCourse from "./pages/EditCourse";
+import AddCourse from "./pages/AddCourse";
 
 function App() {
   return (
@@ -23,8 +24,9 @@ function App() {
             <Route path="/about" element={<About />} />
             <Route path="/generate-calendar" element={<GenerateCalendar />} />
             <Route path="/edit-preferences" element={<EditPreferences />} />
-            <Route path="/admin" element={<AdminDashboardPage />} />
-            <Route path="/admin/edit-course" element={<EditCoursePage />} />
+            <Route path="/admin" element={<AdminDashboard />} />
+            <Route path="/admin/edit-course" element={<EditCourse />} />
+            <Route path="/admin/add-course" element={<AddCourse />} />
           </Routes>
           <Footer />
         </Router>

@@ -40,6 +40,10 @@ function AdminDashboardPage() {
     }
   }, [isUserAdmin]);
 
+  const handleAddCourse = () => {
+    navigate(`/admin/add-course`);
+  };
+
   return (
     <Container className="mt-4">
       <Row>
@@ -47,7 +51,9 @@ function AdminDashboardPage() {
           <h2>Course List</h2>
         </Col>
         <Col className="text-end">
-          <Button variant="success">Add Course</Button>
+          <Button variant="success" onClick={handleAddCourse}>
+            Add Course
+          </Button>
         </Col>
       </Row>
       {courses != null ? (
