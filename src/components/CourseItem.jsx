@@ -18,7 +18,9 @@ function CourseItem({ course }) {
         <Button variant="primary" className="me-2" onClick={handleEditClick}>
           Edit
         </Button>
-        <Button variant="danger">Delete</Button>
+        <Button variant="danger" className="ml-2">
+          Delete
+        </Button>
       </Card.Body>
     </Card>
   );

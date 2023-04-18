@@ -25,6 +25,7 @@ function AdminDashboardPage() {
   }, []);
 
   const [courses, setCourses] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
 
   const { subjectID } = useContext(UserContext);
   useEffect(() => {
@@ -33,14 +34,11 @@ function AdminDashboardPage() {
         .get("/admin/courses", { params: { sub: subjectID } })
         .then((response) => {
           console.log(response);
+          setIsLoading(false);
           setCourses(response.data.courses);
         });
     }
   }, [isUserAdmin]);
-
-  if (courses == null) {
-    return <h1>No Courses</h1>;
-  }
 
   return (
     <Container className="mt-4">
@@ -52,11 +50,15 @@ function AdminDashboardPage() {
           <Button variant="success">Add Course</Button>
         </Col>
       </Row>
-      <ListGroup className="mt-3">
-        {courses.map((course) => (
-          <CourseItem key={course.id} course={course} />
-        ))}
-      </ListGroup>
+      {courses != null ? (
+        <ListGroup className="mt-3">
+          {courses.map((course) => (
+            <CourseItem key={course.id} course={course} />
+          ))}
+        </ListGroup>
+      ) : (
+        <h3>No Courses Exist</h3>
+      )}
     </Container>
   );
 }
