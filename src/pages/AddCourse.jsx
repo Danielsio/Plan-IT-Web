@@ -121,6 +121,7 @@ function EditCourse() {
           <Form.Control
             type="text"
             placeholder="Enter course name"
+            name="courseName"
             value={course.courseName}
             onChange={handleInputChange}
           />
@@ -132,6 +133,7 @@ function EditCourse() {
             type="number"
             placeholder="Enter course credits"
             value={course.credits}
+            name="credits"
             onChange={handleInputChange}
           />
         </Form.Group>
@@ -142,6 +144,7 @@ function EditCourse() {
             type="number"
             placeholder="Enter course difficulty level (1-10)"
             value={course.difficultyLevel}
+            name="difficultyLevel"
             onChange={handleInputChange}
           />
         </Form.Group>
@@ -152,6 +155,7 @@ function EditCourse() {
             type="number"
             placeholder="Enter recommended study time"
             value={course.recommendedStudyTime}
+            name="recommendedStudyTime"
             onChange={handleInputChange}
           />
         </Form.Group>
@@ -162,6 +166,7 @@ function EditCourse() {
             type="number"
             placeholder="Enter subjects practice percentage (e.g - for 60% type 60)"
             value={course.subjectsPracticePercentage}
+            name="subjectsPracticePercentage"
             onChange={handleInputChange}
           />
         </Form.Group>
@@ -210,7 +215,7 @@ function EditCourse() {
           className="mt-2 mr-2"
           onClick={handleCancel}
         >
-          Cancel
+          Go Back
         </Button>
         <Button variant="primary" type="submit" className="mt-2">
           Save Changes
