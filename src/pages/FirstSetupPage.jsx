@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect, useContext } from "react";
 import {
   Stepper,
   Step,
@@ -10,62 +10,118 @@ import {
   FormControl,
   FormControlLabel,
   MenuItem,
+  Stack,
+  Grid,
 } from "@mui/material";
 import Checkbox from "@mui/material/Checkbox";
 import { Form } from "react-bootstrap";
+import api from "../api/axiosBackendConfig";
+import { UserContext } from "../context/UserContext";
+import { Container } from "react-bootstrap";
+import { ClipLoader } from "react-spinners";
+import { toast } from "react-toastify";
 
 const ProgressStepper = () => {
   const [activeStep, setActiveStep] = useState(0);
   const [completed, setCompleted] = useState({});
 
   const [preferences, setPreferences] = useState({
-    userStudyStartTime: "",
-    userStudyEndTime: "",
-    userBreakTime: 0,
-    studySessionTime: 0,
-    studyOnHolidays: false,
-    studyOnWeekends: false,
+    userStudyStartTime: "08:00",
+    userStudyEndTime: "22:00",
+    userBreakTime: 30,
+    studySessionTime: 120,
+    studyOnHolidays: true,
+    studyOnWeekends: true,
   });
+
+  const { subjectID, isAuthenticated, isAuthLoading } = useContext(UserContext);
+
+  const convertUserPreferencesToBackendValues = (preferences) => {
+    preferences.userStudyStartTime = parseInt(
+      preferences.userStudyStartTime.replace(":", "")
+    );
+
+    preferences.userStudyEndTime = parseInt(
+      preferences.userStudyEndTime.replace(":", "")
+    );
+
+    preferences.userBreakTime = parseInt(preferences.userBreakTime);
+    preferences.studySessionTime = parseInt(preferences.studySessionTime);
+  };
+
+  useEffect(() => {
+    if (activeStep === steps.length) {
+      console.log(preferences);
+      convertUserPreferencesToBackendValues(preferences);
+      console.log(preferences);
+      api
+        .post(
+          "/profile",
+          { preferences },
+          {
+            params: {
+              sub: subjectID,
+            },
+          }
+        )
+        .then((response) => {
+          console.log(response.data);
+          if (response.data.succeed) {
+            toast.success("your preferences has been saved.");
+          } else {
+            toast.error("some error occurred please try again later.");
+          }
+        });
+    }
+  }, [activeStep]);
 
   const steps = ["Day Study Time", "Session Study Time", "Holidays & Weekends"];
 
   const stepDescription = {
     0: (
       <>
-        <Typography>
+        <Typography sx={{ mt: 4, mb: 4, textAlign: "center" }}>
           Please enter your preferred study start and end times:
         </Typography>
-        <Box sx={{ display: "flex", justifyContent: "space-between" }}>
-          <Form.Control
-            type="time"
-            value={preferences.userStudyStartTime}
-            onChange={(e) =>
-              setPreferences({
-                ...preferences,
-                userStudyStartTime: e.target.value,
-              })
-            }
-          />
-          <Form.Control
-            type="time"
-            value={preferences.userStudyEndTime}
-            onChange={(e) =>
-              setPreferences({
-                ...preferences,
-                userStudyEndTime: e.target.value,
-              })
-            }
-          />
+        <Box sx={{ display: "block", justifyContent: "space-between" }}>
+          <Box sx={{ width: "30%", margin: "auto" }}>
+            <Form.Control
+              type="time"
+              value={preferences.userStudyStartTime}
+              onChange={(e) =>
+                setPreferences({
+                  ...preferences,
+                  userStudyStartTime: e.target.value,
+                })
+              }
+            />
+          </Box>
+          <Box sx={{ width: "30%", margin: "auto" }}>
+            <Form.Control
+              type="time"
+              value={preferences.userStudyEndTime}
+              onChange={(e) =>
+                setPreferences({
+                  ...preferences,
+                  userStudyEndTime: e.target.value,
+                })
+              }
+            />
+          </Box>
         </Box>
       </>
     ),
     1: (
       <>
-        <Typography>
+        <Typography sx={{ mt: 4, mb: 4, textAlign: "center" }}>
           Please enter your preferred study session and break times:
         </Typography>
-        <Box sx={{ display: "flex", justifyContent: "space-between" }}>
-          <FormControl sx={{ minWidth: 120 }}>
+        <Stack
+          direction={{ xs: "column", md: "row" }}
+          spacing={{ xs: 2, md: 4 }}
+          sx={{ maxWidth: 800, mx: "auto" }}
+        >
+          <FormControl sx={{ minWidth: 200, maxWidth: "50%" }}>
             <TextField
               select
               label="Study Session Time"
@@ -84,7 +140,7 @@ const ProgressStepper = () => {
               ))}
             </TextField>
           </FormControl>
-          <FormControl sx={{ minWidth: 120 }}>
+          <FormControl sx={{ minWidth: 200, maxWidth: "50%" }}>
             <TextField
               select
               label="Break Time"
@@ -103,42 +159,52 @@ const ProgressStepper = () => {
               ))}
             </TextField>
           </FormControl>
-        </Box>
+        </Stack>
       </>
     ),
     2: (
       <>
-        <Typography>Please select the days you want to study:</Typography>
-        <FormControlLabel
-          control={
-            <Checkbox
-              checked={preferences.studyOnHolidays}
-              onChange={(e) =>
-                setPreferences({
-                  ...preferences,
-                  studyOnHolidays: e.target.checked,
-                })
+        <Grid container spacing={2}>
+          <Grid item xs={12}>
+            <Typography sx={{ mt: 4, mb: 4, textAlign: "center" }}>
+              Please select the days you want to study:
+            </Typography>
+          </Grid>
+          <Grid item xs={12} sm={6}>
+            <FormControlLabel
+              control={
+                <Checkbox
+                  checked={preferences.studyOnHolidays}
+                  onChange={(e) =>
+                    setPreferences({
+                      ...preferences,
+                      studyOnHolidays: e.target.checked,
+                    })
+                  }
+                  name="studyOnHolidays"
+                />
               }
-              name="studyOnHolidays"
+              label="I Want To Study on Holidays"
             />
-          }
-          label="I Want To Study on Holidays"
-        />
-        <FormControlLabel
-          control={
-            <Checkbox
-              checked={preferences.studyOnWeekends}
-              onChange={(e) =>
-                setPreferences({
-                  ...preferences,
-                  studyOnWeekends: e.target.checked,
-                })
+          </Grid>
+          <Grid item xs={12} sm={6}>
+            <FormControlLabel
+              control={
+                <Checkbox
+                  checked={preferences.studyOnWeekends}
+                  onChange={(e) =>
+                    setPreferences({
+                      ...preferences,
+                      studyOnWeekends: e.target.checked,
+                    })
+                  }
+                  name="studyOnWeekends"
+                />
               }
-              name="studyOnWeekends"
+              label="I Want To Study on Weekends"
             />
-          }
-          label="I Want To Study on Weekends"
-        />
+          </Grid>
+        </Grid>
       </>
     ),
   };
@@ -159,20 +225,25 @@ const ProgressStepper = () => {
   };
 
   const handleReset = () => {
-    setActiveStep(0);
-    setPreferences({
-      userStudyStartTime: "",
-      userStudyEndTime: "",
-      userBreakTime: 0,
-      studySessionTime: 0,
-      studyOnHolidays: false,
-      studyOnWeekends: false,
-    });
-    setCompleted({});
+    window.location.reload();
   };
 
+  useEffect(() => {
+    if (!isAuthLoading && !isAuthenticated) {
+      navigate("/");
+    }
+  }, [isAuthLoading, isAuthenticated]);
+
+  if (isAuthLoading) {
+    return (
+      <Container>
+        <ClipLoader />
+      </Container>
+    );
+  }
+
   return (
-    <Box sx={{ width: "100%" }}>
+    <Box sx={{ width: "50%", margin: "auto" }}>
       <Stepper activeStep={activeStep}>
         {steps.map((step, index) => (
           <Step key={step} completed={completed[index]}>
@@ -193,9 +264,7 @@ const ProgressStepper = () => {
           </>
         ) : (
           <>
-            <Typography sx={{ mt: 2, mb: 1 }}>
-              {stepDescription[activeStep]}
-            </Typography>
+            {stepDescription[activeStep]}
             <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
               <Button
                 onClick={handleBack}
@@ -207,7 +276,7 @@ const ProgressStepper = () => {
               </Button>
               <Box sx={{ żflex: "1 1 auto" }} />
               <Button onClick={handleNext} variant="contained">
-                {completedSteps === totalSteps - 1 ? "Finish" : "Next"}
+                {activeStep === totalSteps - 1 ? "Finish" : "Next"}
               </Button>
             </Box>
           </>

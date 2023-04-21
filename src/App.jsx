@@ -12,6 +12,8 @@ import AdminDashboard from "./pages/AdminDashboard";
 import EditCourse from "./pages/EditCourse";
 import AddCourse from "./pages/AddCourse";
 import FirstSetupPage from "./pages/FirstSetupPage";
+import "react-toastify/dist/ReactToastify.css";
+import { ToastContainer } from "react-toastify";
 
 function App() {
   return (
@@ -32,6 +34,7 @@ function App() {
           </Routes>
           <Footer />
         </Router>
+        <ToastContainer />
       </UserProvider>
     </div>
   );
