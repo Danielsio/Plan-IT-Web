@@ -11,6 +11,7 @@ import { UserProvider } from "./context/UserContext";
 import AdminDashboard from "./pages/AdminDashboard";
 import EditCourse from "./pages/EditCourse";
 import AddCourse from "./pages/AddCourse";
+import FirstSetupPage from "./pages/FirstSetupPage";
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
             <Route path="/admin" element={<AdminDashboard />} />
             <Route path="/admin/edit-course" element={<EditCourse />} />
             <Route path="/admin/add-course" element={<AddCourse />} />
+            <Route path="/first-setup" element={<FirstSetupPage />} />
           </Routes>
           <Footer />
         </Router>
