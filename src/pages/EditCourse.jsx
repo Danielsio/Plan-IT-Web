@@ -159,7 +159,7 @@ function EditCourse() {
         </Form.Group>
 
         <Form.Group controlId="formDifficultyLevel">
-          <Form.Label>Difficulty Level</Form.Label>
+          <Form.Label>Difficulty Level (1-10)</Form.Label>
           <Form.Control
             type="number"
             placeholder="Enter course difficulty level (1-10)"
@@ -181,7 +181,9 @@ function EditCourse() {
         </Form.Group>
 
         <Form.Group controlId="formSubjectsPracticePercentage">
-          <Form.Label>Subjects Practice Percentage (e.g 60%)</Form.Label>
+          <Form.Label>
+            Subjects Practice Percentage (e.g for 60% type 60)
+          </Form.Label>
           <Form.Control
             type="number"
             placeholder="Enter subjects practice percentage"

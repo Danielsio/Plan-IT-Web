@@ -15,7 +15,8 @@ function AdminDashboardPage() {
         params: { sub: subjectID },
       })
       .then((response) => {
-        if (!response.data.admin) {
+        console.log(response);
+        if (!response.data.user.admin) {
           setIsUserAdmin(false);
           navigate("/");
           return;
