@@ -14,22 +14,14 @@ import {
   NO_PROBLEM,
   ERROR_FULL_DAY_EVENTS,
   ERROR_NO_EXAMS_FOUND,
-  TOAST_TONE_SUCCESS,
-  TOAST_TONE_WARNING,
-  TOAST_TONE_ERROR,
 } from "../utill/Constants";
+import { toast } from "react-toastify";
 
 function EditCourse() {
   const location = useLocation();
   const navigate = useNavigate();
   const { subjectID } = useContext(UserContext);
   const [loading, setLoading] = useState(false);
-  const [showToast, setShowToast] = useState(false);
-  const [toastBackgroundColor, setToastBackgroundColor] = useState("");
-  const [toastHeaderImgSrc, setToastHeaderImgSrc] = useState("");
-  const [toastHeaderMainTitle, setToastHeaderMainTitle] = useState("");
-  const [toastHeaderSubTitle, setToastHeaderSubTitle] = useState("");
-  const [toastBodyMessage, setToastBodyMessage] = useState("");
   const [course, setCourse] = useState({
     courseName: "",
     credits: "",
@@ -88,12 +80,8 @@ function EditCourse() {
       });
       console.log(response.data);
       if (response.data.succeed == true) {
-        handleShowToast(
-          TOAST_TONE_SUCCESS,
-          "/favicon.ico",
-          "Success!",
-          "alert",
-          "Course Updated Succefully."
+        toast.success(
+          `Success! The Course ${course.courseName} Has Updated Succefully.`
         );
       }
     } catch (error) {
@@ -111,26 +99,6 @@ function EditCourse() {
       />
     );
   }
-
-  const handleShowToast = (
-    tone,
-    headerImgSrc,
-    headerMainTitle,
-    headerSubTitle,
-    headerBodyMessage
-  ) => {
-    setToastBackgroundColor(tone);
-    setToastHeaderImgSrc(headerImgSrc);
-    setToastHeaderMainTitle(headerMainTitle);
-    setToastHeaderSubTitle(headerSubTitle);
-    setToastBodyMessage(headerBodyMessage);
-
-    setShowToast(true);
-  };
-
-  const handleCloseToast = () => {
-    setShowToast(false);
-  };
 
   return (
     <Container className="my-5">
@@ -243,26 +211,6 @@ function EditCourse() {
           Save Changes
         </Button>
       </Form>
-      {showToast && (
-        <ToastContainer className="p-3 toast-container">
-          <Toast
-            className={`toast-card toast-card-${toastBackgroundColor}`}
-            onClose={handleCloseToast}
-            position="top-start"
-          >
-            <Toast.Header>
-              <img
-                src={toastHeaderImgSrc}
-                className="rounded mr-2 toast-card-header-icon"
-                alt=""
-              />
-              <strong className="mr-auto">{toastHeaderMainTitle}</strong>
-              <small className="mr-2 text-muted">{toastHeaderSubTitle}</small>
-            </Toast.Header>
-            <Toast.Body>{toastBodyMessage}</Toast.Body>
-          </Toast>
-        </ToastContainer>
-      )}
     </Container>
   );
 }
