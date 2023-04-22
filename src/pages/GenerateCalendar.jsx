@@ -23,11 +23,9 @@ import {
   NO_PROBLEM,
   ERROR_FULL_DAY_EVENTS,
   ERROR_NO_EXAMS_FOUND,
-  TOAST_TONE_SUCCESS,
-  TOAST_TONE_WARNING,
-  TOAST_TONE_ERROR,
 } from "../utill/Constants";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const GenerateCalendar = () => {
   const [startDate, setStartDate] = useState(new Date());
@@ -37,12 +35,6 @@ const GenerateCalendar = () => {
   const [fullDayEvents, setFullDayEvents] = useState([]);
   const [decisions, setDecisions] = useState([]);
   const [studyPlan, setStudyPlan] = useState(null);
-  const [showToast, setShowToast] = useState(false);
-  const [toastBackgroundColor, setToastBackgroundColor] = useState("");
-  const [toastHeaderImgSrc, setToastHeaderImgSrc] = useState("");
-  const [toastHeaderMainTitle, setToastHeaderMainTitle] = useState("");
-  const [toastHeaderSubTitle, setToastHeaderSubTitle] = useState("");
-  const [toastBodyMessage, setToastBodyMessage] = useState("");
 
   const { subjectID, isAuthenticated, isAuthLoading } = useContext(UserContext);
 
@@ -52,26 +44,6 @@ const GenerateCalendar = () => {
     setDecisions((prevState) => {
       return { ...prevState, [date]: !prevState[date] };
     });
-  };
-
-  const handleShowToast = (
-    tone,
-    headerImgSrc,
-    headerMainTitle,
-    headerSubTitle,
-    headerBodyMessage
-  ) => {
-    setToastBackgroundColor(tone);
-    setToastHeaderImgSrc(headerImgSrc);
-    setToastHeaderMainTitle(headerMainTitle);
-    setToastHeaderSubTitle(headerSubTitle);
-    setToastBodyMessage(headerBodyMessage);
-
-    setShowToast(true);
-  };
-
-  const handleCloseToast = () => {
-    setShowToast(false);
   };
 
   useEffect(() => {
@@ -104,13 +76,7 @@ const GenerateCalendar = () => {
   const validateDatesPicked = () => {
     if (startDate >= endDate) {
       console.error("Error: Start date must be before end date.");
-      handleShowToast(
-        TOAST_TONE_WARNING,
-        "",
-        "Invalid Parameters",
-        "alert",
-        "Start date must be before end date."
-      );
+      toast.warn("Invalid Parameters. Start date must be before end date.");
       return false;
     } else {
       return true;
@@ -149,13 +115,7 @@ const GenerateCalendar = () => {
           if (response.status === 201 && response.data.details === NO_PROBLEM) {
             console.log(response.data);
             setStudyPlan(response.data.studyPlan);
-            handleShowToast(
-              TOAST_TONE_SUCCESS,
-              "/favicon.ico",
-              "Success!",
-              "alert",
-              "Your Calendar Was Succefully Generated."
-            );
+            toast.success("Success! Your Calendar Was Succefully Generated.");
           } else if (
             response.status === 200 &&
             response.data.details === ERROR_FULL_DAY_EVENTS
@@ -166,12 +126,8 @@ const GenerateCalendar = () => {
             console.error(
               `Error: Unexpected response status code: ${response.status}`
             );
-            handleShowToast(
-              TOAST_TONE_ERROR,
-              "",
-              "Service UnAvailable",
-              "alert",
-              "It looks that we have some problems right now. Please try again later."
+            toast.error(
+              "Service UnAvailable. It looks that we have some problems right now. Please try again later."
             );
           }
         })
@@ -183,20 +139,12 @@ const GenerateCalendar = () => {
             error.response.status === 409 &&
             error.response.data.details === ERROR_NO_EXAMS_FOUND
           ) {
-            handleShowToast(
-              TOAST_TONE_WARNING,
-              "",
-              "No Exams Were Found",
-              "alert",
+            toast.warn(
               `No exams were found between ${start.toLocaleDateString()} and ${end.toLocaleDateString()}.`
             );
           } else {
-            handleShowToast(
-              TOAST_TONE_ERROR,
-              "",
-              "Service Unavailable",
-              "alert",
-              "It looks that we have some problems right now. Please try again later."
+            toast.error(
+              "Service Unavailable. It looks that we have some problems right now. Please try again later."
             );
           }
         });
@@ -246,25 +194,14 @@ const GenerateCalendar = () => {
         if (response.status === 201) {
           console.log("Calendar Has Been Created Seccessfully !! Hooray !!");
           setStudyPlan(response.data.studyPlan);
-          handleShowToast(
-            TOAST_TONE_SUCCESS,
-            "/favicon.ico",
-            "Success!",
-            "alert",
-            "Your Calendar Was Succefully Generated."
-          );
+          toast.success("Success! Your Calendar Was Succefully Generated.");
         }
       })
       .catch((error) => {
         setLoading(false);
         console.log(error);
-
-        handleShowToast(
-          TOAST_TONE_ERROR,
-          "",
-          "Service Unavailable",
-          "alert",
-          "It looks that we have some problems right now. Please try again later."
+        toast.error(
+          "Service Unavailable. It looks that we have some problems right now. Please try again later."
         );
       });
   };
@@ -454,27 +391,6 @@ const GenerateCalendar = () => {
           </Modal>
         )}
       </Row>
-
-      {showToast && (
-        <ToastContainer className="p-3 toast-container">
-          <Toast
-            className={`toast-card toast-card-${toastBackgroundColor}`}
-            onClose={handleCloseToast}
-            position="top-start"
-          >
-            <Toast.Header>
-              <img
-                src={toastHeaderImgSrc}
-                className="rounded mr-2 toast-card-header-icon"
-                alt=""
-              />
-              <strong className="mr-auto">{toastHeaderMainTitle}</strong>
-              <small className="mr-2 text-muted">{toastHeaderSubTitle}</small>
-            </Toast.Header>
-            <Toast.Body>{toastBodyMessage}</Toast.Body>
-          </Toast>
-        </ToastContainer>
-      )}
     </Container>
   );
 };
