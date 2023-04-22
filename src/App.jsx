@@ -34,7 +34,18 @@ function App() {
           </Routes>
           <Footer />
         </Router>
-        <ToastContainer />
+        <ToastContainer
+          position="bottom-left"
+          autoClose={10000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick={false}
+          rtl={false}
+          pauseOnFocusLoss
+          draggable={false}
+          pauseOnHover
+          theme="colored"
+        />
       </UserProvider>
     </div>
   );
