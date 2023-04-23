@@ -4,6 +4,7 @@ import { UserContext } from "../context/UserContext";
 import CourseItem from "../components/CourseItem";
 import { Container, Row, Col, ListGroup, Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
+import { ClipLoader } from "react-spinners";
 
 function AdminDashboardPage() {
   const [isUserAdmin, setIsUserAdmin] = useState(false);
@@ -26,7 +27,6 @@ function AdminDashboardPage() {
   }, []);
 
   const [courses, setCourses] = useState(null);
-  const [isLoading, setIsLoading] = useState(true);
 
   const { subjectID } = useContext(UserContext);
   useEffect(() => {
@@ -35,7 +35,6 @@ function AdminDashboardPage() {
         .get("/admin/courses", { params: { sub: subjectID } })
         .then((response) => {
           console.log(response);
-          setIsLoading(false);
           setCourses(response.data.courses);
         });
     }
@@ -64,7 +63,12 @@ function AdminDashboardPage() {
           ))}
         </ListGroup>
       ) : (
-        <h3>No Courses Exist</h3>
+        <ClipLoader
+          className="spinner"
+          color="#29335c"
+          loading={!courses}
+          size={100}
+        />
       )}
     </Container>
   );

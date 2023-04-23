@@ -28,8 +28,50 @@ function EditCourse() {
     credits: "",
     difficultyLevel: "",
     recommendedStudyTime: "",
+    subjectsPracticePercentage: "",
     courseSubjects: [],
   });
+
+  const validateForm = () => {
+    console.log(course);
+
+    let isValid = true;
+
+    if (course.courseName.trim() === "") {
+      toast.error("Please Enter Course Name !");
+      isValid = false; // Name field is empty
+    }
+
+    if (course.credits < 1 || credits > 7) {
+      toast.error("Please Enter credits between 1-7 !");
+      isValid = false; // Credits field is invalid
+    }
+
+    if (course.difficultyLevel < 1 || difficulty > 10) {
+      toast.error("Please Enter difficultyLevel between 1-10 !");
+      isValid = false; // Difficulty field is invalid
+    }
+
+    if (course.recommendedStudyTime < 1 || studyTime > 30) {
+      toast.error("Please Enter recommended Study Time between 1-30 !");
+      isValid = false; // Study time field is invalid
+    }
+
+    if (course.subjectsPracticePercentage < 10 || studyTime > 100) {
+      toast.error("Please Enter subjects Practice Percentage between 10-100 !");
+      isValid = false; // Study time field is invalid
+    }
+
+    if (
+      course.courseSubjects.length > 0 &&
+      course.courseSubjects.some((subject) => subject.trim() === "")
+    ) {
+      toast.error("Dont leave empty subjects please !");
+      isValid = false; // Subjects field contains an empty string
+    }
+
+    return isValid; // All fields are valid
+  };
 
   const handleInputChange = (event) => {
     const target = event.target;
@@ -54,6 +96,10 @@ function EditCourse() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+
+    if (!validateForm()) {
+      return;
+    }
 
     try {
       const response = await api.post(`/admin/courses`, course, {
