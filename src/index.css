@@ -55,6 +55,10 @@ body {
   justify-content: center;
 }
 
+.badge-info {
+  color: white;
+}
+
 .toast-container {
   top: 30px;
   bottom: 0;
