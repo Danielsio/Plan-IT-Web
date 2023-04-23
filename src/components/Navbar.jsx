@@ -6,10 +6,31 @@ import { BsCalendar2Range } from "react-icons/bs";
 import { useContext, useEffect } from "react";
 import { UserContext } from "../context/UserContext";
 import { ClipLoader } from "react-spinners";
+import { useNavigate } from "react-router-dom";
 
 function AppNavbar() {
-  const { isAuthenticated, isAdmin, handleLogin, handleLogout } =
-    useContext(UserContext);
+  const {
+    isAuthenticated,
+    isAdmin,
+    handleLogin,
+    handleLogout,
+    isCompletedFirstSetup,
+    firstSetupLoading,
+  } = useContext(UserContext);
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    console.log(
+      "isCompletedFirstSetup is " +
+        isCompletedFirstSetup +
+        "and firstSetupLoading is: " +
+        firstSetupLoading
+    );
+    if (!firstSetupLoading && !isCompletedFirstSetup) {
+      navigate("/first-setup");
+    }
+  }, [isCompletedFirstSetup]);
 
   return (
     <Navbar expand="md" className="navbar-bg-color" variant="dark">

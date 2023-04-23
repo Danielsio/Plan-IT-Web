@@ -23,6 +23,18 @@ const UserProvider = ({ children }) => {
   const setIsAdminToLocalStorage = (isAdmin) => {
     localStorage.setItem("isAdmin", isAdmin);
   };
+
+  const getIsCompletedFirstSetupFromLocalStorage = () => {
+    const isCompletedFirstSetupStr = localStorage.getItem(
+      "isCompletedFirstSetup"
+    );
+
+    return isCompletedFirstSetupStr === "true";
+  };
+
+  const setIsIsCompletedFirstSetupToLocalStorage = (isCompletedFirstSetup) => {
+    localStorage.setItem("isCompletedFirstSetup", isCompletedFirstSetup);
+  };
   /********************************************/
 
   /* subjectID & isAuthenticated state values */
@@ -30,6 +42,10 @@ const UserProvider = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [isAdmin, setIsAdmin] = useState(getIsAdminFromLocalStorage());
   const [isAuthLoading, setIsAuthLoading] = useState(true);
+  const [firstSetupLoading, setFirstSetupLoading] = useState(true);
+  const [isCompletedFirstSetup, setIsCompletedFirstSetup] = useState(
+    getIsAdminFromLocalStorage()
+  );
 
   /********************************************/
 
@@ -54,6 +70,15 @@ const UserProvider = ({ children }) => {
     setIsAdminToLocalStorage(isAdmin);
     console.log("the isAdmin in the localStorage: " + isAdmin);
   }, [isAdmin]);
+
+  /* event listner for changes of isCompletedFirstSetup when another user loggs in*/
+  useEffect(() => {
+    setIsAdminToLocalStorage(isCompletedFirstSetup);
+    setFirstSetupLoading(false);
+    console.log(
+      "the isCompletedFirstSetup in the localStorage: " + isCompletedFirstSetup
+    );
+  }, [isCompletedFirstSetup]);
 
   /* Auth handlers functions  handleLogout, handleLogin, handleRegister */
   const handleLogout = () => {
@@ -86,9 +111,10 @@ const UserProvider = ({ children }) => {
       setIsAdmin(response.data.isAdmin);
       setIsAuthenticated(true);
 
-      // check (if response.data.isNewUser)
-      {
-        // redirect to EditPreferences
+      if (response.data.details == "Login") {
+        setIsCompletedFirstSetup(true);
+      } else {
+        setIsCompletedFirstSetup(false);
       }
     },
   });
@@ -115,6 +141,9 @@ const UserProvider = ({ children }) => {
         handleLogin,
         handleLogout,
         isAdmin,
+        isCompletedFirstSetup,
+        setIsCompletedFirstSetup,
+        firstSetupLoading,
       }}
     >
       {children}

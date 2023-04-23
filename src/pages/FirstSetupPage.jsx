@@ -20,8 +20,10 @@ import { UserContext } from "../context/UserContext";
 import { Container } from "react-bootstrap";
 import { ClipLoader } from "react-spinners";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 const ProgressStepper = () => {
+  const navigate = useNavigate();
   const [activeStep, setActiveStep] = useState(0);
   const [completed, setCompleted] = useState({});
 
@@ -34,7 +36,13 @@ const ProgressStepper = () => {
     studyOnWeekends: true,
   });
 
-  const { subjectID, isAuthenticated, isAuthLoading } = useContext(UserContext);
+  const {
+    subjectID,
+    isAuthenticated,
+    isAuthLoading,
+    isCompletedFirstSetup,
+    setIsCompletedFirstSetup,
+  } = useContext(UserContext);
 
   const convertUserPreferencesToBackendValues = (preferences) => {
     preferences.userStudyStartTime = parseInt(
@@ -68,6 +76,7 @@ const ProgressStepper = () => {
           console.log(response.data);
           if (response.data.succeed) {
             toast.success("your preferences has been saved.");
+            setIsCompletedFirstSetup(true);
           } else {
             toast.error("some error occurred please try again later.");
           }
@@ -229,7 +238,8 @@ const ProgressStepper = () => {
   };
 
   useEffect(() => {
-    if (!isAuthLoading && !isAuthenticated) {
+    if (!isAuthLoading && !isCompletedFirstSetup && !isAuthenticated) {
+      console.log("redirecting to home page");
       navigate("/");
     }
   }, [isAuthLoading, isAuthenticated]);
