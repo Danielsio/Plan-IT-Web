@@ -13,11 +13,20 @@ const UserProvider = ({ children }) => {
   const setSubjectIDToLocalStorage = (sub) => {
     localStorage.setItem("subjectID", sub);
   };
+
+  const getIsAdminFromLocalStorage = () => {
+    return localStorage.getItem("isAdmin");
+  };
+
+  const setIsAdminToLocalStorage = (isAdmin) => {
+    localStorage.setItem("isAdmin", isAdmin);
+  };
   /********************************************/
 
   /* subjectID & isAuthenticated state values */
   const [subjectID, setSubjectID] = useState(getSubjectIDFromLocalStorage());
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(getIsAdminFromLocalStorage());
   const [isAuthLoading, setIsAuthLoading] = useState(true);
 
   /********************************************/
@@ -38,11 +47,19 @@ const UserProvider = ({ children }) => {
 
   /********************************************************************/
 
+  /* event listner for changes of isAdmin when another user loggs in*/
+  useEffect(() => {
+    setIsAdminToLocalStorage(isAdmin);
+    console.log("the isAdmin in the localStorage: " + isAdmin);
+  }, [isAdmin]);
+
   /* Auth handlers functions  handleLogout, handleLogin, handleRegister */
   const handleLogout = () => {
     setIsAuthenticated(false);
     setSubjectID("");
+    setIsAdmin(false);
     localStorage.removeItem("subjectID");
+    localStorage.removeItem("isAdmin");
     console.log("isAuthenticated: " + isAuthenticated);
     window.location.reload();
   };
@@ -64,6 +81,7 @@ const UserProvider = ({ children }) => {
       // response.data should contains the subjectID of the user
       const { sub } = response.data;
       setSubjectID(sub);
+      setIsAdmin(response.data.isAdmin);
       setIsAuthenticated(true);
 
       // check (if response.data.isNewUser)
@@ -94,6 +112,7 @@ const UserProvider = ({ children }) => {
         isAuthLoading,
         handleLogin,
         handleLogout,
+        isAdmin,
       }}
     >
       {children}

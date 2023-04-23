@@ -7,7 +7,7 @@ import { useContext } from "react";
 import { UserContext } from "../context/UserContext";
 
 function AppNavbar() {
-  const { isAuthenticated, handleLogin, handleLogout } =
+  const { isAuthenticated, isAdmin, handleLogin, handleLogout } =
     useContext(UserContext);
 
   return (
@@ -39,6 +39,12 @@ function AppNavbar() {
             <Nav.Link href="/generate-calendar">
               <BsCalendar2Range className="mb-2 mr-2" />
               Create Your Study Calendar
+            </Nav.Link>
+          )}
+          {isAdmin && (
+            <Nav.Link href="/admin">
+              <BsCalendar2Range className="mb-2 mr-2" />
+              Admin Dashboard
             </Nav.Link>
           )}
           <Nav.Link className="mr-2" href="/about">
