@@ -15,7 +15,9 @@ const UserProvider = ({ children }) => {
   };
 
   const getIsAdminFromLocalStorage = () => {
-    return localStorage.getItem("isAdmin");
+    const isAdminStr = localStorage.getItem("isAdmin");
+
+    return isAdminStr === "true";
   };
 
   const setIsAdminToLocalStorage = (isAdmin) => {
