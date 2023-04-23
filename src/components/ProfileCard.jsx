@@ -1,5 +1,7 @@
-import { Button, Col, Row, Card } from "react-bootstrap";
+import { Button, Col, Row, Card, Badge } from "react-bootstrap";
 import "../styles/ProfileCard.css";
+import { useContext } from "react";
+import { UserContext } from "../context/UserContext";
 
 const ProfileCard = ({
   name,
@@ -13,6 +15,8 @@ const ProfileCard = ({
   studyOnWeekends,
   onClick,
 }) => {
+  const { isAdmin } = useContext(UserContext);
+
   return (
     <>
       <Row>
@@ -29,6 +33,11 @@ const ProfileCard = ({
               </div>
             </div>
             <div className="lower-container card-body">
+              {isAdmin && (
+                <Badge className="badge-info" pill bg="primary">
+                  Admin
+                </Badge>
+              )}
               <h3 className="card-title">{name}</h3>
               <h5 className="card-subtitle mb-2 text-muted">{email}</h5>
             </div>
