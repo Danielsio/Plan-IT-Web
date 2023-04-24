@@ -42,22 +42,25 @@ function EditCourse() {
       isValid = false; // Name field is empty
     }
 
-    if (course.credits < 1 || credits > 7) {
+    if (course.credits < 1 || course.credits > 7) {
       toast.error("Please Enter credits between 1-7 !");
       isValid = false; // Credits field is invalid
     }
 
-    if (course.difficultyLevel < 1 || difficulty > 10) {
+    if (course.difficultyLevel < 1 || course.difficultyLevel > 10) {
       toast.error("Please Enter difficultyLevel between 1-10 !");
       isValid = false; // Difficulty field is invalid
     }
 
-    if (course.recommendedStudyTime < 1 || studyTime > 30) {
+    if (course.recommendedStudyTime < 1 || course.recommendedStudyTime > 30) {
       toast.error("Please Enter recommended Study Time between 1-30 !");
       isValid = false; // Study time field is invalid
     }
 
-    if (course.subjectsPracticePercentage < 10 || studyTime > 100) {
+    if (
+      course.subjectsPracticePercentage < 10 ||
+      course.subjectsPracticePercentage > 100
+    ) {
       toast.error("Please Enter subjects Practice Percentage between 10-100 !");
       isValid = false; // Study time field is invalid
     }

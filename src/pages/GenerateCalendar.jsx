@@ -23,6 +23,7 @@ import {
   NO_PROBLEM,
   ERROR_FULL_DAY_EVENTS,
   ERROR_NO_EXAMS_FOUND,
+  ERROR_INVALID_GRANT,
 } from "../utill/Constants";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -122,26 +123,21 @@ const GenerateCalendar = () => {
           ) {
             console.log(response.data);
             handleShowModal(response.data.fullDayEvents);
-          } else {
-            console.error(
-              `Error: Unexpected response status code: ${response.status}`
-            );
-            toast.error(
-              "Service UnAvailable. It looks that we have some problems right now. Please try again later."
-            );
           }
         })
         .catch((error) => {
           setLoading(false);
           console.log(error);
 
-          if (
-            error.response.status === 409 &&
-            error.response.data.details === ERROR_NO_EXAMS_FOUND
-          ) {
+          const problem = error.response.data.details;
+          const status = error.response.status;
+          if (status === 409 && problem === ERROR_NO_EXAMS_FOUND) {
             toast.warn(
               `No exams were found between ${start.toLocaleDateString()} and ${end.toLocaleDateString()}.`
             );
+          } else if (problem === ERROR_INVALID_GRANT) {
+            // make it a react component with button to re-sign-in
+            toast.error("Session has expired, Please Sign-in");
           } else {
             toast.error(
               "Service Unavailable. It looks that we have some problems right now. Please try again later."
