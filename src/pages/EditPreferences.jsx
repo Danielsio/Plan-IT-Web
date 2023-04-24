@@ -4,6 +4,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { ClipLoader } from "react-spinners";
 import api from "../api/axiosBackendConfig";
 import { UserContext } from "../context/UserContext";
+import { toast } from "react-toastify";
 
 function EditPreferences() {
   const { subjectID, isAuthenticated, isAuthLoading } = useContext(UserContext);
@@ -76,8 +77,65 @@ function EditPreferences() {
     preferences.studySessionTime = parseInt(preferences.studySessionTime);
   };
 
+  const differenceInMinutes = (startTime, endTime) => {
+    const startTimeDate = new Date(`2022-01-01T${startTime}:00`);
+    const endTimeDate = new Date(`2022-01-01T${endTime}:00`);
+    return (endTimeDate - startTimeDate) / (1000 * 60);
+  };
+
+  const validateForm = () => {
+    let isValid = true;
+
+    const {
+      userStudyStartTime,
+      userStudyEndTime,
+      studySessionTime,
+      userBreakTime,
+    } = userPreferences;
+
+    if (
+      !userStudyStartTime ||
+      !userStudyEndTime ||
+      !studySessionTime ||
+      !userBreakTime
+    ) {
+      toast.error("Please fill out all fields");
+      isValid = false;
+    }
+
+    const diffInMinutes = differenceInMinutes(
+      userStudyStartTime,
+      userStudyEndTime
+    );
+
+    if (studySessionTime < 60 || studySessionTime > 600) {
+      toast.error("Session time should be between 60 and 600 minutes");
+      isValid = false;
+    }
+
+    if (userBreakTime < 15 || userBreakTime > 120) {
+      toast.error("Break time should be between 15 and 120 minutes");
+      isValid = false;
+    }
+
+    console.log("dif =" + diffInMinutes + " session is : " + studySessionTime);
+    if (diffInMinutes < studySessionTime) {
+      toast.error(
+        "The time between start time and end time should be greater than or equal to session time"
+      );
+      isValid = false;
+    }
+
+    return isValid;
+  };
+
   const handleSubmit = (event) => {
     event.preventDefault();
+
+    if (!validateForm()) {
+      return;
+    }
+
     setLoading(true);
     console.log("pref before convert: ");
     console.log(userPreferences);
@@ -88,6 +146,7 @@ function EditPreferences() {
       .post("/profile", userPreferences, { params: { sub: subjectID } })
       .then((response) => {
         setLoading(false);
+        toast.success("Your preferences has been saved successfully");
         // navigate back to profile page
         navigate("/profile");
       })
