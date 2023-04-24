@@ -50,7 +50,7 @@ function AdminDashboardPage() {
         <Col>
           <h2>Course List</h2>
         </Col>
-        <Col className="text-end">
+        <Col className="text-end add-course-btn-col">
           <Button variant="success" onClick={handleAddCourse}>
             Add Course
           </Button>

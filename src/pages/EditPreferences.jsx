@@ -1,5 +1,5 @@
 import React, { useState, useContext, useEffect } from "react";
-import { Container, Form, Button } from "react-bootstrap";
+import { Container, Form, Button, Card, Row, Col } from "react-bootstrap";
 import { useNavigate, useLocation } from "react-router-dom";
 import { ClipLoader } from "react-spinners";
 import api from "../api/axiosBackendConfig";
@@ -136,63 +136,101 @@ function EditPreferences() {
   }
 
   return (
-    <Container className="mx-auto w-50 p-5">
+    <Container className="mx-auto p-5">
       <h1>Edit Preferences</h1>
       <Form onSubmit={handleSubmit}>
-        <Form.Group>
-          <Form.Label>Study Start Time:</Form.Label>
-          <Form.Control
-            type="time"
-            name="userStudyStartTime"
-            value={userPreferences.userStudyStartTime}
-            onChange={handleChange}
-          />
-        </Form.Group>
-        <Form.Group>
-          <Form.Label>Study End Time:</Form.Label>
-          <Form.Control
-            type="time"
-            name="userStudyEndTime"
-            value={userPreferences.userStudyEndTime}
-            onChange={handleChange}
-          />
-        </Form.Group>
-        <Form.Group>
-          <Form.Label>Break Time Size (minutes):</Form.Label>
-          <Form.Control
-            type="number"
-            name="userBreakTime"
-            value={userPreferences.userBreakTime}
-            onChange={handleChange}
-          />
-        </Form.Group>
-        <Form.Group>
-          <Form.Label>Study Session Size (minutes):</Form.Label>
-          <Form.Control
-            type="number"
-            name="studySessionTime"
-            value={userPreferences.studySessionTime}
-            onChange={handleChange}
-          />
-        </Form.Group>
-        <Form.Group>
-          <Form.Check
-            type="checkbox"
-            name="studyOnHolidays"
-            checked={userPreferences.studyOnHolidays}
-            onChange={handleChange}
-            label="Study On Holidays"
-          />
-        </Form.Group>
-        <Form.Group>
-          <Form.Check
-            type="checkbox"
-            name="studyOnWeekends"
-            checked={userPreferences.studyOnWeekends}
-            onChange={handleChange}
-            label="Study On Weekends"
-          />
-        </Form.Group>
+        <Card className="card-container">
+          <Form.Group>
+            <Row className="mt-2 mb-2">
+              <Col>
+                <Form.Label>Study Start Time:</Form.Label>
+              </Col>
+              <Col>
+                <Form.Control
+                  type="time"
+                  name="userStudyStartTime"
+                  value={userPreferences.userStudyStartTime}
+                  onChange={handleChange}
+                />
+              </Col>
+            </Row>
+          </Form.Group>
+
+          {/* <Row className="mb-2 row-preferences">
+            <Col xs={6}>
+              <h6 className="mb-0 title-in-preferences">Study Start Time:</h6>
+            </Col>
+            <Col xs={6}>
+              <h6 className="mb-0">{userStudyStartTime}</h6>
+            </Col>
+          </Row> */}
+
+          <Form.Group>
+            <Row className="mt-2 mb-2">
+              <Col>
+                <Form.Label>Study End Time:</Form.Label>
+              </Col>
+              <Col>
+                <Form.Control
+                  type="time"
+                  name="userStudyEndTime"
+                  value={userPreferences.userStudyEndTime}
+                  onChange={handleChange}
+                />
+              </Col>
+            </Row>
+          </Form.Group>
+          <Form.Group>
+            <Row className="mt-2 mb-2">
+              <Col>
+                <Form.Label>Break Time Size (minutes):</Form.Label>
+              </Col>
+              <Col>
+                <Form.Control
+                  type="number"
+                  name="userBreakTime"
+                  value={userPreferences.userBreakTime}
+                  onChange={handleChange}
+                />
+              </Col>
+            </Row>
+          </Form.Group>
+          <Form.Group>
+            <Row className="mt-2 mb-2">
+              <Col>
+                <Form.Label>Study Session Size (minutes):</Form.Label>
+              </Col>
+              <Col>
+                <Form.Control
+                  type="number"
+                  name="studySessionTime"
+                  value={userPreferences.studySessionTime}
+                  onChange={handleChange}
+                />
+              </Col>
+            </Row>
+          </Form.Group>
+          <Form.Group>
+            <Form.Check
+              className="mt-2 mb-2"
+              type="checkbox"
+              name="studyOnHolidays"
+              checked={userPreferences.studyOnHolidays}
+              onChange={handleChange}
+              label="Study On Holidays"
+            />
+          </Form.Group>
+          <Form.Group>
+            <Form.Check
+              className="mt-2 mb-2"
+              type="checkbox"
+              name="studyOnWeekends"
+              checked={userPreferences.studyOnWeekends}
+              onChange={handleChange}
+              label="Study On Weekends"
+            />
+          </Form.Group>
+        </Card>
         <Button
           className="mt-2 mr-2"
           variant="secondary"

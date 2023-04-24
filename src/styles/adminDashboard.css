@@ -5,3 +5,7 @@
 .add-subject-btn {
   width: fit-content;
 }
+
+.add-course-btn-col {
+  max-width: fit-content;
+}
