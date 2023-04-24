@@ -3,20 +3,9 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import api from "../api/axiosBackendConfig";
 import { UserContext } from "../context/UserContext";
-import {
-  Form,
-  Row,
-  Button,
-  Col,
-  Modal,
-  Card,
-  Container,
-  ToastContainer,
-  Toast,
-} from "react-bootstrap";
+import { Row, Button, Col, Modal, Card, Container } from "react-bootstrap";
 import { ClipLoader } from "react-spinners";
 import "../styles/generateCalendar.css";
-import { FaCalendar } from "react-icons/fa";
 import FullDayEventItem from "../components/FullDayEventItem";
 import ExamItem from "../components/Exam";
 import {
