@@ -37,7 +37,8 @@ const GenerateCalendar = () => {
   const [decisions, setDecisions] = useState([]);
   const [studyPlan, setStudyPlan] = useState(null);
 
-  const { subjectID, isAuthenticated, isAuthLoading } = useContext(UserContext);
+  const { subjectID, isAuthenticated, isAuthLoading, clearUserState } =
+    useContext(UserContext);
 
   const navigate = useNavigate();
 
@@ -82,6 +83,12 @@ const GenerateCalendar = () => {
     } else {
       return true;
     }
+  };
+
+  const clearStateAndRedirect = () => {
+    clearUserState();
+    navigate("/");
+    return;
   };
 
   const handleGenerate = () => {
@@ -136,8 +143,12 @@ const GenerateCalendar = () => {
               `No exams were found between ${start.toLocaleDateString()} and ${end.toLocaleDateString()}.`
             );
           } else if (problem === ERROR_INVALID_GRANT) {
-            // make it a react component with button to re-sign-in
-            toast.error("Session has expired, Please Sign-in");
+            toast.error(
+              <div>
+                <span>Session has expired, Please Sign-in</span>
+                <button onClick={clearStateAndRedirect}>Go to Home</button>
+              </div>
+            );
           } else {
             toast.error(
               "Service Unavailable. It looks that we have some problems right now. Please try again later."

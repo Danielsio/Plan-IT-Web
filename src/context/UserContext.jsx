@@ -35,6 +35,12 @@ const UserProvider = ({ children }) => {
     getIsCompletedFirstSetupFromLocalStorage()
   );
 
+  const clearUserState = () => {
+    setSubjectID("");
+    setIsAdmin(false);
+    setIsCompletedFirstSetup(false);
+  };
+
   /********************************************/
 
   /* event listener for changes in state variables */
@@ -108,6 +114,7 @@ const UserProvider = ({ children }) => {
         setIsAdmin,
         isCompletedFirstSetup,
         setIsCompletedFirstSetup,
+        clearUserState,
       }}
     >
       {children}
