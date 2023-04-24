@@ -5,8 +5,8 @@ import { CgProfile } from "react-icons/cg";
 import { BsCalendar2Range } from "react-icons/bs";
 import { useContext, useEffect } from "react";
 import { UserContext } from "../context/UserContext";
-import { ClipLoader } from "react-spinners";
 import { useNavigate } from "react-router-dom";
+import { MdAdminPanelSettings } from "react-icons/md";
 
 function AppNavbar() {
   const {
@@ -14,23 +14,25 @@ function AppNavbar() {
     isAdmin,
     handleLogin,
     handleLogout,
+    isAuthLoading,
     isCompletedFirstSetup,
-    firstSetupLoading,
   } = useContext(UserContext);
 
   const navigate = useNavigate();
 
   useEffect(() => {
     console.log(
-      "isCompletedFirstSetup is " +
-        isCompletedFirstSetup +
-        "and firstSetupLoading is: " +
-        firstSetupLoading
+      "isAuthenticated: " +
+        isAuthenticated +
+        " and isAuthLoading:" +
+        isAuthLoading +
+        " and isCompletedFirstSetup: " +
+        isCompletedFirstSetup
     );
-    if (!firstSetupLoading && !isCompletedFirstSetup) {
+    if (!isAuthLoading && isAuthenticated && !isCompletedFirstSetup) {
       navigate("/first-setup");
     }
-  }, [isCompletedFirstSetup]);
+  }, [isAuthLoading, isCompletedFirstSetup, isAuthenticated]);
 
   return (
     <Navbar expand="md" className="navbar-bg-color" variant="dark">
@@ -53,19 +55,19 @@ function AppNavbar() {
           </Nav.Link>
           {isAuthenticated && (
             <Nav.Link href="/profile">
-              <CgProfile className="mb-2 mr-1" />
+              <CgProfile className="mb-1 mr-1" />
               Profile
             </Nav.Link>
           )}
           {isAuthenticated && (
             <Nav.Link href="/generate-calendar">
-              <BsCalendar2Range className="mb-2 mr-2" />
+              <BsCalendar2Range className="mb-1 mr-2" />
               Create Your Study Calendar
             </Nav.Link>
           )}
           {isAdmin && (
             <Nav.Link href="/admin">
-              <BsCalendar2Range className="mb-2 mr-2" />
+              <MdAdminPanelSettings className="mb-1 mr-1" />
               Admin Dashboard
             </Nav.Link>
           )}

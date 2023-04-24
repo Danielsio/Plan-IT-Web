@@ -35,7 +35,8 @@ function Profile() {
     }
   };
 
-  const { isAuthenticated, subjectID, isAuthLoading } = useContext(UserContext);
+  const { isAuthenticated, subjectID, isAuthLoading, setIsAdmin } =
+    useContext(UserContext);
   const [userData, setUserData] = useState(null);
   const [loading, setLoading] = useState(true);
 
@@ -59,6 +60,9 @@ function Profile() {
         });
         console.log(response.data);
         setUserData(response.data.user);
+        if (response.data.user.admin) {
+          setIsAdmin(true);
+        }
         setLoading(false);
       } catch (error) {
         console.log(error);

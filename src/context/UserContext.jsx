@@ -10,18 +10,10 @@ const UserProvider = ({ children }) => {
     return localStorage.getItem("subjectID");
   };
 
-  const setSubjectIDToLocalStorage = (sub) => {
-    localStorage.setItem("subjectID", sub);
-  };
-
   const getIsAdminFromLocalStorage = () => {
     const isAdminStr = localStorage.getItem("isAdmin");
 
     return isAdminStr === "true";
-  };
-
-  const setIsAdminToLocalStorage = (isAdmin) => {
-    localStorage.setItem("isAdmin", isAdmin);
   };
 
   const getIsCompletedFirstSetupFromLocalStorage = () => {
@@ -32,9 +24,6 @@ const UserProvider = ({ children }) => {
     return isCompletedFirstSetupStr === "true";
   };
 
-  const setIsIsCompletedFirstSetupToLocalStorage = (isCompletedFirstSetup) => {
-    localStorage.setItem("isCompletedFirstSetup", isCompletedFirstSetup);
-  };
   /********************************************/
 
   /* subjectID & isAuthenticated state values */
@@ -42,43 +31,27 @@ const UserProvider = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [isAdmin, setIsAdmin] = useState(getIsAdminFromLocalStorage());
   const [isAuthLoading, setIsAuthLoading] = useState(true);
-  const [firstSetupLoading, setFirstSetupLoading] = useState(true);
   const [isCompletedFirstSetup, setIsCompletedFirstSetup] = useState(
-    getIsAdminFromLocalStorage()
+    getIsCompletedFirstSetupFromLocalStorage()
   );
 
   /********************************************/
 
-  /* event listner for changes of subjectID when another user loggs in*/
+  /* event listener for changes in state variables */
   useEffect(() => {
-    setSubjectIDToLocalStorage(subjectID);
+    // Save subjectID to local storage
+    localStorage.setItem("subjectID", subjectID);
+
+    // Update authentication status and loading state based on subjectID
+    setIsAuthenticated(!!subjectID);
+
+    // Save isAdmin to local storage
+    localStorage.setItem("isAdmin", isAdmin);
+
+    // Save isCompletedFirstSetup to local storage
+    localStorage.setItem("isCompletedFirstSetup", isCompletedFirstSetup);
     setIsAuthLoading(false);
-
-    console.log("the subVal in the localStorage: " + subjectID);
-
-    if (subjectID === "" || subjectID === "null" || subjectID === null) {
-      setIsAuthenticated(false);
-    } else {
-      setIsAuthenticated(true);
-    }
-  }, [subjectID]);
-
-  /********************************************************************/
-
-  /* event listner for changes of isAdmin when another user loggs in*/
-  useEffect(() => {
-    setIsAdminToLocalStorage(isAdmin);
-    console.log("the isAdmin in the localStorage: " + isAdmin);
-  }, [isAdmin]);
-
-  /* event listner for changes of isCompletedFirstSetup when another user loggs in*/
-  useEffect(() => {
-    setIsAdminToLocalStorage(isCompletedFirstSetup);
-    setFirstSetupLoading(false);
-    console.log(
-      "the isCompletedFirstSetup in the localStorage: " + isCompletedFirstSetup
-    );
-  }, [isCompletedFirstSetup]);
+  }, [subjectID, isAdmin, isCompletedFirstSetup]);
 
   /* Auth handlers functions  handleLogout, handleLogin, handleRegister */
   const handleLogout = () => {
@@ -121,15 +94,6 @@ const UserProvider = ({ children }) => {
 
   /************************************************************************/
 
-  /*a function to extract user's email using access_token
-  const getEmailFromGoogle = async (access_token) => {
-    const res = await fetch(
-      `https://www.googleapis.com/oauth2/v1/userinfo?alt=json&access_token=${access_token}`
-    );
-    const data = await res.json();
-    return data.email;
-  };*/
-
   return (
     <UserContext.Provider
       value={{
@@ -141,9 +105,9 @@ const UserProvider = ({ children }) => {
         handleLogin,
         handleLogout,
         isAdmin,
+        setIsAdmin,
         isCompletedFirstSetup,
         setIsCompletedFirstSetup,
-        firstSetupLoading,
       }}
     >
       {children}
