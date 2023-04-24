@@ -59,7 +59,7 @@ function AdminDashboardPage() {
       {courses != null ? (
         <ListGroup className="mt-3">
           {courses.map((course) => (
-            <CourseItem key={course.id} course={course} />
+            <CourseItem key={course.courseId} course={course} />
           ))}
         </ListGroup>
       ) : (

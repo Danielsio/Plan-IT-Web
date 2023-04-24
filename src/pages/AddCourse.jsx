@@ -5,6 +5,7 @@ import {
   Container,
   ToastContainer,
   Toast,
+  Card,
 } from "react-bootstrap";
 import { useLocation, useNavigate } from "react-router-dom";
 import api from "../api/axiosBackendConfig";
@@ -17,6 +18,19 @@ import {
   COURSE_ALREDY_EXISTS,
 } from "../utill/Constants";
 import { toast } from "react-toastify";
+import "../styles/adminDashboard.css";
+import TextField from "@mui/material/TextField";
+import Box from "@mui/material/Box";
+import MenuItem from "@mui/material/MenuItem";
+import FormControl from "@mui/material/FormControl";
+import Select from "@mui/material/Select";
+import InputLabel from "@mui/material/InputLabel";
+import Slider from "@mui/material/Slider";
+import Grid from "@mui/material/Grid";
+import Typography from "@mui/material/Typography";
+import MuiInput from "@mui/material/Input";
+import VolumeUp from "@mui/icons-material/VolumeUp";
+import { styled } from "@mui/material/styles";
 
 function EditCourse() {
   const location = useLocation();
@@ -31,6 +45,10 @@ function EditCourse() {
     subjectsPracticePercentage: "",
     courseSubjects: [],
   });
+
+  const Input = styled(MuiInput)`
+    width: 42px;
+  `;
 
   const validateForm = () => {
     console.log(course);
@@ -149,101 +167,170 @@ function EditCourse() {
   return (
     <Container className="my-5">
       <h1>Add New Course</h1>
+
       <Form onSubmit={handleSubmit}>
-        <Form.Group controlId="formCourseName">
-          <Form.Label>Course Name</Form.Label>
-          <Form.Control
-            type="text"
-            placeholder="Enter course name"
-            name="courseName"
-            value={course.courseName}
-            onChange={handleInputChange}
-          />
-        </Form.Group>
+        <Card className="card-container">
+          <Form.Group controlId="formCourseName">
+            <TextField
+              className="mt-2 mb-2"
+              fullWidth
+              type="text"
+              label="Course Name"
+              id="outlined-size-normal"
+              name="courseName"
+              defaultValue=""
+              value={course.courseName}
+              onChange={handleInputChange}
+            />
+          </Form.Group>
 
-        <Form.Group controlId="formCourseCredits">
-          <Form.Label>Credits</Form.Label>
-          <Form.Control
-            type="number"
-            placeholder="Enter course credits"
-            value={course.credits}
-            name="credits"
-            onChange={handleInputChange}
-          />
-        </Form.Group>
+          <Form.Group controlId="formCourseCredits">
+            <FormControl fullWidth className="mt-2 mb-2">
+              <InputLabel id="demo-simple-select-label">Credits</InputLabel>
+              <Select
+                labelId="demo-simple-select-label"
+                id="demo-simple-select"
+                value={course.credits}
+                label="Credits"
+                name="credits"
+                onChange={handleInputChange}
+              >
+                <MenuItem value={1}>one</MenuItem>
+                <MenuItem value={2}>two</MenuItem>
+                <MenuItem value={3}>three</MenuItem>
+                <MenuItem value={4}>four</MenuItem>
+                <MenuItem value={5}>five</MenuItem>
+                <MenuItem value={6}>six</MenuItem>
+                <MenuItem value={7}>seven</MenuItem>
+              </Select>
+            </FormControl>
+          </Form.Group>
 
-        <Form.Group controlId="formDifficultyLevel">
-          <Form.Label>Difficulty Level</Form.Label>
-          <Form.Control
-            type="number"
-            placeholder="Enter course difficulty level (1-10)"
-            value={course.difficultyLevel}
-            name="difficultyLevel"
-            onChange={handleInputChange}
-          />
-        </Form.Group>
+          <Form.Group controlId="formDifficultyLevel">
+            <FormControl fullWidth className="mt-2 mb-2">
+              <InputLabel id="demo-simple-select-label">
+                Difficulty Level
+              </InputLabel>
+              <Select
+                labelId="demo-simple-select-label"
+                id="demo-simple-select"
+                value={course.difficultyLevel}
+                label="Difficulty Level"
+                name="difficultyLevel"
+                onChange={handleInputChange}
+              >
+                <MenuItem value={1}>one</MenuItem>
+                <MenuItem value={2}>two</MenuItem>
+                <MenuItem value={3}>three</MenuItem>
+                <MenuItem value={4}>four</MenuItem>
+                <MenuItem value={5}>five</MenuItem>
+                <MenuItem value={6}>six</MenuItem>
+                <MenuItem value={7}>seven</MenuItem>
+                <MenuItem value={8}>eight</MenuItem>
+                <MenuItem value={9}>nine</MenuItem>
+                <MenuItem value={10}>ten</MenuItem>
+              </Select>
+            </FormControl>
+          </Form.Group>
 
-        <Form.Group controlId="formRecommendedStudyTime">
-          <Form.Label>Recommended Study Time (in days)</Form.Label>
-          <Form.Control
-            type="number"
-            placeholder="Enter recommended study time"
-            value={course.recommendedStudyTime}
-            name="recommendedStudyTime"
-            onChange={handleInputChange}
-          />
-        </Form.Group>
+          <Form.Group controlId="formRecommendedStudyTime">
+            <TextField
+              className="mt-2 mb-2"
+              fullWidth
+              id="outlined-number"
+              label="Recommended Study Time (in days)"
+              type="number"
+              value={course.recommendedStudyTime}
+              name="recommendedStudyTime"
+              onChange={handleInputChange}
+              inputProps={{
+                step: 1,
+                min: 1,
+                max: 30,
+                type: "number",
+              }}
+            />
+          </Form.Group>
 
-        <Form.Group controlId="formSubjectsPracticePercentage">
-          <Form.Label>Subjects Practice Percentage </Form.Label>
-          <Form.Control
-            type="number"
-            placeholder="Enter subjects practice percentage (e.g - for 60% type 60)"
-            value={course.subjectsPracticePercentage}
-            name="subjectsPracticePercentage"
-            onChange={handleInputChange}
-          />
-        </Form.Group>
+          <Form.Group controlId="formSubjectsPracticePercentage">
+            <Box sx={{ width: 250 }} className="mt-2 mb-2">
+              <Typography id="input-slider" gutterBottom>
+                Subjects Practice Percentage:
+              </Typography>
+              <Grid container spacing={2} alignItems="center">
+                <Grid item xs>
+                  <Slider
+                    aria-label="Subjects Practice Percentage "
+                    defaultValue={30}
+                    getAriaValueText={valuetext}
+                    name="subjectsPracticePercentage"
+                    valueLabelDisplay="off"
+                    step={10}
+                    marks
+                    min={10}
+                    max={100}
+                    value={course.subjectsPracticePercentage}
+                    onChange={handleInputChange}
+                  />
+                </Grid>
+                <Grid item>
+                  <Typography size="small">
+                    {course.subjectsPracticePercentage}%
+                  </Typography>
+                </Grid>
+              </Grid>
+            </Box>
+          </Form.Group>
 
-        {course.courseSubjects &&
-          course.courseSubjects.map((subject, index) => (
-            <Form.Group controlId={`formSubject${index}`} key={index}>
-              <Form.Label>Subject {index + 1}</Form.Label>
-              <Form.Control
-                type="text"
-                placeholder={`Enter subject ${index + 1}`}
-                value={subject}
-                onChange={(e) => handleSubjectsChange(e, index)}
-              />
-              {index >= 0 && (
-                <Button
-                  variant="danger"
-                  className="mt-2"
-                  onClick={() =>
-                    setCourse((prevCourse) => {
-                      const updatedSubjects = [...prevCourse.courseSubjects];
-                      updatedSubjects.splice(index, 1);
-                      return { ...prevCourse, courseSubjects: updatedSubjects };
-                    })
-                  }
-                >
-                  Remove Subject
-                </Button>
-              )}
-            </Form.Group>
-          ))}
-        <Button
-          variant="secondary"
-          className="mt-2 mr-2"
-          onClick={() =>
-            setCourse((prevCourse) => ({
-              ...prevCourse,
-              courseSubjects: [...prevCourse.courseSubjects, ""],
-            }))
-          }
-        >
-          Add Subject
-        </Button>
+          {course.courseSubjects &&
+            course.courseSubjects.map((subject, index) => (
+              <Form.Group
+                controlId={`formSubject${index}`}
+                key={index}
+                className="mt-3 mb-3"
+              >
+                <TextField
+                  fullWidth
+                  type="text"
+                  label={`Subject #${index + 1}`}
+                  id="outlined-size-normal"
+                  defaultValue=""
+                  value={subject}
+                  onChange={(e) => handleSubjectsChange(e, index)}
+                />
+                {index >= 0 && (
+                  <Button
+                    variant="danger"
+                    className="mt-2"
+                    onClick={() =>
+                      setCourse((prevCourse) => {
+                        const updatedSubjects = [...prevCourse.courseSubjects];
+                        updatedSubjects.splice(index, 1);
+                        return {
+                          ...prevCourse,
+                          courseSubjects: updatedSubjects,
+                        };
+                      })
+                    }
+                  >
+                    Remove Subject
+                  </Button>
+                )}
+              </Form.Group>
+            ))}
+          <Button
+            variant="secondary"
+            className="mt-2 mr-2 add-subject-btn"
+            onClick={() =>
+              setCourse((prevCourse) => ({
+                ...prevCourse,
+                courseSubjects: [...prevCourse.courseSubjects, ""],
+              }))
+            }
+          >
+            Add Subject
+          </Button>
+        </Card>
         <Button
           variant="secondary"
           className="mt-2 mr-2"
@@ -257,6 +344,10 @@ function EditCourse() {
       </Form>
     </Container>
   );
+}
+
+function valuetext(value) {
+  return "${value}%";
 }
 
 export default EditCourse;
