@@ -50,7 +50,7 @@ function AdminDashboardPage() {
         <Col>
           <h2>Course List</h2>
         </Col>
-        <Col className="text-end">
+        <Col className="text-end add-course-btn-col">
           <Button variant="success" onClick={handleAddCourse}>
             Add Course
           </Button>
@@ -59,7 +59,7 @@ function AdminDashboardPage() {
       {courses != null ? (
         <ListGroup className="mt-3">
           {courses.map((course) => (
-            <CourseItem key={course.id} course={course} />
+            <CourseItem key={course.courseId} course={course} />
           ))}
         </ListGroup>
       ) : (

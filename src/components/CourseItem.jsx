@@ -1,16 +1,18 @@
 import React from "react";
 import { Card, Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
+import "../styles/adminDashboard.css";
 
 function CourseItem({ course }) {
   const navigate = useNavigate();
 
   const handleEditClick = () => {
-    navigate(`/admin/edit-course?id=${course.id}`);
+    console.log(course);
+    navigate(`/admin/edit-course?id=${course.courseId}`);
   };
 
   return (
-    <Card className="mb-3">
+    <Card className="mb-3 course-item-card card-container">
       <Card.Body>
         <Card.Title>{course.courseName}</Card.Title>
         <Card.Text>Credits: {course.credits}</Card.Text>

@@ -1,0 +1,11 @@
+.card-container.course-item-card {
+  margin: 0;
+}
+
+.add-subject-btn {
+  width: fit-content;
+}
+
+.add-course-btn-col {
+  max-width: fit-content;
+}
