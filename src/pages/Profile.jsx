@@ -15,6 +15,8 @@ import { ClipLoader } from "react-spinners";
 import { Link, useNavigate } from "react-router-dom";
 import ProfileCard from "../components/ProfileCard";
 import { animated, useSpring } from "react-spring";
+import { ERROR_COULD_NOT_CONNECT_TO_SERVER_CODE } from "../utill/Constants";
+import { toast } from "react-toastify";
 
 function Profile() {
   const convertUserStudyTimeToHours = (userStudyTime) => {
@@ -66,6 +68,11 @@ function Profile() {
         setLoading(false);
       } catch (error) {
         console.log(error);
+        if (error.code === ERROR_COULD_NOT_CONNECT_TO_SERVER_CODE) {
+          toast.error(
+            "Service Unavailable. It looks that we have some problems right now. Please try again later."
+          );
+        }
       }
     };
 

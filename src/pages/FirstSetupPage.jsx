@@ -21,6 +21,7 @@ import { Container } from "react-bootstrap";
 import { ClipLoader } from "react-spinners";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import { ERROR_COULD_NOT_CONNECT_TO_SERVER_CODE } from "../utill/Constants";
 
 const ProgressStepper = () => {
   const navigate = useNavigate();
@@ -79,6 +80,13 @@ const ProgressStepper = () => {
             setIsCompletedFirstSetup(true);
           } else {
             toast.error("some error occurred please try again later.");
+          }
+        })
+        .catch((error) => {
+          if (error.code === ERROR_COULD_NOT_CONNECT_TO_SERVER_CODE) {
+            toast.error(
+              "Service Unavailable. It looks that we have some problems right now. Please try again later."
+            );
           }
         });
     }

@@ -4,6 +4,8 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { ClipLoader } from "react-spinners";
 import api from "../api/axiosBackendConfig";
 import { UserContext } from "../context/UserContext";
+import { ERROR_COULD_NOT_CONNECT_TO_SERVER_CODE } from "../utill/Constants";
+import { toast } from "react-toastify";
 
 function EditPreferences() {
   const { subjectID, isAuthenticated, isAuthLoading } = useContext(UserContext);
@@ -93,6 +95,11 @@ function EditPreferences() {
       })
       .catch((error) => {
         console.log(error);
+        if (error.code === ERROR_COULD_NOT_CONNECT_TO_SERVER_CODE) {
+          toast.error(
+            "Service Unavailable. It looks that we have some problems right now. Please try again later."
+          );
+        }
       });
     // Save the changes to the backend and redirect back to the profile page
   };

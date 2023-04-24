@@ -16,6 +16,7 @@ import {
   ERROR_FULL_DAY_EVENTS,
   ERROR_NO_EXAMS_FOUND,
   COURSE_ALREDY_EXISTS,
+  ERROR_COULD_NOT_CONNECT_TO_SERVER_CODE,
 } from "../utill/Constants";
 import { toast } from "react-toastify";
 import "../styles/adminDashboard.css";
@@ -139,16 +140,22 @@ function EditCourse() {
     } catch (error) {
       console.error(error);
 
-      if (
-        error.response.status === 400 &&
-        error.response.data.succeed === false &&
-        error.response.data.details === COURSE_ALREDY_EXISTS
-      ) {
-        toast.warn(`The course ${course.courseName} already exists.`);
-      } else {
+      if (error.code === ERROR_COULD_NOT_CONNECT_TO_SERVER_CODE) {
         toast.error(
-          "Service UnAvailable. It looks that we have some problems right now. Please try again later."
+          "Service Unavailable. It looks that we have some problems right now. Please try again later."
         );
+      } else {
+        if (
+          error.response.status === 400 &&
+          error.response.data.succeed === false &&
+          error.response.data.details === COURSE_ALREDY_EXISTS
+        ) {
+          toast.warn(`The course ${course.courseName} already exists.`);
+        } else {
+          toast.error(
+            "Service UnAvailable. It looks that we have some problems right now. Please try again later."
+          );
+        }
       }
     }
   };
