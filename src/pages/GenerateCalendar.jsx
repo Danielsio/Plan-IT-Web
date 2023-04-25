@@ -115,7 +115,27 @@ const GenerateCalendar = () => {
           if (response.status === 201 && response.data.details === NO_PROBLEM) {
             console.log(response.data);
             setStudyPlan(response.data.studyPlan);
-            toast.success("Success! Your Calendar Was Succefully Generated.");
+            toast.success(
+              <div>
+                <span>
+                  "Success! Your Calendar Was Succefully Generated. You can view
+                  your plan in Google Calendar."
+                </span>
+                <Button
+                  className="google-calendar-btn col-lg-3 mt-3"
+                  variant="secondary"
+                  size="lg"
+                  onClick={handleOpenCalendar}
+                >
+                  <img
+                    className="mr-2 google-calendar-icon-btn"
+                    src="/Google_Calendar_icon.svg.png"
+                    alt=""
+                  />
+                  Open Google Calendar
+                </Button>
+              </div>
+            );
           } else if (
             response.status === 200 &&
             response.data.details === ERROR_FULL_DAY_EVENTS
@@ -199,7 +219,27 @@ const GenerateCalendar = () => {
         if (response.status === 201) {
           console.log("Calendar Has Been Created Seccessfully !! Hooray !!");
           setStudyPlan(response.data.studyPlan);
-          toast.success("Success! Your Calendar Was Succefully Generated.");
+          toast.success(
+            <div>
+              <span>
+                "Success! Your Calendar Was Succefully Generated. You can view
+                your plan in Google Calendar."
+              </span>
+              <Button
+                className="google-calendar-btn col-lg-3 mt-3"
+                variant="secondary"
+                size="lg"
+                onClick={handleOpenCalendar}
+              >
+                <img
+                  className="mr-2 google-calendar-icon-btn"
+                  src="/Google_Calendar_icon.svg.png"
+                  alt=""
+                />
+                Open Google Calendar
+              </Button>
+            </div>
+          );
         }
       })
       .catch((error) => {
