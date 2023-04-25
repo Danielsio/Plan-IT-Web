@@ -5,6 +5,8 @@ import CourseItem from "../components/CourseItem";
 import { Container, Row, Col, ListGroup, Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { ClipLoader } from "react-spinners";
+import { ERROR_COULD_NOT_CONNECT_TO_SERVER_CODE } from "../utill/Constants";
+import { toast } from "react-toastify";
 
 function AdminDashboardPage() {
   const [isUserAdmin, setIsUserAdmin] = useState(false);
@@ -23,6 +25,13 @@ function AdminDashboardPage() {
           return;
         }
         setIsUserAdmin(true);
+      })
+      .catch((error) => {
+        if (error.code === ERROR_COULD_NOT_CONNECT_TO_SERVER_CODE) {
+          toast.error(
+            "Service Unavailable. It looks that we have some problems right now. Please try again later."
+          );
+        }
       });
   }, []);
 
@@ -36,6 +45,13 @@ function AdminDashboardPage() {
         .then((response) => {
           console.log(response);
           setCourses(response.data.courses);
+        })
+        .catch((error) => {
+          if (error.code === ERROR_COULD_NOT_CONNECT_TO_SERVER_CODE) {
+            toast.error(
+              "Service Unavailable. It looks that we have some problems right now. Please try again later."
+            );
+          }
         });
     }
   }, [isUserAdmin]);

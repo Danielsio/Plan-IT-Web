@@ -15,6 +15,7 @@ import {
   NO_PROBLEM,
   ERROR_FULL_DAY_EVENTS,
   ERROR_NO_EXAMS_FOUND,
+  ERROR_COULD_NOT_CONNECT_TO_SERVER_CODE,
 } from "../utill/Constants";
 import { toast } from "react-toastify";
 import "../styles/adminDashboard.css";
@@ -57,6 +58,12 @@ function EditCourse() {
         setLoading(false);
       } catch (error) {
         console.error(error);
+
+        if (error.code === ERROR_COULD_NOT_CONNECT_TO_SERVER_CODE) {
+          toast.error(
+            "Service Unavailable. It looks that we have some problems right now. Please try again later."
+          );
+        }
       }
     }
 
@@ -100,6 +107,12 @@ function EditCourse() {
       }
     } catch (error) {
       console.error(error);
+
+      if (error.code === ERROR_COULD_NOT_CONNECT_TO_SERVER_CODE) {
+        toast.error(
+          "Service Unavailable. It looks that we have some problems right now. Please try again later."
+        );
+      }
     }
   };
 

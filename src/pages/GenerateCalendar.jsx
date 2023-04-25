@@ -13,6 +13,7 @@ import {
   ERROR_FULL_DAY_EVENTS,
   ERROR_NO_EXAMS_FOUND,
   ERROR_INVALID_GRANT,
+  ERROR_COULD_NOT_CONNECT_TO_SERVER_CODE,
 } from "../utill/Constants";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -58,6 +59,12 @@ const GenerateCalendar = () => {
       } catch (error) {
         console.error(error);
         setStudyPlan(null);
+
+        if (error.code === ERROR_COULD_NOT_CONNECT_TO_SERVER_CODE) {
+          toast.error(
+            "Service Unavailable. It looks that we have some problems right now. Please try again later."
+          );
+        }
       }
     };
 
@@ -149,30 +156,30 @@ const GenerateCalendar = () => {
           dismissAllToastMessages();
           console.log(error);
 
-          const problem = error.response.data.details;
-          const status = error.response.status;
-          if (status === 409 && problem === ERROR_NO_EXAMS_FOUND) {
-            toast.warn(
-              `No exams were found between ${start.toLocaleDateString()} and ${end.toLocaleDateString()}.`
-            );
-          } else if (problem === ERROR_INVALID_GRANT) {
-            toast.error(
-              <div>
-                <span>Session has expired, Please Sign-in</span>
-                <Button
-                  className="google-calendar-btn col-lg-3 mt-3"
-                  variant="secondary"
-                  size="lg"
-                  onClick={clearStateAndRedirect}
-                >
-                  Go to Home
-                </Button>
-              </div>
-            );
-          } else {
+          if (error.code === ERROR_COULD_NOT_CONNECT_TO_SERVER_CODE) {
+
             toast.error(
               "Service Unavailable. It looks that we have some problems right now. Please try again later."
             );
+          } else {
+            const problem = error.response.data.details;
+            const status = error.response.status;
+            if (status === 409 && problem === ERROR_NO_EXAMS_FOUND) {
+              toast.warn(
+                `No exams were found between ${start.toLocaleDateString()} and ${end.toLocaleDateString()}.`
+              );
+            } else if (problem === ERROR_INVALID_GRANT) {
+              toast.error(
+                <div>
+                  <span>Session has expired, Please Sign-in</span>
+                  <button onClick={clearStateAndRedirect}>Go to Home</button>
+                </div>
+              );
+            } else {
+              toast.error(
+                "Service Unavailable. It looks that we have some problems right now. Please try again later."
+              );
+            }
           }
         });
 
@@ -252,7 +259,13 @@ const GenerateCalendar = () => {
       .catch((error) => {
         setLoading(false);
         console.log(error);
-        if (error.response.data.details === ERROR_INVALID_GRANT) {
+
+        if (error.code === ERROR_COULD_NOT_CONNECT_TO_SERVER_CODE) {
+          toast.error(
+            "Service Unavailable. It looks that we have some problems right now. Please try again later."
+          );
+        } else {
+             if (error.response.data.details === ERROR_INVALID_GRANT) {
           toast.error(
             <div>
               <span>Session has expired, Please Sign-in</span>
@@ -265,11 +278,13 @@ const GenerateCalendar = () => {
                 Go to Home
               </Button>
             </div>
-          );
-        } else {
+            );
+          } else {
           toast.error(
             "Service Unavailable. It looks that we have some problems right now. Please try again later."
           );
+          }
+    
         }
       });
 
