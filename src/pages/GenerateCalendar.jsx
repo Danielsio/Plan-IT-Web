@@ -31,6 +31,8 @@ const GenerateCalendar = () => {
 
   const navigate = useNavigate();
 
+  const dismissAllToastMessages = () => toast.dismiss();
+
   const handleDecision = (date) => {
     setDecisions((prevState) => {
       return { ...prevState, [date]: !prevState[date] };
@@ -109,6 +111,7 @@ const GenerateCalendar = () => {
         )
         .then((response) => {
           setLoading(false);
+          dismissAllToastMessages();
           if (response.status === 201 && response.data.details === NO_PROBLEM) {
             console.log(response.data);
             setStudyPlan(response.data.studyPlan);
@@ -123,6 +126,7 @@ const GenerateCalendar = () => {
         })
         .catch((error) => {
           setLoading(false);
+          dismissAllToastMessages();
           console.log(error);
 
           const problem = error.response.data.details;
@@ -144,6 +148,11 @@ const GenerateCalendar = () => {
             );
           }
         });
+
+      toast.info(
+        "We are creating you study plan. This might take a minute or two.",
+        { autoClose: false }
+      );
     }
   };
 
