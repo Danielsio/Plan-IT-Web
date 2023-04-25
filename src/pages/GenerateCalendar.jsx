@@ -32,6 +32,8 @@ const GenerateCalendar = () => {
 
   const navigate = useNavigate();
 
+  const dismissAllToastMessages = () => toast.dismiss();
+
   const handleDecision = (date) => {
     setDecisions((prevState) => {
       return { ...prevState, [date]: !prevState[date] };
@@ -116,10 +118,31 @@ const GenerateCalendar = () => {
         )
         .then((response) => {
           setLoading(false);
+          dismissAllToastMessages();
           if (response.status === 201 && response.data.details === NO_PROBLEM) {
             console.log(response.data);
             setStudyPlan(response.data.studyPlan);
-            toast.success("Success! Your Calendar Was Succefully Generated.");
+            toast.success(
+              <div>
+                <span>
+                  "Success! Your Calendar Was Succefully Generated. You can view
+                  your plan in Google Calendar."
+                </span>
+                <Button
+                  className="google-calendar-btn col-lg-3 mt-3"
+                  variant="secondary"
+                  size="lg"
+                  onClick={handleOpenCalendar}
+                >
+                  <img
+                    className="mr-2 google-calendar-icon-btn"
+                    src="/Google_Calendar_icon.svg.png"
+                    alt=""
+                  />
+                  Open Google Calendar
+                </Button>
+              </div>
+            );
           } else if (
             response.status === 200 &&
             response.data.details === ERROR_FULL_DAY_EVENTS
@@ -130,9 +153,11 @@ const GenerateCalendar = () => {
         })
         .catch((error) => {
           setLoading(false);
+          dismissAllToastMessages();
           console.log(error);
 
           if (error.code === ERROR_COULD_NOT_CONNECT_TO_SERVER_CODE) {
+
             toast.error(
               "Service Unavailable. It looks that we have some problems right now. Please try again later."
             );
@@ -157,6 +182,11 @@ const GenerateCalendar = () => {
             }
           }
         });
+
+      toast.info(
+        "We are creating you study plan. This might take a minute or two.",
+        { autoClose: false }
+      );
     }
   };
 
@@ -203,7 +233,27 @@ const GenerateCalendar = () => {
         if (response.status === 201) {
           console.log("Calendar Has Been Created Seccessfully !! Hooray !!");
           setStudyPlan(response.data.studyPlan);
-          toast.success("Success! Your Calendar Was Succefully Generated.");
+          toast.success(
+            <div>
+              <span>
+                "Success! Your Calendar Was Succefully Generated. You can view
+                your plan in Google Calendar."
+              </span>
+              <Button
+                className="google-calendar-btn col-lg-3 mt-3"
+                variant="secondary"
+                size="lg"
+                onClick={handleOpenCalendar}
+              >
+                <img
+                  className="mr-2 google-calendar-icon-btn"
+                  src="/Google_Calendar_icon.svg.png"
+                  alt=""
+                />
+                Open Google Calendar
+              </Button>
+            </div>
+          );
         }
       })
       .catch((error) => {
@@ -215,11 +265,33 @@ const GenerateCalendar = () => {
             "Service Unavailable. It looks that we have some problems right now. Please try again later."
           );
         } else {
+             if (error.response.data.details === ERROR_INVALID_GRANT) {
+          toast.error(
+            <div>
+              <span>Session has expired, Please Sign-in</span>
+              <Button
+                className="google-calendar-btn col-lg-3 mt-3"
+                variant="secondary"
+                size="lg"
+                onClick={clearStateAndRedirect}
+              >
+                Go to Home
+              </Button>
+            </div>
+            );
+          } else {
           toast.error(
             "Service Unavailable. It looks that we have some problems right now. Please try again later."
           );
+          }
+    
         }
       });
+
+    toast.info(
+      "We are creating you study plan. This might take a minute or two.",
+      { autoClose: false }
+    );
   };
 
   useEffect(() => {
