@@ -209,6 +209,11 @@ const GenerateCalendar = () => {
           "Service Unavailable. It looks that we have some problems right now. Please try again later."
         );
       });
+
+    toast.info(
+      "We are creating you study plan. This might take a minute or two.",
+      { autoClose: false }
+    );
   };
 
   useEffect(() => {
