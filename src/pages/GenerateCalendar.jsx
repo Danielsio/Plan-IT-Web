@@ -252,9 +252,25 @@ const GenerateCalendar = () => {
       .catch((error) => {
         setLoading(false);
         console.log(error);
-        toast.error(
-          "Service Unavailable. It looks that we have some problems right now. Please try again later."
-        );
+        if (error.response.data.details === ERROR_INVALID_GRANT) {
+          toast.error(
+            <div>
+              <span>Session has expired, Please Sign-in</span>
+              <Button
+                className="google-calendar-btn col-lg-3 mt-3"
+                variant="secondary"
+                size="lg"
+                onClick={clearStateAndRedirect}
+              >
+                Go to Home
+              </Button>
+            </div>
+          );
+        } else {
+          toast.error(
+            "Service Unavailable. It looks that we have some problems right now. Please try again later."
+          );
+        }
       });
 
     toast.info(
