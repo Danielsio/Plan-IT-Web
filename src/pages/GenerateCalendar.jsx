@@ -159,7 +159,14 @@ const GenerateCalendar = () => {
             toast.error(
               <div>
                 <span>Session has expired, Please Sign-in</span>
-                <button onClick={clearStateAndRedirect}>Go to Home</button>
+                <Button
+                  className="google-calendar-btn col-lg-3 mt-3"
+                  variant="secondary"
+                  size="lg"
+                  onClick={clearStateAndRedirect}
+                >
+                  Go to Home
+                </Button>
               </div>
             );
           } else {
