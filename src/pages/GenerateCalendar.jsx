@@ -14,6 +14,7 @@ import {
   ERROR_NO_EXAMS_FOUND,
   ERROR_INVALID_GRANT,
   ERROR_COULD_NOT_CONNECT_TO_SERVER_CODE,
+  COLLEGE_CALENDAR_NOT_FOUND,
 } from "../utill/Constants";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -157,7 +158,6 @@ const GenerateCalendar = () => {
           console.log(error);
 
           if (error.code === ERROR_COULD_NOT_CONNECT_TO_SERVER_CODE) {
-
             toast.error(
               "Service Unavailable. It looks that we have some problems right now. Please try again later."
             );
@@ -174,6 +174,13 @@ const GenerateCalendar = () => {
                   <span>Session has expired, Please Sign-in</span>
                   <button onClick={clearStateAndRedirect}>Go to Home</button>
                 </div>
+              );
+            } else if (
+              status === 406 &&
+              problem === COLLEGE_CALENDAR_NOT_FOUND
+            ) {
+              toast.error(
+                "College calendar does not found. Contact the college website to get an explanation of how to connect to their calendar with Google"
               );
             } else {
               toast.error(
@@ -265,26 +272,25 @@ const GenerateCalendar = () => {
             "Service Unavailable. It looks that we have some problems right now. Please try again later."
           );
         } else {
-             if (error.response.data.details === ERROR_INVALID_GRANT) {
-          toast.error(
-            <div>
-              <span>Session has expired, Please Sign-in</span>
-              <Button
-                className="google-calendar-btn col-lg-3 mt-3"
-                variant="secondary"
-                size="lg"
-                onClick={clearStateAndRedirect}
-              >
-                Go to Home
-              </Button>
-            </div>
+          if (error.response.data.details === ERROR_INVALID_GRANT) {
+            toast.error(
+              <div>
+                <span>Session has expired, Please Sign-in</span>
+                <Button
+                  className="google-calendar-btn col-lg-3 mt-3"
+                  variant="secondary"
+                  size="lg"
+                  onClick={clearStateAndRedirect}
+                >
+                  Go to Home
+                </Button>
+              </div>
             );
           } else {
-          toast.error(
-            "Service Unavailable. It looks that we have some problems right now. Please try again later."
-          );
+            toast.error(
+              "Service Unavailable. It looks that we have some problems right now. Please try again later."
+            );
           }
-    
         }
       });
 
