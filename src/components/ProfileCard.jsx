@@ -26,6 +26,10 @@ const ProfileCard = ({
               <div className="image-container d-flex justify-content-center">
                 <img
                   src={pictureUrl}
+                  onError={(e) => {
+                    e.target.onerror = null;
+                    e.target.src = "src/assets/default-profile-image.png";
+                  }}
                   alt="profile Pic"
                   height="100px"
                   width="100px"
