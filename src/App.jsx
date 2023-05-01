@@ -9,6 +9,9 @@ import Footer from "./components/Footer";
 import React, { useContext } from "react";
 import { UserProvider } from "./context/UserContext";
 import AdminDashboard from "./pages/AdminDashboard";
+import AdminCoursesDashboard from "./pages/AdminCoursesDashboard";
+import AdminUsersDashboard from "./pages/AdminUsersDashboard";
+import AdminHolidaysDashboard from "./pages/AdminHolidaysDashboard";
 import EditCourse from "./pages/EditCourse";
 import AddCourse from "./pages/AddCourse";
 import FirstSetupPage from "./pages/FirstSetupPage";
@@ -31,6 +34,19 @@ function App() {
             <Route path="/admin/edit-course" element={<EditCourse />} />
             <Route path="/admin/add-course" element={<AddCourse />} />
             <Route path="/first-setup" element={<FirstSetupPage />} />
+            <Route
+              path="/admin/courses-dashboard"
+              element={<AdminCoursesDashboard />}
+            />
+            <Route
+              path="/admin/users-dashboard"
+              element={<AdminUsersDashboard />}
+            />
+            <Route
+              path="/admin/holidays-dashboard"
+              element={<AdminHolidaysDashboard />}
+            />
+            w
           </Routes>
           <Footer />
         </Router>
