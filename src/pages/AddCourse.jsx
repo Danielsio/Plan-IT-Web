@@ -30,7 +30,6 @@ import Slider from "@mui/material/Slider";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import MuiInput from "@mui/material/Input";
-import VolumeUp from "@mui/icons-material/VolumeUp";
 import { styled } from "@mui/material/styles";
 
 function EditCourse() {
@@ -39,6 +38,7 @@ function EditCourse() {
   const { subjectID } = useContext(UserContext);
   const [loading, setLoading] = useState(false);
   const [course, setCourse] = useState({
+    courseId: "",
     courseName: "",
     credits: "",
     difficultyLevel: "",
@@ -55,6 +55,11 @@ function EditCourse() {
     console.log(course);
 
     let isValid = true;
+
+    if (!isCousreIdValid(course.courseId.trim())) {
+      toast.error("Please Enter Valid Course Id! (6 digits only)");
+      isValid = false; // Id field is invalid
+    }
 
     if (course.courseName.trim() === "") {
       toast.error("Please Enter Course Name !");
@@ -94,6 +99,19 @@ function EditCourse() {
 
     return isValid; // All fields are valid
   };
+
+  function isCousreIdValid(str) {
+    if (str.length !== 6) {
+      return false;
+    }
+    for (let i = 0; i < str.length; i++) {
+      const charCode = str.charCodeAt(i);
+      if (charCode < 48 || charCode > 57) {
+        return false;
+      }
+    }
+    return true;
+  }
 
   const handleInputChange = (event) => {
     const target = event.target;
@@ -177,6 +195,19 @@ function EditCourse() {
 
       <Form onSubmit={handleSubmit}>
         <Card className="card-container">
+          <Form.Group controlId="formCourseId">
+            <TextField
+              className="mt-2 mb-2"
+              fullWidth
+              type="text"
+              label="Course ID"
+              id="outlined-size-normal"
+              name="courseId"
+              defaultValue=""
+              value={course.courseId}
+              onChange={handleInputChange}
+            />
+          </Form.Group>
           <Form.Group controlId="formCourseName">
             <TextField
               className="mt-2 mb-2"
