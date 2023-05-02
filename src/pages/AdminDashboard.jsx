@@ -43,8 +43,15 @@ function AdminDashboardPage() {
     navigate(`/admin/users-dashboard`);
   };
 
-  const navigateToHolidaysDashboard = () => {
-    navigate(`/admin/holidays-dashboard`);
+  const handleUpdateHolidays = () => {
+    api
+      .get("/admin/update-holidays")
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   return (
@@ -69,9 +76,9 @@ function AdminDashboardPage() {
         size="lg"
         variant="success"
         className="w-50 h-100 mb-3 mx-2"
-        onClick={navigateToHolidaysDashboard}
+        onClick={handleUpdateHolidays}
       >
-        Holidays
+        Update Holidays
       </Button>
     </Container>
   );
