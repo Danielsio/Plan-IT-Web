@@ -96,16 +96,6 @@ const ProfileCard = ({
                 <Row className="mb-2">
                   <Col xs={6}>
                     <h6 className="mb-0 title-in-preferences">
-                      Study On Holidays:
-                    </h6>
-                  </Col>
-                  <Col xs={6}>
-                    <h6 className="mb-0">{studyOnHolidays ? "Yes" : "No"}</h6>
-                  </Col>
-                </Row>
-                <Row className="mb-2">
-                  <Col xs={6}>
-                    <h6 className="mb-0 title-in-preferences">
                       Study On Weekends:
                     </h6>
                   </Col>

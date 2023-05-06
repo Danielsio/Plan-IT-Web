@@ -57,7 +57,6 @@ function EditPreferences() {
     userStudyEndTime: oldUserPreferences.userStudyEndTime,
     userBreakTime: oldUserPreferences.userBreakTime,
     studySessionTime: oldUserPreferences.studySessionTime,
-    studyOnHolidays: oldUserPreferences.studyOnHolidays,
     studyOnWeekends: oldUserPreferences.studyOnWeekends,
   });
 
@@ -274,16 +273,6 @@ function EditPreferences() {
                 />
               </Col>
             </Row>
-          </Form.Group>
-          <Form.Group>
-            <Form.Check
-              className="mt-2 mb-2"
-              type="checkbox"
-              name="studyOnHolidays"
-              checked={userPreferences.studyOnHolidays}
-              onChange={handleChange}
-              label="Study On Holidays"
-            />
           </Form.Group>
           <Form.Group>
             <Form.Check

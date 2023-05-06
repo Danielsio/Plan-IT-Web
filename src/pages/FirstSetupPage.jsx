@@ -148,7 +148,7 @@ const ProgressStepper = () => {
     }
   }, [activeStep]);
 
-  const steps = ["Day Study Time", "Session Study Time", "Holidays & Weekends"];
+  const steps = ["Day Study Time", "Session Study Time", "Weekends"];
 
   const stepDescription = {
     0: (
@@ -240,25 +240,8 @@ const ProgressStepper = () => {
         <Grid container spacing={2}>
           <Grid item xs={12}>
             <Typography sx={{ mt: 4, mb: 4, textAlign: "center" }}>
-              Please select the days you want to study:
+              Please check the box below if you want to study on weekends:
             </Typography>
-          </Grid>
-          <Grid item xs={12} sm={6}>
-            <FormControlLabel
-              control={
-                <Checkbox
-                  checked={preferences.studyOnHolidays}
-                  onChange={(e) =>
-                    setPreferences({
-                      ...preferences,
-                      studyOnHolidays: e.target.checked,
-                    })
-                  }
-                  name="studyOnHolidays"
-                />
-              }
-              label="I Want To Study on Holidays"
-            />
           </Grid>
           <Grid item xs={12} sm={6}>
             <FormControlLabel

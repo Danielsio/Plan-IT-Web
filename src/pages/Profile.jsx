@@ -1,20 +1,11 @@
 import React, { useState, useEffect, useContext } from "react";
 import { UserContext } from "../context/UserContext";
 import "../styles/profile.css";
-import {
-  Container,
-  Button,
-  Row,
-  Col,
-  Image,
-  ListGroup,
-  Card,
-} from "react-bootstrap";
+import { Container, Row, Col } from "react-bootstrap";
 import api from "../api/axiosBackendConfig";
 import { ClipLoader } from "react-spinners";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import ProfileCard from "../components/ProfileCard";
-import { animated, useSpring } from "react-spring";
 import { ERROR_COULD_NOT_CONNECT_TO_SERVER_CODE } from "../utill/Constants";
 import { toast } from "react-toastify";
 
@@ -130,7 +121,6 @@ function Profile() {
             }
             userBreakTime={userData.userPreferences.userBreakTime}
             studySessionTime={userData.userPreferences.studySessionTime}
-            studyOnHolidays={userData.userPreferences.studyOnHolidays}
             studyOnWeekends={userData.userPreferences.studyOnWeekends}
             onClick={handleEditPreferences}
           />
