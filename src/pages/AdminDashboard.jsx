@@ -48,9 +48,13 @@ function AdminDashboardPage() {
       .get("/admin/update-holidays")
       .then((response) => {
         console.log(response);
+        toast.success("The holidays were updated successfully.");
       })
       .catch((error) => {
         console.log(error);
+        toast.error(
+          "Service Unavailable. It looks that we have some problems right now. Please try again later."
+        );
       });
   };
 

@@ -63,6 +63,10 @@ function Profile() {
           toast.error(
             "Service Unavailable. It looks that we have some problems right now. Please try again later."
           );
+        } else {
+          toast.error(
+            "Service Unavailable. It looks that we have some problems right now. Please try again later."
+          );
         }
       }
     };

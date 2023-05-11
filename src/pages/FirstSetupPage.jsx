@@ -135,11 +135,17 @@ const ProgressStepper = () => {
             toast.success("your preferences has been saved.");
             setIsCompletedFirstSetup(true);
           } else {
-            toast.error("some error occurred please try again later.");
+            toast.error(
+              "Service Unavailable. It looks that we have some problems right now. Please try again later."
+            );
           }
         })
         .catch((error) => {
           if (error.code === ERROR_COULD_NOT_CONNECT_TO_SERVER_CODE) {
+            toast.error(
+              "Service Unavailable. It looks that we have some problems right now. Please try again later."
+            );
+          } else {
             toast.error(
               "Service Unavailable. It looks that we have some problems right now. Please try again later."
             );

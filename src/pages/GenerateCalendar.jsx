@@ -65,6 +65,10 @@ const GenerateCalendar = () => {
           toast.error(
             "Service Unavailable. It looks that we have some problems right now. Please try again later."
           );
+        } else {
+          toast.error(
+            "Service Unavailable. It looks that we have some problems right now. Please try again later."
+          );
         }
       }
     };
@@ -150,6 +154,10 @@ const GenerateCalendar = () => {
           ) {
             console.log(response.data);
             handleShowModal(response.data.fullDayEvents);
+          } else {
+            toast.error(
+              "Service Unavailable. It looks that we have some problems right now. Please try again later."
+            );
           }
         })
         .catch((error) => {
@@ -172,7 +180,14 @@ const GenerateCalendar = () => {
               toast.error(
                 <div>
                   <span>Session has expired, Please Sign-in</span>
-                  <button onClick={clearStateAndRedirect}>Go to Home</button>
+                  <Button
+                    className="google-calendar-btn col-lg-3 mt-3"
+                    variant="secondary"
+                    size="lg"
+                    onClick={clearStateAndRedirect}
+                  >
+                    Go to Home
+                  </Button>
                 </div>
               );
             } else if (
@@ -237,6 +252,7 @@ const GenerateCalendar = () => {
       })
       .then((response) => {
         setLoading(false);
+        dismissAllToastMessages();
         if (response.status === 201) {
           console.log("Calendar Has Been Created Seccessfully !! Hooray !!");
           setStudyPlan(response.data.studyPlan);
@@ -261,10 +277,15 @@ const GenerateCalendar = () => {
               </Button>
             </div>
           );
+        } else {
+          toast.error(
+            "Service Unavailable. It looks that we have some problems right now. Please try again later."
+          );
         }
       })
       .catch((error) => {
         setLoading(false);
+        dismissAllToastMessages();
         console.log(error);
 
         if (error.code === ERROR_COULD_NOT_CONNECT_TO_SERVER_CODE) {

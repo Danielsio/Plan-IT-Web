@@ -156,6 +156,10 @@ function EditPreferences() {
           toast.error(
             "Service Unavailable. It looks that we have some problems right now. Please try again later."
           );
+        } else {
+          toast.error(
+            "Service Unavailable. It looks that we have some problems right now. Please try again later."
+          );
         }
       });
     // Save the changes to the backend and redirect back to the profile page

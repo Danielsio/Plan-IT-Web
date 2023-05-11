@@ -107,6 +107,10 @@ function EditCourse() {
           toast.error(
             "Service Unavailable. It looks that we have some problems right now. Please try again later."
           );
+        } else {
+          toast.error(
+            "Service Unavailable. It looks that we have some problems right now. Please try again later."
+          );
         }
       }
     }
@@ -152,11 +156,19 @@ function EditCourse() {
         toast.success(
           `Success! The Course ${course.courseName} Has Updated Succefully.`
         );
+      } else {
+        toast.error(
+          "Service Unavailable. It looks that we have some problems right now. Please try again later."
+        );
       }
     } catch (error) {
       console.error(error);
 
       if (error.code === ERROR_COULD_NOT_CONNECT_TO_SERVER_CODE) {
+        toast.error(
+          "Service Unavailable. It looks that we have some problems right now. Please try again later."
+        );
+      } else {
         toast.error(
           "Service Unavailable. It looks that we have some problems right now. Please try again later."
         );

@@ -40,7 +40,6 @@ function AdminUsersDashboard() {
   const { subjectID } = useContext(UserContext);
   useEffect(() => {
     if (isUserAdmin) {
-      console.log("aksdgaks");
       api
         .get("/admin/users", { params: { sub: subjectID } })
         .then((response) => {
