@@ -94,8 +94,8 @@ function EditCourse() {
       const courseId = new URLSearchParams(location.search).get("id");
       console.log(courseId);
       try {
-        const response = await api.get(`/admin/course`, {
-          params: { sub: subjectID, courseId },
+        const response = await api.get(`/admin/courses/${courseId}`, {
+          params: { sub: subjectID },
         });
         setCourse(response.data.courses[0]);
         console.log(response.data.courses[0]);
