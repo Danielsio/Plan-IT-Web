@@ -4,7 +4,10 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { ClipLoader } from "react-spinners";
 import api from "../api/axiosBackendConfig";
 import { UserContext } from "../context/UserContext";
-import { ERROR_COULD_NOT_CONNECT_TO_SERVER_CODE } from "../utill/Constants";
+import {
+  ERROR_COULD_NOT_CONNECT_TO_SERVER_CODE,
+  NO_PROBLEM,
+} from "../utill/Constants";
 import { toast } from "react-toastify";
 
 function EditPreferences() {
@@ -146,9 +149,15 @@ function EditPreferences() {
       .post("/profile", userPreferences, { params: { sub: subjectID } })
       .then((response) => {
         setLoading(false);
-        toast.success("Your preferences has been saved successfully");
-        // navigate back to profile page
-        navigate("/profile");
+        if (response.code === 200 && response.data.details === NO_PROBLEM) {
+          toast.success("Your preferences has been saved successfully");
+          // navigate back to profile page
+          navigate("/profile");
+        } else {
+          toast.error(
+            "Service Unavailable. It looks that we have some problems right now. Please try again later."
+          );
+        }
       })
       .catch((error) => {
         console.log(error);
@@ -157,9 +166,27 @@ function EditPreferences() {
             "Service Unavailable. It looks that we have some problems right now. Please try again later."
           );
         } else {
-          toast.error(
-            "Service Unavailable. It looks that we have some problems right now. Please try again later."
-          );
+          const problem = error.response.data.details;
+          const status = error.response.status;
+          if (status === 400 && problem === ERROR_USER_NOT_FOUND) {
+            toast.error(
+              <div>
+                <span>Session has expired, Please Sign-in</span>
+                <Button
+                  className="google-calendar-btn col-lg-3 mt-3"
+                  variant="secondary"
+                  size="lg"
+                  onClick={clearStateAndRedirect}
+                >
+                  Go to Home
+                </Button>
+              </div>
+            );
+          } else {
+            toast.error(
+              "Service Unavailable. It looks that we have some problems right now. Please try again later."
+            );
+          }
         }
       });
     // Save the changes to the backend and redirect back to the profile page

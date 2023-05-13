@@ -1,7 +1,11 @@
 import React, { createContext, useState, useEffect, useCallback } from "react";
 import api from "../api/axiosBackendConfig";
 import { useGoogleLogin } from "@react-oauth/google";
-import { LOGIN, REGISTER } from "../utill/Constants";
+import {
+  ERROR_ILLEGAL_CHARACTERS_IN_AUTH_CODE,
+  LOGIN,
+  REGISTER,
+} from "../utill/Constants";
 
 const UserContext = createContext(null);
 
@@ -111,9 +115,31 @@ const UserProvider = ({ children }) => {
             "Service Unavailable. It looks that we have some problems right now. Please try again later."
           );
         } else {
-          toast.error(
-            "Service Unavailable. It looks that we have some problems right now. Please try again later."
-          );
+          const problem = error.response.data.details;
+          const status = error.response.status;
+          if (
+            (status === 400 && problem === ERROR_USER_NOT_FOUND) ||
+            (status === 400 &&
+              problem === ERROR_ILLEGAL_CHARACTERS_IN_AUTH_CODE)
+          ) {
+            toast.error(
+              <div>
+                <span>Session has expired, Please Sign-in</span>
+                <Button
+                  className="google-calendar-btn col-lg-3 mt-3"
+                  variant="secondary"
+                  size="lg"
+                  onClick={clearStateAndRedirect}
+                >
+                  Go to Home
+                </Button>
+              </div>
+            );
+          } else {
+            toast.error(
+              "Service Unavailable. It looks that we have some problems right now. Please try again later."
+            );
+          }
         }
       }
     },

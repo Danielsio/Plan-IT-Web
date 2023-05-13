@@ -6,7 +6,10 @@ import api from "../api/axiosBackendConfig";
 import { ClipLoader } from "react-spinners";
 import { useNavigate } from "react-router-dom";
 import ProfileCard from "../components/ProfileCard";
-import { ERROR_COULD_NOT_CONNECT_TO_SERVER_CODE } from "../utill/Constants";
+import {
+  ERROR_COULD_NOT_CONNECT_TO_SERVER_CODE,
+  NO_PROBLEM,
+} from "../utill/Constants";
 import { toast } from "react-toastify";
 
 function Profile() {
@@ -52,10 +55,18 @@ function Profile() {
           params: { sub: subjectID },
         });
         console.log(response.data);
-        setUserData(response.data.user);
-        if (response.data.user.admin) {
-          setIsAdmin(true);
+
+        if (response.code === 200 && response.data.details === NO_PROBLEM) {
+          setUserData(response.data.user);
+          if (response.data.user.admin) {
+            setIsAdmin(true);
+          }
+        } else {
+          toast.error(
+            "Service Unavailable. It looks that we have some problems right now. Please try again later."
+          );
         }
+
         setLoading(false);
       } catch (error) {
         console.log(error);
@@ -64,9 +75,27 @@ function Profile() {
             "Service Unavailable. It looks that we have some problems right now. Please try again later."
           );
         } else {
-          toast.error(
-            "Service Unavailable. It looks that we have some problems right now. Please try again later."
-          );
+          const problem = error.response.data.details;
+          const status = error.response.status;
+          if (status === 400 && problem === ERROR_USER_NOT_FOUND) {
+            toast.error(
+              <div>
+                <span>Session has expired, Please Sign-in</span>
+                <Button
+                  className="google-calendar-btn col-lg-3 mt-3"
+                  variant="secondary"
+                  size="lg"
+                  onClick={clearStateAndRedirect}
+                >
+                  Go to Home
+                </Button>
+              </div>
+            );
+          } else {
+            toast.error(
+              "Service Unavailable. It looks that we have some problems right now. Please try again later."
+            );
+          }
         }
       }
     };
