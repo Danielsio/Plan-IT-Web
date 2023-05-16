@@ -21,7 +21,10 @@ import { Container } from "react-bootstrap";
 import { ClipLoader } from "react-spinners";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
-import { ERROR_COULD_NOT_CONNECT_TO_SERVER_CODE } from "../utill/Constants";
+import {
+  ERROR_COULD_NOT_CONNECT_TO_SERVER_CODE,
+  NO_PROBLEM,
+} from "../utill/Constants";
 
 const ProgressStepper = () => {
   const navigate = useNavigate();
@@ -131,11 +134,13 @@ const ProgressStepper = () => {
         )
         .then((response) => {
           console.log(response.data);
-          if (response.data.succeed) {
-            toast.success("your preferences has been saved.");
+          if (response.code === 200 && response.data.details === NO_PROBLEM) {
+            toast.success("Your preferences have been saved.");
             setIsCompletedFirstSetup(true);
           } else {
-            toast.error("some error occurred please try again later.");
+            toast.error(
+              "Service Unavailable. It looks that we have some problems right now. Please try again later."
+            );
           }
         })
         .catch((error) => {
@@ -143,6 +148,28 @@ const ProgressStepper = () => {
             toast.error(
               "Service Unavailable. It looks that we have some problems right now. Please try again later."
             );
+          } else {
+            const problem = error.response.data.details;
+            const status = error.response.status;
+            if (status === 400 && problem === ERROR_USER_NOT_FOUND) {
+              toast.error(
+                <div>
+                  <span>Session has expired, Please Sign-in</span>
+                  <Button
+                    className="google-calendar-btn col-lg-3 mt-3"
+                    variant="secondary"
+                    size="lg"
+                    onClick={clearStateAndRedirect}
+                  >
+                    Go to Home
+                  </Button>
+                </div>
+              );
+            } else {
+              toast.error(
+                "Service Unavailable. It looks that we have some problems right now. Please try again later."
+              );
+            }
           }
         });
     }

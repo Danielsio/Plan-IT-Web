@@ -16,6 +16,7 @@ import {
   ERROR_FULL_DAY_EVENTS,
   ERROR_NO_EXAMS_FOUND,
   ERROR_COULD_NOT_CONNECT_TO_SERVER_CODE,
+  ERROR_COURSE_NOT_FOUND,
 } from "../utill/Constants";
 import { toast } from "react-toastify";
 import "../styles/adminDashboard.css";
@@ -97,8 +98,15 @@ function EditCourse() {
         const response = await api.get(`/admin/course`, {
           params: { sub: subjectID, courseId },
         });
-        setCourse(response.data.courses[0]);
-        console.log(response.data.courses[0]);
+        if (response.code === 200 && response.data.details === NO_PROBLEM) {
+          setCourse(response.data.courses[0]);
+          console.log(response.data.courses[0]);
+        } else {
+          toast.error(
+            "Service Unavailable. It looks that we have some problems right now. Please try again later."
+          );
+        }
+
         setLoading(false);
       } catch (error) {
         console.error(error);
@@ -107,6 +115,40 @@ function EditCourse() {
           toast.error(
             "Service Unavailable. It looks that we have some problems right now. Please try again later."
           );
+        } else {
+          const problem = error.response.data.details;
+          const status = error.response.status;
+          if (
+            status === 400 &&
+            error.response.data.succeed === false &&
+            problem === ERROR_COURSE_NOT_FOUND
+          ) {
+            toast.warn(
+              `The course ${course.courseName} is not in the our services.`
+            );
+          } else if (status === 401 && problem === ERROR_UNAUTHORIZED_USER) {
+            toast.warn(
+              "Your cannot perform this operation. Refering to your home page."
+            );
+          } else if (status === 400 && problem === ERROR_USER_NOT_FOUND) {
+            toast.error(
+              <div>
+                <span>Session has expired, Please Sign-in</span>
+                <Button
+                  className="google-calendar-btn col-lg-3 mt-3"
+                  variant="secondary"
+                  size="lg"
+                  onClick={clearStateAndRedirect}
+                >
+                  Go to Home
+                </Button>
+              </div>
+            );
+          } else {
+            toast.error(
+              "Service Unavailable. It looks that we have some problems right now. Please try again later."
+            );
+          }
         }
       }
     }
@@ -152,6 +194,10 @@ function EditCourse() {
         toast.success(
           `Success! The Course ${course.courseName} Has Updated Succefully.`
         );
+      } else {
+        toast.error(
+          "Service Unavailable. It looks that we have some problems right now. Please try again later."
+        );
       }
     } catch (error) {
       console.error(error);
@@ -160,6 +206,38 @@ function EditCourse() {
         toast.error(
           "Service Unavailable. It looks that we have some problems right now. Please try again later."
         );
+      } else {
+        const problem = error.response.data.details;
+        const status = error.response.status;
+        if (
+          status === 400 &&
+          error.response.data.succeed === false &&
+          problem === ERROR_COURSE_NOT_FOUND
+        ) {
+          toast.warn(`The course ${course.courseName} is not in our services.`);
+        } else if (status === 401 && problem === ERROR_UNAUTHORIZED_USER) {
+          toast.warn(
+            "Your cannot perform this operation. Refering to your home page."
+          );
+        } else if (status === 400 && problem === ERROR_USER_NOT_FOUND) {
+          toast.error(
+            <div>
+              <span>Session has expired, Please Sign-in</span>
+              <Button
+                className="google-calendar-btn col-lg-3 mt-3"
+                variant="secondary"
+                size="lg"
+                onClick={clearStateAndRedirect}
+              >
+                Go to Home
+              </Button>
+            </div>
+          );
+        } else {
+          toast.error(
+            "Service Unavailable. It looks that we have some problems right now. Please try again later."
+          );
+        }
       }
     }
   };

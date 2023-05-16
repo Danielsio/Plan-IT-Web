@@ -15,6 +15,8 @@ import {
   ERROR_INVALID_GRANT,
   ERROR_COULD_NOT_CONNECT_TO_SERVER_CODE,
   COLLEGE_CALENDAR_NOT_FOUND,
+  ERROR_USER_NOT_FOUND,
+  ERROR_NO_VALID_ACCESS_TOKEN,
 } from "../utill/Constants";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -65,6 +67,28 @@ const GenerateCalendar = () => {
           toast.error(
             "Service Unavailable. It looks that we have some problems right now. Please try again later."
           );
+        } else {
+          const problem = error.response.data.details;
+          const status = error.response.status;
+          if (status === 400 && problem === ERROR_USER_NOT_FOUND) {
+            toast.error(
+              <div>
+                <span>Session has expired, Please Sign-in</span>
+                <Button
+                  className="google-calendar-btn col-lg-3 mt-3"
+                  variant="secondary"
+                  size="lg"
+                  onClick={clearStateAndRedirect}
+                >
+                  Go to Home
+                </Button>
+              </div>
+            );
+          } else {
+            toast.error(
+              "Service Unavailable. It looks that we have some problems right now. Please try again later."
+            );
+          }
         }
       }
     };
@@ -150,6 +174,10 @@ const GenerateCalendar = () => {
           ) {
             console.log(response.data);
             handleShowModal(response.data.fullDayEvents);
+          } else {
+            toast.error(
+              "Service Unavailable. It looks that we have some problems right now. Please try again later."
+            );
           }
         })
         .catch((error) => {
@@ -168,11 +196,22 @@ const GenerateCalendar = () => {
               toast.warn(
                 `No exams were found between ${start.toLocaleDateString()} and ${end.toLocaleDateString()}.`
               );
-            } else if (problem === ERROR_INVALID_GRANT) {
+            } else if (
+              (status === 400 && problem === ERROR_INVALID_GRANT) ||
+              (status === 400 && problem === ERROR_USER_NOT_FOUND) ||
+              (status === 401 && problem === ERROR_NO_VALID_ACCESS_TOKEN)
+            ) {
               toast.error(
                 <div>
                   <span>Session has expired, Please Sign-in</span>
-                  <button onClick={clearStateAndRedirect}>Go to Home</button>
+                  <Button
+                    className="google-calendar-btn col-lg-3 mt-3"
+                    variant="secondary"
+                    size="lg"
+                    onClick={clearStateAndRedirect}
+                  >
+                    Go to Home
+                  </Button>
                 </div>
               );
             } else if (
@@ -237,6 +276,7 @@ const GenerateCalendar = () => {
       })
       .then((response) => {
         setLoading(false);
+        dismissAllToastMessages();
         if (response.status === 201) {
           console.log("Calendar Has Been Created Seccessfully !! Hooray !!");
           setStudyPlan(response.data.studyPlan);
@@ -261,10 +301,15 @@ const GenerateCalendar = () => {
               </Button>
             </div>
           );
+        } else {
+          toast.error(
+            "Service Unavailable. It looks that we have some problems right now. Please try again later."
+          );
         }
       })
       .catch((error) => {
         setLoading(false);
+        dismissAllToastMessages();
         console.log(error);
 
         if (error.code === ERROR_COULD_NOT_CONNECT_TO_SERVER_CODE) {
@@ -272,7 +317,12 @@ const GenerateCalendar = () => {
             "Service Unavailable. It looks that we have some problems right now. Please try again later."
           );
         } else {
-          if (error.response.data.details === ERROR_INVALID_GRANT) {
+          const problem = error.response.data.details;
+          const status = error.response.status;
+          if (
+            (status === 400 && problem === ERROR_INVALID_GRANT) ||
+            (status === 400 && problem === ERROR_USER_NOT_FOUND)
+          ) {
             toast.error(
               <div>
                 <span>Session has expired, Please Sign-in</span>
@@ -285,6 +335,10 @@ const GenerateCalendar = () => {
                   Go to Home
                 </Button>
               </div>
+            );
+          } else if (status === 406 && problem === COLLEGE_CALENDAR_NOT_FOUND) {
+            toast.error(
+              "College calendar does not found. Contact the college website to get an explanation of how to connect to their calendar with Google"
             );
           } else {
             toast.error(

@@ -1,6 +1,11 @@
 import React, { createContext, useState, useEffect, useCallback } from "react";
 import api from "../api/axiosBackendConfig";
 import { useGoogleLogin } from "@react-oauth/google";
+import {
+  ERROR_ILLEGAL_CHARACTERS_IN_AUTH_CODE,
+  LOGIN,
+  REGISTER,
+} from "../utill/Constants";
 
 const UserContext = createContext(null);
 
@@ -80,20 +85,62 @@ const UserProvider = ({ children }) => {
     onSuccess: async (res) => {
       const { code } = res;
 
-      // Send axios post request to backend with response data
-      const response = await api.post("/login", {}, { params: { code: code } });
+      try {
+        // Send axios post request to backend with response data
+        const response = await api.post(
+          "/login",
+          {},
+          { params: { code: code } }
+        );
 
-      console.log(response);
-      // response.data should contains the subjectID of the user
-      const { sub } = response.data;
-      setSubjectID(sub);
-      setIsAdmin(response.data.isAdmin);
-      setIsAuthenticated(true);
+        console.log(response);
+        // response.data should contains the subjectID of the user
+        const { sub } = response.data;
+        setSubjectID(sub);
+        setIsAdmin(response.data.isAdmin);
+        setIsAuthenticated(true);
 
-      if (response.data.details == "Login") {
-        setIsCompletedFirstSetup(true);
-      } else {
-        setIsCompletedFirstSetup(false);
+        if (response.code === 201 && response.data.details == LOGIN) {
+          setIsCompletedFirstSetup(true);
+        } else if (response.code === 200 && response.data.details == REGISTER) {
+          setIsCompletedFirstSetup(false);
+        } else {
+          toast.error(
+            "Service Unavailable. It looks that we have some problems right now. Please try again later."
+          );
+        }
+      } catch (error) {
+        if (error.code === ERROR_COULD_NOT_CONNECT_TO_SERVER_CODE) {
+          toast.error(
+            "Service Unavailable. It looks that we have some problems right now. Please try again later."
+          );
+        } else {
+          const problem = error.response.data.details;
+          const status = error.response.status;
+          if (
+            (status === 400 && problem === ERROR_USER_NOT_FOUND) ||
+            (status === 400 &&
+              problem === ERROR_ILLEGAL_CHARACTERS_IN_AUTH_CODE)
+          ) {
+            toast.error(
+              <div>
+                <span>Session has expired, Please Sign-in</span>
+                <Button
+                  className="google-calendar-btn col-lg-3 mt-3"
+                  variant="secondary"
+                  size="lg"
+                  onClick={clearStateAndRedirect}
+                >
+                  Go to Home
+                </Button>
+              </div>
+            );
+          } else {
+            toast.error(
+              "Service Unavailable. It looks that we have some problems right now. Please try again later."
+            );
+          }
+        }
       }
     },
   });

@@ -3,6 +3,8 @@ import { Card, Button } from "react-bootstrap";
 import "../styles/adminDashboard.css";
 import api from "../api/axiosBackendConfig";
 import { UserContext } from "../context/UserContext";
+import { NO_PROBLEM } from "../utill/Constants";
+import { toast } from "react-toastify";
 
 function UserItem({ profile, admin, id }) {
   const { subjectID } = useContext(UserContext);
@@ -15,6 +17,9 @@ function UserItem({ profile, admin, id }) {
       })
       .then((response) => {
         console.log(response);
+        if (response.code === 200 && response.data.details === NO_PROBLEM) {
+          toast.success(`Success! User ${profile.name} is now an admin.`);
+        }
       })
       .catch((error) => {
         if (error.code === ERROR_COULD_NOT_CONNECT_TO_SERVER_CODE) {
