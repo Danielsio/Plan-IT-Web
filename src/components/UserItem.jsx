@@ -17,7 +17,7 @@ function UserItem({ profile, admin, id }) {
       })
       .then((response) => {
         console.log(response);
-        if (response.code === 200 && response.data.details === NO_PROBLEM) {
+        if (response.status === 200 && response.data.details === NO_PROBLEM) {
           toast.success(`Success! User ${profile.name} is now an admin.`);
         }
       })

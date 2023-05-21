@@ -2,10 +2,12 @@ import React, { createContext, useState, useEffect, useCallback } from "react";
 import api from "../api/axiosBackendConfig";
 import { useGoogleLogin } from "@react-oauth/google";
 import {
+  ERROR_COULD_NOT_CONNECT_TO_SERVER_CODE,
   ERROR_ILLEGAL_CHARACTERS_IN_AUTH_CODE,
   LOGIN,
   REGISTER,
 } from "../utill/Constants";
+import { toast } from "react-toastify";
 
 const UserContext = createContext(null);
 
@@ -71,6 +73,7 @@ const UserProvider = ({ children }) => {
     setIsAdmin(false);
     localStorage.removeItem("subjectID");
     localStorage.removeItem("isAdmin");
+    localStorage.removeItem("isCompletedFirstSetup");
     console.log("isAuthenticated: " + isAuthenticated);
     window.location.reload();
   };
@@ -100,11 +103,17 @@ const UserProvider = ({ children }) => {
         setIsAdmin(response.data.isAdmin);
         setIsAuthenticated(true);
 
-        if (response.code === 201 && response.data.details == LOGIN) {
+        if (response.status === 200 && response.data.details === LOGIN) {
+          console.log("inside if case of 'Login'");
           setIsCompletedFirstSetup(true);
-        } else if (response.code === 200 && response.data.details == REGISTER) {
+        } else if (
+          response.status === 201 &&
+          response.data.details === REGISTER
+        ) {
+          console.log("inside if case of 'Register'");
           setIsCompletedFirstSetup(false);
         } else {
+          console.log("inside else case");
           toast.error(
             "Service Unavailable. It looks that we have some problems right now. Please try again later."
           );

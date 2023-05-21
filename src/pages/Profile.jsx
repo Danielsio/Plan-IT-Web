@@ -54,10 +54,11 @@ function Profile() {
         const response = await api.get("/profile", {
           params: { sub: subjectID },
         });
-        console.log(response.data);
+        console.log(response);
 
-        if (response.code === 200 && response.data.details === NO_PROBLEM) {
+        if (response.status === 200 && response.data.details === NO_PROBLEM) {
           setUserData(response.data.user);
+          console.log(userData);
           if (response.data.user.admin) {
             setIsAdmin(true);
           }
@@ -66,6 +67,7 @@ function Profile() {
             "Service Unavailable. It looks that we have some problems right now. Please try again later."
           );
         }
+        console.log(userData);
 
         setLoading(false);
       } catch (error) {

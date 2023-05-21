@@ -149,7 +149,7 @@ function EditPreferences() {
       .post("/profile", userPreferences, { params: { sub: subjectID } })
       .then((response) => {
         setLoading(false);
-        if (response.code === 200 && response.data.details === NO_PROBLEM) {
+        if (response.status === 200 && response.data.details === NO_PROBLEM) {
           toast.success("Your preferences has been saved successfully");
           // navigate back to profile page
           navigate("/profile");

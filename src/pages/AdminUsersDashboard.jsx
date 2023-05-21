@@ -22,7 +22,7 @@ function AdminUsersDashboard() {
       })
       .then((response) => {
         console.log(response);
-        if (response.code === 200 && response.data.details === NO_PROBLEM) {
+        if (response.status === 200 && response.data.details === NO_PROBLEM) {
           if (!response.data.user.admin) {
             setIsUserAdmin(false);
             navigate("/");
@@ -75,7 +75,7 @@ function AdminUsersDashboard() {
         .get("/admin/users", { params: { sub: subjectID } })
         .then((response) => {
           console.log(response);
-          if (response.code === 200 && response.data.details === NO_PROBLEM) {
+          if (response.status === 200 && response.data.details === NO_PROBLEM) {
             setUsers(response.data.users);
           } else {
             toast.error(

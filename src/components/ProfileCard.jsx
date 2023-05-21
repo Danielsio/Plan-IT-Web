@@ -11,7 +11,6 @@ const ProfileCard = ({
   userStudyEndTime,
   userBreakTime,
   studySessionTime,
-  studyOnHolidays,
   studyOnWeekends,
   onClick,
 }) => {
