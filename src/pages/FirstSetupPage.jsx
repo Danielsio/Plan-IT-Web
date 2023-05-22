@@ -36,7 +36,6 @@ const ProgressStepper = () => {
     userStudyEndTime: "22:00",
     userBreakTime: 30,
     studySessionTime: 120,
-    studyOnHolidays: true,
     studyOnWeekends: true,
   });
 
@@ -133,8 +132,8 @@ const ProgressStepper = () => {
           }
         )
         .then((response) => {
-          console.log(response.data);
-          if (response.code === 200 && response.data.details === NO_PROBLEM) {
+          console.log(response);
+          if (response.status === 200 && response.data.details === NO_PROBLEM) {
             toast.success("Your preferences have been saved.");
             setIsCompletedFirstSetup(true);
           } else {
@@ -144,6 +143,7 @@ const ProgressStepper = () => {
           }
         })
         .catch((error) => {
+          console.log(error);
           if (error.code === ERROR_COULD_NOT_CONNECT_TO_SERVER_CODE) {
             toast.error(
               "Service Unavailable. It looks that we have some problems right now. Please try again later."

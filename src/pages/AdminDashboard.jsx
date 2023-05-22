@@ -22,7 +22,7 @@ function AdminDashboardPage() {
       })
       .then((response) => {
         console.log(response);
-        if (response.code === 200 && response.data.details === NO_PROBLEM) {
+        if (response.status === 200 && response.data.details === NO_PROBLEM) {
           if (!response.data.user.admin) {
             setIsUserAdmin(false);
             navigate("/");
@@ -79,7 +79,7 @@ function AdminDashboardPage() {
       .get("/admin/update-holidays")
       .then((response) => {
         console.log(response);
-        if (response.code === 200 && response.data.details === NO_PROBLEM) {
+        if (response.status === 200 && response.data.details === NO_PROBLEM) {
           toast.success("The holidays were updated successfully.");
         } else {
           toast.error(

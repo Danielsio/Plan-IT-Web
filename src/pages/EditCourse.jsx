@@ -98,7 +98,7 @@ function EditCourse() {
         const response = await api.get(`/admin/courses/${courseId}`, {
           params: { sub: subjectID },
         });
-        if (response.code === 200 && response.data.details === NO_PROBLEM) {
+        if (response.status === 200 && response.data.details === NO_PROBLEM) {
           setCourse(response.data.courses[0]);
           console.log(response.data.courses[0]);
         } else {

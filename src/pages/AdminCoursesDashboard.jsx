@@ -23,7 +23,7 @@ function AdminCoursesDashboard() {
       .then((response) => {
         console.log(response);
 
-        if (response.code === 200 && response.data.details === NO_PROBLEM) {
+        if (response.status === 200 && response.data.details === NO_PROBLEM) {
           if (!response.data.user.admin) {
             setIsUserAdmin(false);
             navigate("/");
@@ -77,7 +77,7 @@ function AdminCoursesDashboard() {
         .get("/admin/courses", { params: { sub: subjectID } })
         .then((response) => {
           console.log(response);
-          if (response.code === 200 && response.data.details === NO_PROBLEM) {
+          if (response.status === 200 && response.data.details === NO_PROBLEM) {
             setCourses(response.data.courses);
           } else {
             toast.error(
