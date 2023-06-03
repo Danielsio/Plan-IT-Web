@@ -132,7 +132,7 @@ function AdminUsersDashboard() {
           {users.map((user) => (
             <ListGroup.Item key={user.subjectId}>
               <UserItem
-                id={user.subjectId}
+                id={user.subjectID}
                 profile={user.profile}
                 admin={user.admin}
               />

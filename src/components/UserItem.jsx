@@ -3,18 +3,25 @@ import { Card, Button } from "react-bootstrap";
 import "../styles/adminDashboard.css";
 import api from "../api/axiosBackendConfig";
 import { UserContext } from "../context/UserContext";
-import { NO_PROBLEM } from "../utill/Constants";
+import {
+  NO_PROBLEM,
+  ERROR_COULD_NOT_CONNECT_TO_SERVER_CODE,
+} from "../utill/Constants";
 import { toast } from "react-toastify";
 
 function UserItem({ profile, admin, id }) {
   const { subjectID } = useContext(UserContext);
 
   const handleMakeAdminClick = () => {
-    console.log(subjectID);
+    console.log("sub= " + subjectID + "userId= " + id);
     api
-      .put("/admin/make-user-admin", {
-        params: { sub: subjectID, useSubId: id },
-      })
+      .put(
+        "/admin/make-user-admin",
+        {},
+        {
+          params: { sub: subjectID, userSubId: id },
+        }
+      )
       .then((response) => {
         console.log(response);
         if (response.status === 200 && response.data.details === NO_PROBLEM) {
