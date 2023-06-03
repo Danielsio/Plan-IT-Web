@@ -76,7 +76,7 @@ function AdminDashboardPage() {
 
   const handleUpdateHolidays = () => {
     api
-      .get("/admin/update-holidays")
+      .put("/admin/update-holidays", {}, { params: { sub: subjectID } })
       .then((response) => {
         console.log(response);
         if (response.status === 200 && response.data.details === NO_PROBLEM) {
