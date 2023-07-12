@@ -175,7 +175,7 @@ function EditCourse() {
   };
 
   const handleCancel = () => {
-    navigate("/admin");
+    navigate("/admin/courses-dashboard");
   };
 
   const handleSubmit = async (event) => {

@@ -133,7 +133,7 @@ function EditCourse() {
   };
 
   const handleCancel = () => {
-    navigate("/admin");
+    navigate("/admin/courses-dashboard");
   };
 
   const handleSubmit = async (event) => {
@@ -156,6 +156,7 @@ function EditCourse() {
         toast.success(
           `Success! The Course ${course.courseName} Has Added Succefully.`
         );
+        window.location.reload(); // Reload the page
       } else {
         toast.error(
           "Service Unavailable. It looks that we have some problems right now. Please try again later."
