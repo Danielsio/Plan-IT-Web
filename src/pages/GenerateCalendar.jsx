@@ -236,6 +236,8 @@ const GenerateCalendar = () => {
     }
   };
 
+  const handleReGenerate = () => {};
+
   const handleOpenCalendar = () => {
     window.open("https://calendar.google.com/", "_blank");
     // we can use "/u/0/r/week/2023/4/17" to open calendar in a specific date
@@ -266,7 +268,7 @@ const GenerateCalendar = () => {
     console.log(JSON.stringify(decisions));
 
     api
-      .post("/generate", decisions, {
+      .post("/scan", decisions, {
         params: {
           sub: subjectID,
 
@@ -480,6 +482,14 @@ const GenerateCalendar = () => {
               </div>
               <Button variant="primary" size="lg" onClick={handleGenerate}>
                 Generate Calendar
+              </Button>
+              <Button
+                className="mt-3"
+                variant="warning"
+                size="lg"
+                onClick={handleReGenerate}
+              >
+                Re-Generate Calendar
               </Button>
 
               {loading && (
