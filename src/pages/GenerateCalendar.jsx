@@ -457,7 +457,7 @@ const GenerateCalendar = () => {
                 <>
                   <h6 className="mb-0 title-in-preferences">Course Name:</h6>
                   <p>{upComingSession.courseName}</p>
-                  <h6 className="mb-0 title-in-preferences">Description:</h6>
+                  <h6 className="mb-0 title-in-preferences">Subject:</h6>
                   <p>{upComingSession.description}</p>
                   <h6 className="mb-0 title-in-preferences">Start Time:</h6>
                   <p>{new Date(upComingSession.startTime).toLocaleString()}</p>
