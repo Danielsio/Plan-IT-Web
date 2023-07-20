@@ -460,9 +460,11 @@ const GenerateCalendar = () => {
                   <h6 className="mb-0 title-in-preferences">Subject:</h6>
                   <p>{upComingSession.description}</p>
                   <h6 className="mb-0 title-in-preferences">Start Time:</h6>
-                  <p>{new Date(upComingSession.startTime).toLocaleString()}</p>
+                  <p>
+                    {new Date(upComingSession.start.value).toLocaleString()}
+                  </p>
                   <h6 className="mb-0 title-in-preferences">End Time:</h6>
-                  <p>{new Date(upComingSession.endTime).toLocaleString()}</p>
+                  <p>{new Date(upComingSession.end.value).toLocaleString()}</p>
                 </>
               ) : (
                 <div>There are no sessions yet.</div>
