@@ -29,6 +29,7 @@ const GenerateCalendar = () => {
   const [fullDayEvents, setFullDayEvents] = useState([]);
   const [decisions, setDecisions] = useState([]);
   const [studyPlan, setStudyPlan] = useState(null);
+  const [upComingSession, setUpComingSession] = useState(null);
 
   const { subjectID, isAuthenticated, isAuthLoading, clearUserState } =
     useContext(UserContext);
@@ -59,6 +60,7 @@ const GenerateCalendar = () => {
         console.log(response.data);
 
         setStudyPlan(response.data.studyPlan);
+        setUpComingSession(response.data.upComingSession);
       } catch (error) {
         console.error(error);
         setStudyPlan(null);
@@ -451,7 +453,20 @@ const GenerateCalendar = () => {
           <Card className="card-container generate-plan-card">
             <Card.Body>
               <Card.Title>Upcoming Study Session:</Card.Title>
-              <Card.Text></Card.Text>
+              {upComingSession ? (
+                <>
+                  <h6 className="mb-0 title-in-preferences">Course Name:</h6>
+                  <p>{upComingSession.courseName}</p>
+                  <h6 className="mb-0 title-in-preferences">Description:</h6>
+                  <p>{upComingSession.description}</p>
+                  <h6 className="mb-0 title-in-preferences">Start Time:</h6>
+                  <p>{new Date(upComingSession.startTime).toLocaleString()}</p>
+                  <h6 className="mb-0 title-in-preferences">End Time:</h6>
+                  <p>{new Date(upComingSession.endTime).toLocaleString()}</p>
+                </>
+              ) : (
+                <div>There are no sessions yet.</div>
+              )}
             </Card.Body>
           </Card>
         </Col>
