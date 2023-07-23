@@ -80,7 +80,9 @@ const UserProvider = ({ children }) => {
 
   const handleLogin = useGoogleLogin({
     scope: "email profile openid https://www.googleapis.com/auth/calendar",
-    redirect_uri: "http://localhost:3000",
+    redirect_uri: import.meta.env.DEV
+      ? "http://localhost:3000"
+      : "https://plan-it-web-mu.vercel.app",
     flow: "auth-code",
     onError: (err) => {
       console.error(err);
