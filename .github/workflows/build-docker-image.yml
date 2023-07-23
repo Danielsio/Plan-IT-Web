@@ -1,0 +1,53 @@
+name: build-docker-image
+on: push
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+      - name: Build and export
+        uses: docker/build-push-action@v3
+        with:
+          context: .
+          file: ./Dockerfile
+          tags: plan-it-web:latest, ${{ secrets.DOCKER_USERNAME }}/plan-it-web:latest
+          outputs: type=docker,dest=/tmp/image.tar
+      - name: Upload artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: plan-it-web
+          path: /tmp/image.tar
+
+  upload:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      #    1. download image and run it in a container
+      - name: Download artifact
+        uses: actions/download-artifact@v3 # downloads all artifacts
+
+      - name: Load Docker images from previous workflows
+        run: docker load --input plan-it-web/image.tar
+
+      - name: check plan-it-web image is loaded
+        run: docker image ls
+
+      - name: Set DATE
+        run: echo "DATE=$(date -I)" >> $GITHUB_ENV
+
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: push image with "latest" and date tags to DH
+        run: |
+          docker push ${{ secrets.DOCKER_USERNAME }}/plan-it-web
+          docker tag ${{ secrets.DOCKER_USERNAME }}/plan-it-web \
+          ${{ secrets.DOCKER_USERNAME }}/plan-it-web:${{ env.DATE }}
+          docker push \
+          ${{ secrets.DOCKER_USERNAME }}/plan-it-web:${{ env.DATE }}
