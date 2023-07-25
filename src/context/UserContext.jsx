@@ -82,7 +82,7 @@ const UserProvider = ({ children }) => {
     scope: "email profile openid https://www.googleapis.com/auth/calendar",
     redirect_uri: import.meta.env.DEV
       ? "http://localhost:3000"
-      : "https://plan-it-web-mu.vercel.app",
+      : "https://plan-it-web-seven.vercel.app",
     flow: "auth-code",
     onError: (err) => {
       console.error(err);
