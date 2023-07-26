@@ -1,21 +1,17 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useContext } from "react";
 import {
   Form,
   Button,
   Container,
-  ToastContainer,
-  Toast,
   Card,
 } from "react-bootstrap";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import api from "../api/axiosBackendConfig";
 import { UserContext } from "../context/UserContext";
 import { ClipLoader } from "react-spinners";
 import {
   NO_PROBLEM,
-  ERROR_FULL_DAY_EVENTS,
-  ERROR_NO_EXAMS_FOUND,
-  COURSE_ALREDY_EXISTS,
+  COURSE_ALREADY_EXISTS,
   ERROR_COULD_NOT_CONNECT_TO_SERVER_CODE,
   ERROR_UNAUTHORIZED_USER,
 } from "../utill/Constants";
@@ -31,11 +27,9 @@ import Slider from "@mui/material/Slider";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import MuiInput from "@mui/material/Input";
-import VolumeUp from "@mui/icons-material/VolumeUp";
 import { styled } from "@mui/material/styles";
 
 function EditCourse() {
-  const location = useLocation();
   const navigate = useNavigate();
   const { subjectID } = useContext(UserContext);
   const [loading, setLoading] = useState(false);
@@ -175,7 +169,7 @@ function EditCourse() {
         if (
           status === 400 &&
           error.response.data.succeed === false &&
-          problem === COURSE_ALREDY_EXISTS
+          problem === COURSE_ALREADY_EXISTS
         ) {
           toast.warn(`The course ${course.courseName} already exists.`);
         } else if (status === 401 && problem === ERROR_UNAUTHORIZED_USER) {

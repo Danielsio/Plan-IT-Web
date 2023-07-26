@@ -1,7 +1,7 @@
 import React, { useEffect, useContext, useState } from "react";
 import api from "../api/axiosBackendConfig";
 import { UserContext } from "../context/UserContext";
-import { Container, Row, Col, ListGroup, Button } from "react-bootstrap";
+import { Container, Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import {
   ERROR_COULD_NOT_CONNECT_TO_SERVER_CODE,

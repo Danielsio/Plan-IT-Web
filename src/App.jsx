@@ -6,7 +6,7 @@ import GenerateCalendar from "./pages/GenerateCalendar";
 import EditPreferences from "./pages/EditPreferences";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
-import React, { useContext } from "react";
+import React from "react";
 import { UserProvider } from "./context/UserContext";
 import AdminDashboard from "./pages/AdminDashboard";
 import AdminCoursesDashboard from "./pages/AdminCoursesDashboard";

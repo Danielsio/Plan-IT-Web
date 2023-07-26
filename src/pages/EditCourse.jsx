@@ -3,8 +3,6 @@ import {
   Form,
   Button,
   Container,
-  ToastContainer,
-  Toast,
   Card,
 } from "react-bootstrap";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -13,8 +11,6 @@ import { UserContext } from "../context/UserContext";
 import { ClipLoader } from "react-spinners";
 import {
   NO_PROBLEM,
-  ERROR_FULL_DAY_EVENTS,
-  ERROR_NO_EXAMS_FOUND,
   ERROR_COULD_NOT_CONNECT_TO_SERVER_CODE,
   ERROR_COURSE_NOT_FOUND,
 } from "../utill/Constants";
@@ -29,9 +25,6 @@ import InputLabel from "@mui/material/InputLabel";
 import Slider from "@mui/material/Slider";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
-import MuiInput from "@mui/material/Input";
-import VolumeUp from "@mui/icons-material/VolumeUp";
-import { styled } from "@mui/material/styles";
 
 function EditCourse() {
   const location = useLocation();
