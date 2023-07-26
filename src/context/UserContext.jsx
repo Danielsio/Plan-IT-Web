@@ -102,7 +102,7 @@ const UserProvider = ({children}) => {
                 const response = await api.post(
                     "/login",
                     {},
-                    {params: {code: code}}
+                    {params: { code: code, isDev: import.meta.env.DEV }}
                 );
 
                 console.log(response);
