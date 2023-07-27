@@ -13,8 +13,14 @@ import UserItem from "../components/UserItem";
 
 function AdminUsersDashboard() {
   const [isUserAdmin, setIsUserAdmin] = useState(false);
-
+  const { subjectID, clearUserState } = useContext(UserContext);
   const navigate = useNavigate();
+
+  function clearStateAndRedirect() {
+    clearUserState()
+    navigate("/")
+  }
+
   useEffect(() => {
     api
       .get("/profile", {
@@ -68,7 +74,6 @@ function AdminUsersDashboard() {
 
   const [users, setUsers] = useState(null);
 
-  const { subjectID } = useContext(UserContext);
   useEffect(() => {
     if (isUserAdmin) {
       api

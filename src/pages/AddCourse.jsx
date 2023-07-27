@@ -31,7 +31,7 @@ import { styled } from "@mui/material/styles";
 
 function EditCourse() {
   const navigate = useNavigate();
-  const { subjectID } = useContext(UserContext);
+  const { subjectID, clearUserState } = useContext(UserContext);
   const [loading, setLoading] = useState(false);
   const [course, setCourse] = useState({
     courseId: "",
@@ -52,7 +52,7 @@ function EditCourse() {
 
     let isValid = true;
 
-    if (!isCousreIdValid(course.courseId.trim())) {
+    if (!isCourseIdValid(course.courseId.trim())) {
       toast.error("Please Enter Valid Course Id! (6 digits only)");
       isValid = false; // Id field is invalid
     }
@@ -96,7 +96,7 @@ function EditCourse() {
     return isValid; // All fields are valid
   };
 
-  function isCousreIdValid(str) {
+  function isCourseIdValid(str) {
     if (str.length !== 6) {
       return false;
     }
@@ -198,6 +198,11 @@ function EditCourse() {
       }
     }
   };
+
+  function clearStateAndRedirect() {
+    clearUserState()
+    navigate("/")
+  }
 
   if (loading) {
     return (
