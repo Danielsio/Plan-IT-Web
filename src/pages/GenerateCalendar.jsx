@@ -113,7 +113,6 @@ const GenerateCalendar = () => {
   const clearStateAndRedirect = () => {
     clearUserState();
     navigate("/");
-    return;
   };
 
   const handleGenerate = () => {
@@ -152,7 +151,7 @@ const GenerateCalendar = () => {
             toast.success(
               <div>
                 <span>
-                  "Success! Your Calendar Was Succefully Generated. You can view
+                  "Success! Your Calendar Was Successfully Generated. You can view
                   your plan in Google Calendar."
                 </span>
                 <Button
@@ -282,12 +281,12 @@ const GenerateCalendar = () => {
         setLoading(false);
         dismissAllToastMessages();
         if (response.status === 201) {
-          console.log("Calendar Has Been Created Seccessfully !! Hooray !!");
+          console.log("Calendar Has Been Created Successfully !! Hooray !!");
           setStudyPlan(response.data.studyPlan);
           toast.success(
             <div>
               <span>
-                "Success! Your Calendar Was Succefully Generated. You can view
+                "Success! Your Calendar Was Successfully Generated. You can view
                 your plan in Google Calendar."
               </span>
               <Button
