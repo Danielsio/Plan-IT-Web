@@ -240,7 +240,94 @@ const GenerateCalendar = () => {
     }
   };
 
-  const handleReGenerate = () => {};
+  const handleReGenerate = () => {
+    setLoading(true);
+    api
+        .post(
+            "/re-generate",
+            {},
+            {
+              params: {
+                sub: subjectID,
+              },
+            }
+        )
+        .then((response) => {
+          setLoading(false);
+          dismissAllToastMessages();
+          if (response.status === 201 && response.data.details === NO_PROBLEM) {
+            console.log(response.data);
+            setStudyPlan(response.data.studyPlan);
+            toast.success(
+                <div>
+                <span>
+                  "Success! Your Calendar Was Successfully Re-Generated. You can view
+                  your plan in Google Calendar."
+                </span>
+                  <Button
+                      className="google-calendar-btn col-lg-3 mt-3"
+                      variant="secondary"
+                      size="lg"
+                      onClick={handleOpenCalendar}
+                  >
+                    <img
+                        className="mr-2 google-calendar-icon-btn"
+                        src="/Google_Calendar_icon.svg.png"
+                        alt=""
+                    />
+                    Open Google Calendar
+                  </Button>
+                </div>
+            );
+          } else {
+            toast.error(
+                "Service Unavailable. It looks that we have some problems right now. Please try again later."
+            );
+          }
+        })
+        .catch((error) => {
+          setLoading(false);
+          dismissAllToastMessages();
+          console.log(error);
+
+          if (error.code === ERROR_COULD_NOT_CONNECT_TO_SERVER_CODE) {
+            toast.error(
+                "Service Unavailable. It looks that we have some problems right now. Please try again later."
+            );
+          } else {
+            const problem = error.response.data.details;
+            const status = error.response.status;
+            if (
+                (status === 400 && problem === ERROR_INVALID_GRANT) ||
+                (status === 400 && problem === ERROR_USER_NOT_FOUND) ||
+                (status === 401 && problem === ERROR_NO_VALID_ACCESS_TOKEN)
+            ) {
+              toast.error(
+                  <div>
+                    <span>Session has expired, Please Sign-in</span>
+                    <Button
+                        className="google-calendar-btn col-lg-3 mt-3"
+                        variant="secondary"
+                        size="lg"
+                        onClick={clearStateAndRedirect}
+                    >
+                      Go to Home
+                    </Button>
+                  </div>
+              );
+            } else {
+              toast.error(
+                  "Service Unavailable. It looks that we have some problems right now. Please try again later."
+              );
+            }
+          }
+        });
+
+    toast.info(
+        "We are creating you study plan. This might take a minute or two.",
+        { autoClose: false }
+    );
+  };
 
   const handleOpenCalendar = () => {
     window.open("https://calendar.google.com/", "_blank");
