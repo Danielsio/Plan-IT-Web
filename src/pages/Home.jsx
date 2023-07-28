@@ -33,8 +33,8 @@ const Home = () => {
             <img
               alt="PlanIT-logo"
               src="/PlanIT- logo and slogen white.png"
-              width="600"
-              height="338"
+              width="60%"
+              height="45%"
               className="d-inline-block align-top navbar-logo"
             />{" "}
               <h3 className="font-weight-bold h4">
