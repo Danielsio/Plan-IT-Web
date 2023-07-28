@@ -86,6 +86,7 @@ const UserProvider = ({children}) => {
         setIsAuthenticated(false);
         setSubjectID("");
         setIsAdmin(false);
+        setIsCompletedFirstSetup(false);
         localStorage.removeItem("subjectID");
         localStorage.removeItem("isAdmin");
         localStorage.removeItem("isCompletedFirstSetup");
@@ -121,16 +122,14 @@ const UserProvider = ({children}) => {
                 setIsAuthenticated(true);
 
                 if (response.status === 200 && response.data.details === LOGIN) {
-                    console.log("inside if case of 'Login'");
                     setIsCompletedFirstSetup(true);
+                    navigate("/generate-calendar")
                 } else if (
                     response.status === 201 &&
                     response.data.details === REGISTER
                 ) {
-                    console.log("inside if case of 'Register'");
                     setIsCompletedFirstSetup(false);
                 } else {
-                    console.log("inside else case");
                     toast.error(
                         "Service Unavailable. It looks that we have some problems right now. Please try again later."
                     );

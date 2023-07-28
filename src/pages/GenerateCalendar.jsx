@@ -20,7 +20,7 @@ import {
 } from "../utill/Constants";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import {Skeleton} from "@mui/lab";
+import {Skeleton} from "@mui/material";
 
 const GenerateCalendar = () => {
   const [startDate, setStartDate] = useState(new Date());
