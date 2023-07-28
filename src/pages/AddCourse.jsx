@@ -13,7 +13,7 @@ import {
   NO_PROBLEM,
   COURSE_ALREADY_EXISTS,
   ERROR_COULD_NOT_CONNECT_TO_SERVER_CODE,
-  ERROR_UNAUTHORIZED_USER,
+  ERROR_UNAUTHORIZED_USER, ERROR_USER_NOT_FOUND,
 } from "../utill/Constants";
 import { toast } from "react-toastify";
 import "../styles/adminDashboard.css";
@@ -31,7 +31,7 @@ import { styled } from "@mui/material/styles";
 
 function EditCourse() {
   const navigate = useNavigate();
-  const { subjectID } = useContext(UserContext);
+  const { subjectID, clearStateAndRedirect } = useContext(UserContext);
   const [loading, setLoading] = useState(false);
   const [course, setCourse] = useState({
     courseId: "",

@@ -5,7 +5,7 @@ import { Container, ListGroup, Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { ClipLoader } from "react-spinners";
 import {
-  ERROR_COULD_NOT_CONNECT_TO_SERVER_CODE,
+  ERROR_COULD_NOT_CONNECT_TO_SERVER_CODE, ERROR_UNAUTHORIZED_USER, ERROR_USER_NOT_FOUND,
   NO_PROBLEM,
 } from "../utill/Constants";
 import { toast } from "react-toastify";
@@ -13,7 +13,7 @@ import UserItem from "../components/UserItem";
 
 function AdminUsersDashboard() {
   const [isUserAdmin, setIsUserAdmin] = useState(false);
-
+  const { subjectID, clearStateAndRedirect } = useContext(UserContext);
   const navigate = useNavigate();
   useEffect(() => {
     api
@@ -68,7 +68,6 @@ function AdminUsersDashboard() {
 
   const [users, setUsers] = useState(null);
 
-  const { subjectID } = useContext(UserContext);
   useEffect(() => {
     if (isUserAdmin) {
       api

@@ -1,13 +1,13 @@
 import React, { useState, useEffect, useContext } from "react";
 import { UserContext } from "../context/UserContext";
 import "../styles/profile.css";
-import { Container, Row, Col } from "react-bootstrap";
+import {Container, Row, Col, Button} from "react-bootstrap";
 import api from "../api/axiosBackendConfig";
 import { ClipLoader } from "react-spinners";
 import { useNavigate } from "react-router-dom";
 import ProfileCard from "../components/ProfileCard";
 import {
-  ERROR_COULD_NOT_CONNECT_TO_SERVER_CODE,
+  ERROR_COULD_NOT_CONNECT_TO_SERVER_CODE, ERROR_USER_NOT_FOUND,
   NO_PROBLEM,
 } from "../utill/Constants";
 import { toast } from "react-toastify";
@@ -31,7 +31,7 @@ function Profile() {
     }
   };
 
-  const { isAuthenticated, subjectID, isAuthLoading, setIsAdmin } =
+  const { isAuthenticated, subjectID, isAuthLoading, setIsAdmin, clearStateAndRedirect } =
     useContext(UserContext);
   const [userData, setUserData] = useState(null);
   const [loading, setLoading] = useState(true);

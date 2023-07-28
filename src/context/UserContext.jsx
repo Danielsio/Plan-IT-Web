@@ -10,10 +10,13 @@ import {
 } from "../utill/Constants";
 import {toast} from "react-toastify";
 import {Button} from "react-bootstrap";
+import {useNavigate} from "react-router-dom";
 
 const UserContext = createContext(null);
 
 const UserProvider = ({children}) => {
+
+    const navigate = useNavigate()
     /* local storage functions */
     const getSubjectIDFromLocalStorage = () => {
         const sub = localStorage.getItem("subjectID");
@@ -55,6 +58,11 @@ const UserProvider = ({children}) => {
         setIsCompletedFirstSetup(false);
     };
 
+    const clearStateAndRedirect = () => {
+        clearUserState()
+        navigate("/")
+    }
+
     /********************************************/
 
     /* event listener for changes in state variables */
@@ -78,6 +86,7 @@ const UserProvider = ({children}) => {
         setIsAuthenticated(false);
         setSubjectID("");
         setIsAdmin(false);
+        setIsCompletedFirstSetup(false);
         localStorage.removeItem("subjectID");
         localStorage.removeItem("isAdmin");
         localStorage.removeItem("isCompletedFirstSetup");
@@ -113,16 +122,14 @@ const UserProvider = ({children}) => {
                 setIsAuthenticated(true);
 
                 if (response.status === 200 && response.data.details === LOGIN) {
-                    console.log("inside if case of 'Login'");
                     setIsCompletedFirstSetup(true);
+                    navigate("/generate-calendar")
                 } else if (
                     response.status === 201 &&
                     response.data.details === REGISTER
                 ) {
-                    console.log("inside if case of 'Register'");
                     setIsCompletedFirstSetup(false);
                 } else {
-                    console.log("inside else case");
                     toast.error(
                         "Service Unavailable. It looks that we have some problems right now. Please try again later."
                     );
@@ -179,7 +186,7 @@ const UserProvider = ({children}) => {
                 setIsAdmin,
                 isCompletedFirstSetup,
                 setIsCompletedFirstSetup,
-                clearUserState,
+                clearStateAndRedirect,
             }}
         >
             {children}

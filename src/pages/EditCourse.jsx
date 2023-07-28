@@ -12,7 +12,7 @@ import { ClipLoader } from "react-spinners";
 import {
   NO_PROBLEM,
   ERROR_COULD_NOT_CONNECT_TO_SERVER_CODE,
-  ERROR_COURSE_NOT_FOUND,
+  ERROR_COURSE_NOT_FOUND, ERROR_UNAUTHORIZED_USER, ERROR_USER_NOT_FOUND,
 } from "../utill/Constants";
 import { toast } from "react-toastify";
 import "../styles/adminDashboard.css";
@@ -29,7 +29,7 @@ import Typography from "@mui/material/Typography";
 function EditCourse() {
   const location = useLocation();
   const navigate = useNavigate();
-  const { subjectID } = useContext(UserContext);
+  const { subjectID, clearStateAndRedirect } = useContext(UserContext);
   const [loading, setLoading] = useState(false);
   const [course, setCourse] = useState({
     courseName: "",
@@ -210,7 +210,7 @@ function EditCourse() {
           toast.warn(`The course ${course.courseName} is not in our services.`);
         } else if (status === 401 && problem === ERROR_UNAUTHORIZED_USER) {
           toast.warn(
-            "Your cannot perform this operation. Refering to your home page."
+            "Your cannot perform this operation. Referring to your home page."
           );
         } else if (status === 400 && problem === ERROR_USER_NOT_FOUND) {
           toast.error(
