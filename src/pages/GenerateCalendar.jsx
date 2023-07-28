@@ -33,7 +33,7 @@ const GenerateCalendar = () => {
   const [studyPlan, setStudyPlan] = useState(null);
   const [upComingSession, setUpComingSession] = useState(null);
 
-  const { subjectID, isAuthenticated, isAuthLoading, clearUserState } =
+  const { subjectID, isAuthenticated, isAuthLoading, clearStateAndRedirect } =
     useContext(UserContext);
 
   const navigate = useNavigate();
@@ -111,11 +111,6 @@ const GenerateCalendar = () => {
     } else {
       return true;
     }
-  };
-
-  const clearStateAndRedirect = () => {
-    clearUserState();
-    navigate("/");
   };
 
   const handleGenerate = () => {

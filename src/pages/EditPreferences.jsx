@@ -5,13 +5,13 @@ import { ClipLoader } from "react-spinners";
 import api from "../api/axiosBackendConfig";
 import { UserContext } from "../context/UserContext";
 import {
-  ERROR_COULD_NOT_CONNECT_TO_SERVER_CODE,
+  ERROR_COULD_NOT_CONNECT_TO_SERVER_CODE, ERROR_USER_NOT_FOUND,
   NO_PROBLEM,
 } from "../utill/Constants";
 import { toast } from "react-toastify";
 
 function EditPreferences() {
-  const { subjectID, isAuthenticated, isAuthLoading } = useContext(UserContext);
+  const { subjectID, isAuthenticated, isAuthLoading, clearStateAndRedirect } = useContext(UserContext);
   const [loading, setLoading] = useState(false);
 
   const location = useLocation();
@@ -64,8 +64,8 @@ function EditPreferences() {
   });
 
   /**
-   * converts the edited prefereces object to the correct format
-   * @param prefereces represents the updated user preferences
+   * converts the edited preferences object to the correct format
+   * @param preferences
    */
   const convertUserPreferencesToBackendValues = (preferences) => {
     preferences.userStudyStartTime = parseInt(
@@ -192,7 +192,7 @@ function EditPreferences() {
     // Save the changes to the backend and redirect back to the profile page
   };
 
-  const handleCancel = (event) => {
+  const handleCancel = () => {
     navigate("/profile");
   };
 

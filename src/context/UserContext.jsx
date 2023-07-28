@@ -10,10 +10,13 @@ import {
 } from "../utill/Constants";
 import {toast} from "react-toastify";
 import {Button} from "react-bootstrap";
+import {useNavigate} from "react-router-dom";
 
 const UserContext = createContext(null);
 
 const UserProvider = ({children}) => {
+
+    const navigate = useNavigate()
     /* local storage functions */
     const getSubjectIDFromLocalStorage = () => {
         const sub = localStorage.getItem("subjectID");
@@ -54,6 +57,11 @@ const UserProvider = ({children}) => {
         setIsAdmin(false);
         setIsCompletedFirstSetup(false);
     };
+
+    const clearStateAndRedirect = () => {
+        clearUserState()
+        navigate("/")
+    }
 
     /********************************************/
 
@@ -179,7 +187,7 @@ const UserProvider = ({children}) => {
                 setIsAdmin,
                 isCompletedFirstSetup,
                 setIsCompletedFirstSetup,
-                clearUserState,
+                clearStateAndRedirect,
             }}
         >
             {children}

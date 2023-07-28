@@ -22,7 +22,7 @@ import { ClipLoader } from "react-spinners";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import {
-  ERROR_COULD_NOT_CONNECT_TO_SERVER_CODE,
+  ERROR_COULD_NOT_CONNECT_TO_SERVER_CODE, ERROR_USER_NOT_FOUND,
   NO_PROBLEM,
 } from "../utill/Constants";
 
@@ -45,6 +45,7 @@ const ProgressStepper = () => {
     isAuthLoading,
     isCompletedFirstSetup,
     setIsCompletedFirstSetup,
+    clearStateAndRedirect,
   } = useContext(UserContext);
 
   const convertUserPreferencesToBackendValues = (preferences) => {
@@ -358,7 +359,7 @@ const ProgressStepper = () => {
               >
                 Back
               </Button>
-              <Box sx={{ żflex: "1 1 auto" }} />
+              <Box sx={{ flex: "1 1 auto" }} />
               <Button onClick={handleNext} variant="contained">
                 {activeStep === totalSteps - 1 ? "Finish" : "Next"}
               </Button>

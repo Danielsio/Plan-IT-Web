@@ -21,8 +21,8 @@ import { ToastContainer } from "react-toastify";
 function App() {
   return (
     <div className="app">
+      <Router>
       <UserProvider>
-        <Router>
           <Navbar />
           <Routes>
             <Route path="/" element={<Home />} />
@@ -49,7 +49,6 @@ function App() {
             w
           </Routes>
           <Footer />
-        </Router>
         <ToastContainer
           position="bottom-left"
           autoClose={10000}
@@ -63,6 +62,7 @@ function App() {
           theme="colored"
         />
       </UserProvider>
+      </Router>
     </div>
   );
 }

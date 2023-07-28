@@ -4,16 +4,15 @@ import { UserContext } from "../context/UserContext";
 import { Container, Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import {
-  ERROR_COULD_NOT_CONNECT_TO_SERVER_CODE,
-  NO_PROBLEM,
+    ERROR_COULD_NOT_CONNECT_TO_SERVER_CODE, ERROR_UNAUTHORIZED_USER, ERROR_USER_NOT_FOUND,
+    NO_PROBLEM,
 } from "../utill/Constants";
 import { toast } from "react-toastify";
 
 function AdminDashboardPage() {
   const [isUserAdmin, setIsUserAdmin] = useState(false);
   const navigate = useNavigate();
-
-  const { subjectID } = useContext(UserContext);
+  const { subjectID, clearStateAndRedirect } = useContext(UserContext);
 
   useEffect(() => {
     api
