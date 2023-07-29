@@ -97,7 +97,7 @@ const GenerateCalendar = () => {
         };
 
         if (isAuthenticated) {
-            fetchStudyPlan()
+            fetchStudyPlan();
         }
     }, [isAuthenticated]);
 

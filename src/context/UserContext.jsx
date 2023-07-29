@@ -93,7 +93,7 @@ const UserProvider = ({children}) => {
         console.log("isAuthenticated: " + isAuthenticated);
         window.location.reload();
     };
-
+    
     const handleLogin = useGoogleLogin({
         scope: "email profile openid https://www.googleapis.com/auth/calendar",
         redirect_uri: import.meta.env.DEV
@@ -111,7 +111,7 @@ const UserProvider = ({children}) => {
                 const response = await api.post(
                     "/login",
                     {},
-                    {params: { code: code, isDev: import.meta.env.DEV }}
+                    {params: {code: code, isDev: import.meta.env.DEV}}
                 );
 
                 console.log(response);
