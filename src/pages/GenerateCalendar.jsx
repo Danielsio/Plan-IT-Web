@@ -21,6 +21,7 @@ import {
 import {useNavigate} from "react-router-dom";
 import {toast} from "react-toastify";
 import {Skeleton} from "@mui/material";
+import RegularEventItem from "../components/RegularEventItem.jsx";
 
 const GenerateCalendar = () => {
     const [startDate, setStartDate] = useState(new Date());
@@ -97,7 +98,7 @@ const GenerateCalendar = () => {
         };
 
         if (isAuthenticated) {
-            fetchStudyPlan()
+            fetchStudyPlan();
         }
     }, [isAuthenticated]);
 
@@ -579,18 +580,12 @@ const GenerateCalendar = () => {
                             ) : (
                                 <>
                                     {upComingSession ? (
-                                        <>
-                                            <h6 className="mb-0 title-in-preferences">Course Name:</h6>
-                                            <p>{upComingSession.courseName}</p>
-                                            <h6 className="mb-0 title-in-preferences">Subject:</h6>
-                                            <p>{upComingSession.description}</p>
-                                            <h6 className="mb-0 title-in-preferences">Start Time:</h6>
-                                            <p>
-                                                {new Date(upComingSession.start.value).toLocaleString()}
-                                            </p>
-                                            <h6 className="mb-0 title-in-preferences">End Time:</h6>
-                                            <p>{new Date(upComingSession.end.value).toLocaleString()}</p>
-                                        </>
+                                        <RegularEventItem
+                                            eventSummery={upComingSession.courseName}
+                                            eventDescription={upComingSession.description}
+                                            startTime={upComingSession.start}
+                                            endTime={upComingSession.end}>
+                                        </RegularEventItem>
                                     ) : (
                                         <div>There are no sessions yet.</div>
                                     )}
