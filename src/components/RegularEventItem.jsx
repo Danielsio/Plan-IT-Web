@@ -1,5 +1,4 @@
 import React from "react";
-import ListGroup from "react-bootstrap/ListGroup";
 import {Col, Row} from "react-bootstrap";
 import Box from "@mui/material/Box";
 
@@ -63,13 +62,15 @@ function NumberOfDaysAway({eventDate}) {
 }
 
 
-function RegularEventItem({eventSummery, eventDescription, startTime, endTime}) {
+function RegularEventItem({eventSummery, eventDescription, startTime, endTime, colorHexValue}) {
+    const boxColorHexValue = colorHexValue === undefined ? '#4279d1' : colorHexValue;
+
     return (
         <Row>
             <Col style={{flexGrow: 0}}>
                 <Box
                     sx={{
-                        backgroundColor: '#4279d1'
+                        backgroundColor: boxColorHexValue
                     }}
                     style={{width: "4px", height: "100%"}}
                 />

@@ -584,7 +584,8 @@ const GenerateCalendar = () => {
                                             eventSummery={upComingSession.courseName}
                                             eventDescription={upComingSession.description}
                                             startTime={upComingSession.start}
-                                            endTime={upComingSession.end}>
+                                            endTime={upComingSession.end}
+                                            colorHexValue={upComingSession.colorHexValue}>
                                         </RegularEventItem>
                                     ) : (
                                         <div>There are no sessions yet.</div>
