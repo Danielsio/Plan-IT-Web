@@ -69,7 +69,7 @@ function RegularEventItem({eventSummery, eventDescription, startTime, endTime}) 
             <Col style={{flexGrow: 0}}>
                 <Box
                     sx={{
-                        backgroundColor: 'primary.dark'
+                        backgroundColor: '#4279d1'
                     }}
                     style={{width: "4px", height: "100%"}}
                 />
