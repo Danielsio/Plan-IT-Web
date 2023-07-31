@@ -1,83 +1,92 @@
 /* For screens smaller than 768px */
 @media (max-width: 767px) {
-  .date-picker {
-    align-items: center;
-    margin-right: 0;
-  }
+    .date-picker {
+        align-items: center;
+        margin-right: 0;
+    }
 
-  .generate-plan-card {
-    width: 90%;
-    margin: 10px;
-  }
+    .generate-plan-card {
+        width: 90%;
+        margin: 10px;
+    }
 
-  .date-picker-area {
-    padding: 25px;
-    margin: 10px;
-  }
+    .date-picker-area {
+        padding: 25px;
+        margin: 10px;
+    }
 
-  .date-picker-area h2 {
-    font-size: 30px;
-  }
+    .date-picker-area h2 {
+        font-size: 30px;
+    }
 
-  .date-picker-area label {
-    font-size: 16px;
-  }
+    .date-picker-area label {
+        font-size: 16px;
+    }
 }
 
 /* For screens between 768px and 992px */
 @media (min-width: 768px) and (max-width: 991px) {
-  .date-picker {
-    align-items: center;
-    margin-right: 0;
-  }
-  .generate-plan-card {
-    width: 60%;
-    margin: 10px;
-  }
-  .date-picker-area {
-    padding: 25px;
-    margin: 10px;
-  }
-  .date-picker-area h2 {
-    font-size: 30px;
-  }
-  .date-picker-area label {
-    font-size: 16px;
-  }
+    .date-picker {
+        align-items: center;
+        margin-right: 0;
+    }
+
+    .generate-plan-card {
+        width: 60%;
+        margin: 10px;
+    }
+
+    .date-picker-area {
+        padding: 25px;
+        margin: 10px;
+    }
+
+    .date-picker-area h2 {
+        font-size: 30px;
+    }
+
+    .date-picker-area label {
+        font-size: 16px;
+    }
 }
 
 /* For screens between 992px and 1200px */
 @media (min-width: 992px) and (max-width: 1199px) {
-  .generate-plan-card {
-    width: 45%;
-    margin: 10px;
-  }
+    .generate-plan-card {
+        width: 45%;
+        margin: 10px;
+    }
 }
 
 /* For screens larger than 1200px */
 @media (min-width: 1200px) {
-  .date-picker {
-    margin-right: 50px;
-  }
+    .date-picker {
+        margin-right: 50px;
+    }
 }
 
 .google-calendar-icon-btn {
-  border-width: 0;
-  height: 30px;
-  width: 30px;
+    border-width: 0;
+    height: 30px;
+    width: 30px;
 }
 
 .google-calendar-btn {
-  cursor: pointer;
-  margin: 16px 0 16px 0;
-  max-width: 100%;
+    cursor: pointer;
+    margin: 16px 0 16px 0;
+    max-width: 100%;
 }
 
 .card-container.generate-plan-card {
-  margin: 10px auto;
-  width: 100%;
+    margin: 10px auto;
+    width: 100%;
+}
+
+.sub-text {
+    color: gray;
+    font-size: 1rem;
 }
 
 .generated-plan-value {
-  text-align: right;
+    text-align: right;
 }
