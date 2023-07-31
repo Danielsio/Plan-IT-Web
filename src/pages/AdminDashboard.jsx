@@ -8,12 +8,15 @@ import {
     NO_PROBLEM,
 } from "../utill/Constants";
 import {toast} from "react-toastify";
+import MenuBookIcon from '@mui/icons-material/MenuBook';
+import SupervisorAccountIcon from '@mui/icons-material/SupervisorAccount';
+import BeachAccessIcon from '@mui/icons-material/BeachAccess';
 
 function AdminDashboardPage() {
     const [isUserAdmin, setIsUserAdmin] = useState(false);
     const navigate = useNavigate();
     const {subjectID, clearStateAndRedirect} = useContext(UserContext);
-    
+
     useEffect(() => {
         api
             .get("/profile", {
@@ -123,29 +126,30 @@ function AdminDashboardPage() {
     };
 
     return (
-        <Container className="mt-4 text-center">
+        <Container className="mt-4 text-center" style={{paddingTop: "10%"}}>
+
             <Button
                 size="lg"
                 variant="primary"
-                className="w-50 h-100 mb-3 mx-2"
+                className="btn-admin-dashboard mb-3 mx-2"
                 onClick={navigateToCoursesDashboard}
-            >
+            ><MenuBookIcon sx={{ fontSize: 40 }}/>
                 Courses
             </Button>
             <Button
                 size="lg"
                 variant="secondary"
-                className="w-50 h-100 mb-3 mx-2"
+                className="btn-admin-dashboard mb-3 mx-2"
                 onClick={navigateToUsersDashboard}
-            >
+            > <SupervisorAccountIcon sx={{ fontSize: 40 }}/>
                 Users
             </Button>
             <Button
                 size="lg"
                 variant="success"
-                className="w-50 h-100 mb-3 mx-2"
+                className="btn-admin-dashboard mb-3 mx-2"
                 onClick={handleUpdateHolidays}
-            >
+            ><BeachAccessIcon sx={{ fontSize: 40 }}/>
                 Update Holidays
             </Button>
         </Container>
