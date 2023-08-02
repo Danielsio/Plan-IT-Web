@@ -1,13 +1,10 @@
 import React, {useState, useContext, useEffect} from "react";
-import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import api from "../api/axiosBackendConfig";
 import {UserContext} from "../context/UserContext";
-import {Row, Button, Col, Modal, Card, Container} from "react-bootstrap";
+import {Row, Button, Col, Container} from "react-bootstrap";
 import {ClipLoader} from "react-spinners";
 import "../styles/generateCalendar.css";
-import FullDayEventItem from "../components/FullDayEventItem";
-import ExamItem from "../components/Exam";
 import {
     NO_PROBLEM,
     ERROR_FULL_DAY_EVENTS,
@@ -20,8 +17,11 @@ import {
 } from "../utill/Constants";
 import {useNavigate} from "react-router-dom";
 import {toast} from "react-toastify";
-import {Skeleton} from "@mui/material";
-import RegularEventItem from "../components/RegularEventItem.jsx";
+import UpcomingStudySessionCard from "../components/UpcomingStudySessionCard.jsx";
+import StudyPlanCard from "../components/StudyPlanCard.jsx";
+import SelectDatesAndGenerateCard from "../components/SelectDatesAndGenerateCard.jsx";
+import GoogleCalendarButton from "../components/GoogleCalendarButton.jsx"
+import FullDayEventsModalComponent from "../components/FullDayEventsModal.jsx";
 
 const GenerateCalendar = () => {
     const [startDate, setStartDate] = useState(new Date());
@@ -463,223 +463,39 @@ const GenerateCalendar = () => {
             <Row>
                 <Col md={7} lg={8}>
                     {/*left*/}
-                    <Card className="card-container generate-plan-card">
-                        {" "}
-                        <Card.Body>
-                            <Card.Title>Generated Study Plan:</Card.Title>
-
-                            {loadingStudyDetails ? (
-                                <>
-                                    <Skeleton variant="rounded" height={20} animation="wave"
-                                              style={{width: "50%", display: "inline-block", margin: "0 20% 0 0"}}/>
-                                    <Skeleton variant="rounded" height={20} animation="wave"
-                                              style={{width: "30%", display: "inline-block"}}/>
-                                    <Skeleton variant="rounded" height={20} animation="wave"
-                                              style={{width: "50%", display: "inline-block", margin: "0 20% 0 0"}}/>
-                                    <Skeleton variant="rounded" height={20} animation="wave"
-                                              style={{width: "30%", display: "inline-block"}}/>
-                                    <Skeleton variant="rounded" height={20} animation="wave"
-                                              style={{width: "100%", display: "inline-block", margin: "0 100px 0 0"}}/>
-                                    <Skeleton variant="rounded" height={20} animation="wave"
-                                              style={{width: "100%", display: "inline-block", margin: "0 100px 0 0"}}/>
-                                    <Skeleton variant="rounded" height={20} animation="wave"
-                                              style={{width: "100%", display: "inline-block", margin: "0 100px 0 0"}}/>
-                                </>
-
-                            ) : (
-                                <>
-                                    {studyPlan ? (
-                                        <>
-                                            <div className="title-in-preferences">
-                                                Scanned Exams:{" "}
-                                                <ul>
-                                                    {studyPlan.scannedExams.map((exam) => {
-                                                        return (
-                                                            <li key={exam.dateTimeISO}>
-                                                                <ExamItem
-                                                                    courseName={exam.courseName}
-                                                                    dateTimeISO={exam.dateTimeISO}
-                                                                />
-                                                            </li>
-                                                        );
-                                                    })}
-                                                </ul>
-                                            </div>
-                                            <hr></hr>
-                                            <Row className="mb-2 row-preferences">
-                                                <Col xs={6}>
-                                                    <h6 className="mb-0 title-in-preferences">
-                                                        Start Date Time of Plan:
-                                                    </h6>
-                                                </Col>
-                                                <Col xs={6}>
-                                                    <h6 className="mb-0 generated-plan-value">
-                                                        {new Date(
-                                                            studyPlan.startDateTimeOfPlan
-                                                        ).toLocaleDateString()}
-                                                    </h6>
-                                                </Col>
-                                            </Row>
-                                            <Row className="mb-2 row-preferences">
-                                                <Col xs={6}>
-                                                    <h6 className="mb-0 title-in-preferences">
-                                                        End Date Time of Plan:
-                                                    </h6>
-                                                </Col>
-                                                <Col xs={6}>
-                                                    <h6 className="mb-0 generated-plan-value">
-                                                        {new Date(
-                                                            studyPlan.endDateTimeOfPlan
-                                                        ).toLocaleDateString()}
-                                                    </h6>
-                                                </Col>
-                                            </Row>
-                                            <Row className="mb-2">
-                                                <Col xs={6}>
-                                                    <h6 className="mb-0 title-in-preferences">
-                                                        Total Number of Study Sessions:
-                                                    </h6>
-                                                </Col>
-                                                <Col xs={6}>
-                                                    <h6 className="mb-0 generated-plan-value">
-                                                        {studyPlan.totalNumberOfStudySessions}
-                                                    </h6>
-                                                </Col>
-                                            </Row>
-
-                                            <Button
-                                                className="mt-3"
-                                                variant="warning"
-                                                size="lg"
-                                                onClick={handleReGenerate}
-                                            >
-                                                Re-Generate Existing Plan
-                                            </Button>
-                                        </>
-                                    ) : (
-                                        <div>No study plan found.</div>
-                                    )}
-                                </>
-                            )}
-
-
-                        </Card.Body>
-                    </Card>
-
-                    <Card className="card-container generate-plan-card">
-                        <Card.Body>
-                            <Card.Title>Upcoming Study Session:</Card.Title>
-                            {loadingStudyDetails ? (
-                                <>
-                                    <Skeleton variant="rounded" height={20} animation="wave"
-                                              style={{width: "20%", display: "inline-block", margin: "0 80% 0 0"}}/>
-                                    <Skeleton variant="rounded" height={20} animation="wave"
-                                              style={{width: "100%", display: "inline-block", margin: "0 100px 0 0"}}/>
-                                </>
-
-                            ) : (
-                                <>
-                                    {upComingSession ? (
-                                        <RegularEventItem
-                                            eventSummery={upComingSession.courseName}
-                                            eventDescription={upComingSession.description}
-                                            startTime={upComingSession.start}
-                                            endTime={upComingSession.end}
-                                            colorHexValue={upComingSession.colorHexValue}>
-                                        </RegularEventItem>
-                                    ) : (
-                                        <div>There are no sessions yet.</div>
-                                    )}
-                                </>
-                            )}
-
-
-                        </Card.Body>
-                    </Card>
+                    <StudyPlanCard
+                        loadingStudyDetails={loadingStudyDetails}
+                        studyPlan={studyPlan}
+                        handleReGenerate={handleReGenerate}
+                    />
+                    <UpcomingStudySessionCard
+                        loadingStudyDetails={loadingStudyDetails}
+                        upComingSession={upComingSession}
+                    />
                 </Col>
 
                 <Col md={5} lg={4}>
                     {/* right */}
 
-                    <Card className="card-container generate-plan-card select-dates-card">
-                        <Card.Body>
-                            <h2>Select the start and end of your study period.</h2>
-                            <div className="mb-3">
-                                <label htmlFor="start-date-picker">Start Date:</label>
-                                <DatePicker
-                                    id="start-date-picker"
-                                    selected={startDate}
-                                    onChange={(date) => setStartDate(date)}
-                                    className="form-control"
-                                />
-                            </div>
-                            <div className="mb-3">
-                                <label htmlFor="end-date-picker">End Date:</label>
-                                <DatePicker
-                                    id="end-date-picker"
-                                    selected={endDate}
-                                    onChange={(date) => setEndDate(date)}
-                                    className="form-control"
-                                />
-                            </div>
-                            <Button variant="primary" size="lg" onClick={handleGenerate}>
-                                Generate New Plan
-                            </Button>
+                    <SelectDatesAndGenerateCard
+                        startDate={startDate}
+                        endDate={endDate}
+                        setStartDate={setStartDate}
+                        setEndDate={setEndDate}
+                        handleGenerate={handleGenerate}
+                        loading={loading}
+                    />
 
-                            {loading && (
-                                <div className="row mt-3">
-                                    <div className="col-12 text-center">
-                                        <ClipLoader color="#29335c" loading={loading} size={50}/>
-                                    </div>
-                                </div>
-                            )}
-                        </Card.Body>
-                    </Card>
-
-                    <Button
-                        className="google-calendar-btn col-lg-3 mt-3"
-                        variant="secondary"
-                        size="lg"
-                        onClick={handleOpenCalendar}
-                    >
-                        <img
-                            className="mr-2 google-calendar-icon-btn"
-                            src="/Google_Calendar_icon.svg.png"
-                            alt=""
-                        />
-                        Open Google Calendar
-                    </Button>
+                    <GoogleCalendarButton handleOpenCalendar={{handleOpenCalendar}}/>
                 </Col>
 
                 {showModal && (
-                    <Modal
-                        show={showModal}
-                        onHide={() => setShowModal(false)}
-                        backdrop="static"
-                        keyboard={false}
-                    >
-                        <Modal.Header>
-                            <Modal.Title>We Found Full Day Events !</Modal.Title>
-                        </Modal.Header>
-                        <Modal.Body>
-                            <h5>Please Choose:</h5>
-                            <ul>
-                                {fullDayEvents.map((event) => (
-                                    <FullDayEventItem
-                                        key={event.start.date.value}
-                                        date={event.start.date.value}
-                                        name={event.summary}
-                                        handleDecision={handleDecision}
-                                    />
-                                ))}
-                            </ul>
-                        </Modal.Body>
-                        <Modal.Footer>
-                            <Button variant="secondary" onClick={handleCloseModal}>
-                                Continue Generate My Plan !
-                            </Button>
-                        </Modal.Footer>
-                    </Modal>
+                    <FullDayEventsModalComponent
+                        showModal={showModal}
+                        handleCloseModal={handleCloseModal}
+                        fullDayEvents={fullDayEvents}
+                        handleDecision={handleDecision}
+                    />
                 )}
             </Row>
         </Container>
