@@ -6,6 +6,8 @@ import "../../styles/adminDashboard.css";
 import api from "../../api/axiosBackendConfig.js";
 import {UserContext} from "../../context/UserContext.jsx";
 import {toast} from "react-toastify";
+import DeleteCourseConfirmationModal from "./DeleteCourseConfirmationModal.jsx";
+import ShowMoreLessButton from "./ShowMoreLessButton.jsx";
 
 
 function CourseItem({course}) {
@@ -49,17 +51,7 @@ function CourseItem({course}) {
             <Card.Body>
                 <div className="d-flex align-items-center justify-content-between">
                     <Card.Title>{course.courseName}</Card.Title>
-                    <Button variant="link" onClick={() => setShowDetails((prev) => !prev)}>
-                        {showDetails ? (
-                            <>
-                                Show Less <FiChevronUp/> {/* Show icon for Show Less */}
-                            </>
-                        ) : (
-                            <>
-                                Show More <FiChevronDown/> {/* Show icon for Show More */}
-                            </>
-                        )}
-                    </Button>
+                    <ShowMoreLessButton showDetails={showDetails} setShowDetails={setShowDetails}> </ShowMoreLessButton>
                 </div>
                 <Card.Text>Credits: {course.credits}</Card.Text>
                 <Card.Text>Difficulty (1-10): {course.difficultyLevel}</Card.Text>
@@ -93,22 +85,10 @@ function CourseItem({course}) {
                 </div>
 
                 {/* Delete Confirmation Modal */}
-                <Modal show={showDeleteModal} onHide={handleCancelDelete}>
-                    <Modal.Header closeButton>
-                        <Modal.Title>Confirm Deletion</Modal.Title>
-                    </Modal.Header>
-                    <Modal.Body>
-                        Are you sure you want to delete this course?
-                    </Modal.Body>
-                    <Modal.Footer>
-                        <Button variant="secondary" onClick={handleCancelDelete}>
-                            Cancel
-                        </Button>
-                        <Button variant="danger" onClick={handleConfirmDelete}>
-                            Yes, Delete This Course
-                        </Button>
-                    </Modal.Footer>
-                </Modal>
+                <DeleteCourseConfirmationModal showDeleteModal={showDeleteModal}
+                                               handleCancelDelete={handleCancelDelete}
+                                               handleConfirmDelete={handleConfirmDelete}>
+                </DeleteCourseConfirmationModal>
 
             </Card.Body>
         </Card>
