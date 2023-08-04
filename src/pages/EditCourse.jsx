@@ -25,6 +25,7 @@ import InputLabel from "@mui/material/InputLabel";
 import Slider from "@mui/material/Slider";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
+import PageHeader from "../components/PageHeader.jsx";
 
 function EditCourse() {
     const location = useLocation();
@@ -247,8 +248,8 @@ function EditCourse() {
     }
 
     return (
-        <Container className="my-5">
-            <h1>Edit Course</h1>
+        <Container>
+            <PageHeader pageTitle={"Edit Course"}> </PageHeader>
             <Form onSubmit={handleSubmit}>
                 <Card className="card-container">
                     <Form.Group controlId="formCourseName">

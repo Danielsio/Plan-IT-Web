@@ -11,6 +11,7 @@ import {toast} from "react-toastify";
 import MenuBookIcon from '@mui/icons-material/MenuBook';
 import SupervisorAccountIcon from '@mui/icons-material/SupervisorAccount';
 import BeachAccessIcon from '@mui/icons-material/BeachAccess';
+import PageHeader from "../components/PageHeader.jsx";
 
 function AdminDashboardPage() {
     const [isUserAdmin, setIsUserAdmin] = useState(false);
@@ -126,32 +127,40 @@ function AdminDashboardPage() {
     };
 
     return (
-        <Container className="mt-4 text-center" style={{paddingTop: "10%"}}>
+        <Container>
 
-            <Button
-                size="lg"
-                variant="primary"
-                className="btn-admin-dashboard mb-3 mx-2"
-                onClick={navigateToCoursesDashboard}
-            ><MenuBookIcon sx={{ fontSize: 40 }}/>
-                Courses
-            </Button>
-            <Button
-                size="lg"
-                variant="secondary"
-                className="btn-admin-dashboard mb-3 mx-2"
-                onClick={navigateToUsersDashboard}
-            > <SupervisorAccountIcon sx={{ fontSize: 40 }}/>
-                Users
-            </Button>
-            <Button
-                size="lg"
-                variant="success"
-                className="btn-admin-dashboard mb-3 mx-2"
-                onClick={handleUpdateHolidays}
-            ><BeachAccessIcon sx={{ fontSize: 40 }}/>
-                Update Holidays
-            </Button>
+            <PageHeader pageTitle={"Admin Dashboard"}></PageHeader>
+
+            <Container className="mt-4 text-center" style={{paddingTop: "10%"}}>
+
+                <Button
+                    size="lg"
+                    variant="primary"
+                    className="btn-admin-dashboard mb-3 mx-2"
+                    onClick={navigateToCoursesDashboard}
+                ><MenuBookIcon sx={{ fontSize: 40 }}/>
+                    Courses
+                </Button>
+                <Button
+                    size="lg"
+                    variant="secondary"
+                    className="btn-admin-dashboard mb-3 mx-2"
+                    onClick={navigateToUsersDashboard}
+                > <SupervisorAccountIcon sx={{ fontSize: 40 }}/>
+                    Users
+                </Button>
+                <Button
+                    size="lg"
+                    variant="success"
+                    className="btn-admin-dashboard mb-3 mx-2"
+                    onClick={handleUpdateHolidays}
+                ><BeachAccessIcon sx={{ fontSize: 40 }}/>
+                    Update Holidays
+                </Button>
+            </Container>
+
+
+
         </Container>
     );
 }

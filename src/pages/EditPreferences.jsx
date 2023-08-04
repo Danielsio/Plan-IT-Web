@@ -9,6 +9,7 @@ import {
     NO_PROBLEM,
 } from "../utill/Constants";
 import {toast} from "react-toastify";
+import PageHeader from "../components/PageHeader.jsx";
 
 function EditPreferences() {
     const {subjectID, isAuthenticated, isAuthLoading, clearStateAndRedirect} = useContext(UserContext);
@@ -231,8 +232,8 @@ function EditPreferences() {
     }
 
     return (
-        <Container className="mx-auto p-5">
-            <h1>Edit Preferences</h1>
+        <Container>
+            <PageHeader pageTitle={"Edit Your Preferences"}> </PageHeader>
             <Form onSubmit={handleSubmit}>
                 <Card className="card-container">
                     <Form.Group>

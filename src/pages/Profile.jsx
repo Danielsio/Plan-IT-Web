@@ -11,6 +11,7 @@ import {
     NO_PROBLEM,
 } from "../utill/Constants";
 import {toast} from "react-toastify";
+import PageHeader from "../components/PageHeader.jsx";
 
 function Profile() {
     const convertUserStudyTimeToHours = (userStudyTime) => {
@@ -129,7 +130,8 @@ function Profile() {
             size={100}
         />
     ) : (
-        <Container className="mt-5">
+        <Container>
+            <PageHeader pageTitle={"Your Profile"}> </PageHeader>
             <Row>
                 <Col>
                     <ProfileCard

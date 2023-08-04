@@ -17,6 +17,9 @@ import {
 } from "../utill/Constants";
 import {useNavigate} from "react-router-dom";
 import {toast} from "react-toastify";
+import {Skeleton} from "@mui/material";
+import RegularEventItem from "../components/RegularEventItem.jsx";
+import PageHeader from "../components/PageHeader.jsx";
 import UpcomingStudySessionCard from "../components/UpcomingStudySessionCard.jsx";
 import StudyPlanCard from "../components/StudyPlanCard.jsx";
 import SelectDatesAndGenerateCard from "../components/SelectDatesAndGenerateCard.jsx";
@@ -457,8 +460,7 @@ const GenerateCalendar = () => {
 
     return (
         <Container>
-            <h1 className="generate-calendar-title mt-4 ">Your Study Plan:</h1>
-            <hr className="generate-calendar-hr"/>
+            <PageHeader pageTitle={"Your Study Plan"}></PageHeader>
 
             <Row>
                 <Col md={7} lg={8}>

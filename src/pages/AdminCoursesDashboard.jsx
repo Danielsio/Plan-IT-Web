@@ -10,6 +10,7 @@ import {
     NO_PROBLEM,
 } from "../utill/Constants";
 import {toast} from "react-toastify";
+import PageHeader from "../components/PageHeader.jsx";
 
 function AdminCoursesDashboard() {
     const [isUserAdmin, setIsUserAdmin] = useState(false);
@@ -125,10 +126,13 @@ function AdminCoursesDashboard() {
     };
 
     return (
-        <Container className="mt-4">
+        <Container>
+
+            <PageHeader pageTitle={"Course List"}> </PageHeader>
+
             <Row>
                 <Col>
-                    <h2>Course List</h2>
+
                 </Col>
                 <Col className="text-end add-course-btn-col">
                     <Button variant="success" onClick={handleAddCourse}>

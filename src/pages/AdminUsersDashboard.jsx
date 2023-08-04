@@ -10,6 +10,7 @@ import {
 } from "../utill/Constants";
 import {toast} from "react-toastify";
 import UserItem from "../components/UserItem";
+import PageHeader from "../components/PageHeader.jsx";
 
 function AdminUsersDashboard() {
     const [isUserAdmin, setIsUserAdmin] = useState(false);
@@ -119,7 +120,8 @@ function AdminUsersDashboard() {
     }, [isUserAdmin]);
 
     return (
-        <Container className="mt-4">
+        <Container>
+            <PageHeader pageTitle={"Users"}> </PageHeader>
             {users == null ? (
                 ClipLoader(
                     <div className="text-center">
@@ -129,13 +131,11 @@ function AdminUsersDashboard() {
             ) : (
                 <ListGroup>
                     {users.map((user) => (
-                        <ListGroup.Item key={user.subjectId}>
                             <UserItem
                                 id={user.subjectID}
                                 profile={user.profile}
                                 admin={user.admin}
                             />
-                        </ListGroup.Item>
                     ))}
                 </ListGroup>
             )}
