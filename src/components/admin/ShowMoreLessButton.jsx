@@ -13,7 +13,7 @@ function ShowMoreLessButton({showDetails, setShowDetails}) {
 
 
     return (
-        <Button variant="link" onClick={() => setShowDetails((prev) => !prev)}>
+        <Button style={{paddingLeft:"0", paddingTop:"1rem"}} variant="link" onClick={() => setShowDetails((prev) => !prev)}>
             {showDetails ? (
                 <>
                     Show Less <FiChevronUp/> {/* Show icon for Show Less */}

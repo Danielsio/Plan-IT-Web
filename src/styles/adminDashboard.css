@@ -12,6 +12,21 @@
     padding: 30px;
 }
 
+.hr-title-hr {
+    margin-top: 2rem;
+    margin-bottom: 0.5rem;
+}
+
+.hr-regular-hr {
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.col-course-value {
+    padding-right: 50px;
+    text-align: end;
+}
+
 .add-subject-btn {
     width: fit-content;
 }

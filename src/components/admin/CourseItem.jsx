@@ -1,5 +1,5 @@
 import React, {useContext, useState} from "react";
-import {Card, Button, Collapse, Modal} from "react-bootstrap";
+import {Card, Button, Collapse, Modal, Col, Row} from "react-bootstrap";
 import {useNavigate} from "react-router-dom";
 import {FiChevronDown, FiChevronUp} from "react-icons/fi"; // Import icons for Show More/Show Less
 import "../../styles/adminDashboard.css";
@@ -49,40 +49,100 @@ function CourseItem({course}) {
     return (
         <Card className="mb-3 course-item-card card-container">
             <Card.Body>
-                <div className="d-flex align-items-center justify-content-between">
-                    <Card.Title>{course.courseName}</Card.Title>
-                    <ShowMoreLessButton showDetails={showDetails} setShowDetails={setShowDetails}> </ShowMoreLessButton>
-                </div>
-                <Card.Text>Credits: {course.credits}</Card.Text>
-                <Card.Text>Difficulty (1-10): {course.difficultyLevel}</Card.Text>
+                <Row className="d-flex justify-content-between">
+                    <Col>
+                        <Card.Title className="mb-0">{course.courseName}</Card.Title>
+                        <div className="sub-text">Course ID: {}</div>
+                    </Col>
+                    <Col style={{textAlign: "end"}}>
+                        {/* Edit and Delete buttons */}
+                                <Button variant="primary" className="me-2 mb-2" onClick={handleEditClick}>
+                                    Edit Course Details
+                                </Button>
+                                <Button className="ml-2 mb-2" variant="danger" onClick={handleDeleteClick}>
+                                    Delete Course
+                                </Button>
+                    </Col>
+                </Row>
+                <Row>
+                    <Col>
+                        <hr className="hr-title-hr"/>
+                    </Col>
+                </Row>
+                <Row>
+                    <Col>
+                        <Card.Text className="mb-0">Credits</Card.Text>
+                    </Col>
+                    <Col>
+                        <Card.Text className="mb-0 col-course-value">{course.credits}</Card.Text>
+                    </Col>
 
+                </Row>
+                <Row>
+                    <Col>
+                        <hr className="hr-regular-hr"/>
+                    </Col>
+                </Row>
+                <Row>
+                    <Col>
+                        <Card.Text className="mb-0">Difficulty (1-10) </Card.Text>
+                    </Col>
+                    <Col>
+                        <Card.Text className="mb-0 col-course-value">{course.difficultyLevel}</Card.Text>
+                    </Col>
+                </Row>
                 {/* Additional details collapse */}
                 <Collapse in={showDetails}>
                     <div>
-                        <Card.Text>Recommended Study Time (Days): {course.recommendedStudyTime}</Card.Text>
-                        <Card.Text>Subjects Practice Percentage: {course.subjectsPracticePercentage}%</Card.Text>
-                        <div>
-                            <Card.Text>Subjects:</Card.Text>
-                            <div>
-                                <ul style={{listStyleType: "none", margin: 0, padding: 0}}>
-                                    {course.courseSubjects.map((subject, index) => (
-                                        <li key={index}>{`${index + 1}. ${subject}`}</li>
-                                    ))}
-                                </ul>
-                            </div>
+                        <Row>
+                            <Col>
+                                <hr className="hr-regular-hr"/>
+                            </Col>
+                        </Row>
+                        <Row>
+                            <Col>
+                                <Card.Text className="mb-0">Recommended Study Time (Days)</Card.Text>
+                            </Col>
+                            <Col>
+                                <Card.Text className="mb-0 col-course-value">{course.recommendedStudyTime}</Card.Text>
+                            </Col>
+                        </Row>
+                        <Row>
+                            <Col>
+                                <hr className="hr-regular-hr"/>
+                            </Col>
+                        </Row>
+                        <Row>
+                            <Col>
+                                <Card.Text className="mb-0">Subjects Practice Percentage </Card.Text>
+                            </Col>
+                            <Col>
+                                <Card.Text className="mb-0 col-course-value">{course.subjectsPracticePercentage}%</Card.Text>
+                            </Col>
+                        </Row>
+                        <Row>
+                            <Col>
+                                <hr className="hr-regular-hr"/>
+                            </Col>
+                        </Row>
+                        <Row>
+                            <Col>
+                                <Card.Text style={{marginBottom:"0.5rem"}}>Subjects:</Card.Text>
+                                <div style={{paddingLeft: "25px"}}>
+                                    <ul style={{listStyleType: "none", margin: 0, padding: 0}}>
+                                        {course.courseSubjects.map((subject, index) => (
+                                            <li key={index}>{`${index + 1}. ${subject}`}</li>
+                                        ))}
+                                    </ul>
+                                </div>
 
-                        </div>
+                            </Col>
+                        </Row>
                     </div>
                 </Collapse>
 
-                {/* Edit and Delete buttons */}
-                <div className="mt-2">
-                    <Button variant="primary" className="me-2" onClick={handleEditClick}>
-                        Edit Course Details
-                    </Button>
-                    <Button className="ml-2" variant="danger" onClick={handleDeleteClick}>
-                        Delete Course</Button>
-                </div>
+
+                <ShowMoreLessButton showDetails={showDetails} setShowDetails={setShowDetails}> </ShowMoreLessButton>
 
                 {/* Delete Confirmation Modal */}
                 <DeleteCourseConfirmationModal showDeleteModal={showDeleteModal}
