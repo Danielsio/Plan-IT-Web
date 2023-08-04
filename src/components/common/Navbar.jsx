@@ -8,6 +8,8 @@ import {UserContext} from "../../context/UserContext.jsx";
 import {useNavigate} from "react-router-dom";
 import {MdAdminPanelSettings} from "react-icons/md";
 
+import DarkModeToggle from "../profile/DarkModeToggle.jsx";
+
 function AppNavbar() {
     const {
         isAuthenticated,
@@ -45,14 +47,17 @@ function AppNavbar() {
                     className="d-inline-block align-top navbar-logo"
                 />{" "}
             </Navbar.Brand>
+
             <Navbar.Toggle aria-controls="responsive-navbar-nav"/>
             <Navbar.Collapse id="responsive-navbar-nav">
                 <Nav className="mr-auto"></Nav>
                 <Nav className="ml-auto">
+
                     <Nav.Link href="/">
                         <FaHouseUser className="mb-1 mr-1"/>
                         Home
                     </Nav.Link>
+
                     {isAuthenticated && (
                         <Nav.Link href="/profile">
                             <CgProfile className="mb-1 mr-1"/>
@@ -85,6 +90,7 @@ function AppNavbar() {
                             Login
                         </Button>
                     )}
+                    <DarkModeToggle/>
                 </Nav>
             </Navbar.Collapse>
         </Navbar>

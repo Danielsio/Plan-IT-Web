@@ -1,4 +1,5 @@
 .card-container.course-item-card {
+    background: var(--card_color);
     margin: 0;
 }
 
