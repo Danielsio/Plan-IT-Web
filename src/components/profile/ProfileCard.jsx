@@ -42,7 +42,7 @@ const ProfileCard = ({
                                 </Badge>
                             )}
                             <h3 className="card-title">{name}</h3>
-                            <h5 className="card-subtitle mb-2 text-muted">{email}</h5>
+                            <h5>{email}</h5>
                         </div>
                     </div>
                 </Col>
