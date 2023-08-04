@@ -1,6 +1,6 @@
 import React from 'react';
 import {Modal, Button} from 'react-bootstrap';
-import FullDayEventItem from '../components/FullDayEventItem';
+import FullDayEventItem from './FullDayEventItem.jsx';
 
 const FullDayEventsModalComponent = ({showModal, handleCloseModal, fullDayEvents, handleDecision}) => {
     return (

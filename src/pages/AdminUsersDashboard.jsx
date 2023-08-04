@@ -9,8 +9,8 @@ import {
     NO_PROBLEM,
 } from "../utill/Constants";
 import {toast} from "react-toastify";
-import UserItem from "../components/UserItem";
-import PageHeader from "../components/PageHeader.jsx";
+import UserItem from "../components/admin/UserItem.jsx";
+import PageHeader from "../components/common/PageHeader.jsx";
 
 function AdminUsersDashboard() {
     const [isUserAdmin, setIsUserAdmin] = useState(false);

@@ -2,9 +2,9 @@ import React, {useContext, useState} from "react";
 import {Card, Button, Collapse, Modal} from "react-bootstrap";
 import {useNavigate} from "react-router-dom";
 import {FiChevronDown, FiChevronUp} from "react-icons/fi"; // Import icons for Show More/Show Less
-import "../styles/adminDashboard.css";
-import api from "../api/axiosBackendConfig";
-import {UserContext} from "../context/UserContext";
+import "../../styles/adminDashboard.css";
+import api from "../../api/axiosBackendConfig.js";
+import {UserContext} from "../../context/UserContext.jsx";
 import {toast} from "react-toastify";
 
 
@@ -71,11 +71,14 @@ function CourseItem({course}) {
                         <Card.Text>Subjects Practice Percentage: {course.subjectsPracticePercentage}%</Card.Text>
                         <div>
                             <Card.Text>Subjects:</Card.Text>
-                            <ul style={{listStyleType: "none", margin: 0, padding: 0}}>
-                                {course.courseSubjects.map((subject, index) => (
-                                    <li key={index}>{`${index + 1}. ${subject}`}</li>
-                                ))}
-                            </ul>
+                            <div>
+                                <ul style={{listStyleType: "none", margin: 0, padding: 0}}>
+                                    {course.courseSubjects.map((subject, index) => (
+                                        <li key={index}>{`${index + 1}. ${subject}`}</li>
+                                    ))}
+                                </ul>
+                            </div>
+
                         </div>
                     </div>
                 </Collapse>

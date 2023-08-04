@@ -11,7 +11,7 @@ import {toast} from "react-toastify";
 import MenuBookIcon from '@mui/icons-material/MenuBook';
 import SupervisorAccountIcon from '@mui/icons-material/SupervisorAccount';
 import BeachAccessIcon from '@mui/icons-material/BeachAccess';
-import PageHeader from "../components/PageHeader.jsx";
+import PageHeader from "../components/common/PageHeader.jsx";
 
 function AdminDashboardPage() {
     const [isUserAdmin, setIsUserAdmin] = useState(false);

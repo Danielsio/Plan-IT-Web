@@ -9,7 +9,7 @@ import {
     NO_PROBLEM,
 } from "../utill/Constants";
 import {toast} from "react-toastify";
-import PageHeader from "../components/PageHeader.jsx";
+import PageHeader from "../components/common/PageHeader.jsx";
 
 function EditPreferences() {
     const {subjectID, isAuthenticated, isAuthLoading, clearStateAndRedirect} = useContext(UserContext);

@@ -25,7 +25,7 @@ import {
     ERROR_COULD_NOT_CONNECT_TO_SERVER_CODE, ERROR_USER_NOT_FOUND,
     NO_PROBLEM,
 } from "../utill/Constants";
-import PageHeader from "../components/PageHeader.jsx";
+import PageHeader from "../components/common/PageHeader.jsx";
 
 const ProgressStepper = () => {
     const navigate = useNavigate();

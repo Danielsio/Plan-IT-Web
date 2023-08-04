@@ -28,7 +28,7 @@ import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import MuiInput from "@mui/material/Input";
 import {styled} from "@mui/material/styles";
-import PageHeader from "../components/PageHeader.jsx";
+import PageHeader from "../components/common/PageHeader.jsx";
 
 function EditCourse() {
     const navigate = useNavigate();

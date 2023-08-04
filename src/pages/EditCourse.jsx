@@ -25,7 +25,7 @@ import InputLabel from "@mui/material/InputLabel";
 import Slider from "@mui/material/Slider";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
-import PageHeader from "../components/PageHeader.jsx";
+import PageHeader from "../components/common/PageHeader.jsx";
 
 function EditCourse() {
     const location = useLocation();

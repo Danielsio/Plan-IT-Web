@@ -1,6 +1,6 @@
 import React from 'react';
 import {Card, Button, Row, Col} from 'react-bootstrap';
-import ExamItem from '../components/Exam';
+import ExamItem from './Exam.jsx';
 import {Skeleton} from "@mui/material";
 
 const StudyPlanCard = ({loadingStudyDetails, studyPlan, handleReGenerate}) => {

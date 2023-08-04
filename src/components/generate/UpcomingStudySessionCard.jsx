@@ -1,6 +1,6 @@
 import React from 'react';
 import {Card} from 'react-bootstrap';
-import RegularEventItem from '../components/RegularEventItem';
+import RegularEventItem from './RegularEventItem.jsx';
 import {Skeleton} from "@mui/material";
 
 const UpcomingStudySessionCard = ({loadingStudyDetails, upComingSession}) => {

@@ -18,13 +18,13 @@ import {
 import {useNavigate} from "react-router-dom";
 import {toast} from "react-toastify";
 import {Skeleton} from "@mui/material";
-import RegularEventItem from "../components/RegularEventItem.jsx";
-import PageHeader from "../components/PageHeader.jsx";
-import UpcomingStudySessionCard from "../components/UpcomingStudySessionCard.jsx";
-import StudyPlanCard from "../components/StudyPlanCard.jsx";
-import SelectDatesAndGenerateCard from "../components/SelectDatesAndGenerateCard.jsx";
-import GoogleCalendarButton from "../components/GoogleCalendarButton.jsx"
-import FullDayEventsModalComponent from "../components/FullDayEventsModal.jsx";
+import RegularEventItem from "../components/generate/RegularEventItem.jsx";
+import PageHeader from "../components/common/PageHeader.jsx";
+import UpcomingStudySessionCard from "../components/generate/UpcomingStudySessionCard.jsx";
+import StudyPlanCard from "../components/generate/StudyPlanCard.jsx";
+import SelectDatesAndGenerateCard from "../components/generate/SelectDatesAndGenerateCard.jsx";
+import GoogleCalendarButton from "../components/generate/GoogleCalendarButton.jsx"
+import FullDayEventsModalComponent from "../components/generate/FullDayEventsModal.jsx";
 
 const GenerateCalendar = () => {
     const [startDate, setStartDate] = useState(new Date());

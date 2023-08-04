@@ -1,12 +1,12 @@
 import React, {useContext} from "react";
 import {Card, Button} from "react-bootstrap";
-import "../styles/adminDashboard.css";
-import api from "../api/axiosBackendConfig";
-import {UserContext} from "../context/UserContext";
+import "../../styles/adminDashboard.css";
+import api from "../../api/axiosBackendConfig.js";
+import {UserContext} from "../../context/UserContext.jsx";
 import {
     NO_PROBLEM,
     ERROR_COULD_NOT_CONNECT_TO_SERVER_CODE,
-} from "../utill/Constants";
+} from "../../utill/Constants.js";
 import {toast} from "react-toastify";
 
 function UserItem({profile, admin, id}) {

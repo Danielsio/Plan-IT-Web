@@ -1,7 +1,7 @@
 import {Button, Col, Row, Badge} from "react-bootstrap";
-import "../styles/ProfileCard.css";
+import "../../styles/ProfileCard.css";
 import {useContext} from "react";
-import {UserContext} from "../context/UserContext";
+import {UserContext} from "../../context/UserContext.jsx";
 
 const ProfileCard = ({
                          name,
