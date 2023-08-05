@@ -123,12 +123,6 @@ const GenerateCalendar = () => {
             const end = new Date(endDate);
             end.setHours(23, 59, 59, 0);
 
-            console.log(
-                "sending parameters to server - start: " +
-                start.toISOString() +
-                ", end: " +
-                end.toISOString()
-            );
             setLoading(true);
             api
                 .post(
@@ -148,6 +142,7 @@ const GenerateCalendar = () => {
                     if (response.status === 201 && response.data.details === NO_PROBLEM) {
                         console.log(response.data);
                         setStudyPlan(response.data.studyPlan);
+                        setUpComingSession(response.data.upComingSession)
                         toast.success(
                             <div>
                 <span>
@@ -255,6 +250,7 @@ const GenerateCalendar = () => {
                 if (response.status === 201 && response.data.details === NO_PROBLEM) {
                     console.log(response.data);
                     setStudyPlan(response.data.studyPlan);
+                    setUpComingSession(response.data.upComingSession)
                     toast.success(
                         <div>
                 <span>
