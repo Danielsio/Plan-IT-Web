@@ -8,6 +8,7 @@ import {
 import {useNavigate} from "react-router-dom";
 import api from "../api/axiosBackendConfig";
 import {UserContext} from "../context/UserContext";
+import {validateCourseDetails} from "./EditCourse.jsx"
 import {ClipLoader} from "react-spinners";
 import {
     NO_PROBLEM,
@@ -28,6 +29,8 @@ import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import MuiInput from "@mui/material/Input";
 import {styled} from "@mui/material/styles";
+import PageHeader from "../components/common/PageHeader.jsx";
+import SubjectViewer from "../components/admin/SubjectsViewer.jsx";
 
 function EditCourse() {
     const navigate = useNavigate();
@@ -50,53 +53,19 @@ function EditCourse() {
     const validateForm = () => {
         console.log(course);
 
-        let isValid = true;
+        let isValid ;
 
-        if (!isCousreIdValid(course.courseId.trim())) {
+        if (!isCourseIdValid(course.courseId.trim())) {
             toast.error("Please Enter Valid Course Id! (6 digits only)");
             isValid = false; // Id field is invalid
         }
 
-        if (course.courseName.trim() === "") {
-            toast.error("Please Enter Course Name !");
-            isValid = false; // Name field is empty
-        }
+        isValid = validateCourseDetails(isValid, course);
 
-        if (course.credits < 1 || course.credits > 7) {
-            toast.error("Please Enter credits between 1-7 !");
-            isValid = false; // Credits field is invalid
-        }
-
-        if (course.difficultyLevel < 1 || course.difficultyLevel > 10) {
-            toast.error("Please Enter difficultyLevel between 1-10 !");
-            isValid = false; // Difficulty field is invalid
-        }
-
-        if (course.recommendedStudyTime < 1 || course.recommendedStudyTime > 30) {
-            toast.error("Please Enter recommended Study Time between 1-30 !");
-            isValid = false; // Study time field is invalid
-        }
-
-        if (
-            course.subjectsPracticePercentage < 10 ||
-            course.subjectsPracticePercentage > 100
-        ) {
-            toast.error("Please Enter subjects Practice Percentage between 10-100 !");
-            isValid = false; // Study time field is invalid
-        }
-
-        if (
-            course.courseSubjects.length > 0 &&
-            course.courseSubjects.some((subject) => subject.trim() === "")
-        ) {
-            toast.error("Dont leave empty subjects please !");
-            isValid = false; // Subjects field contains an empty string
-        }
-
-        return isValid; // All fields are valid
+        return isValid;
     };
 
-    function isCousreIdValid(str) {
+    function isCourseIdValid(str) {
         if (str.length !== 6) {
             return false;
         }
@@ -211,8 +180,8 @@ function EditCourse() {
     }
 
     return (
-        <Container className="my-5">
-            <h1>Add New Course</h1>
+        <Container>
+            <PageHeader pageTitle={"Add A New Course"}> </PageHeader>
 
             <Form onSubmit={handleSubmit}>
                 <Card className="card-container">
@@ -342,62 +311,21 @@ function EditCourse() {
                     </Form.Group>
 
                     {course.courseSubjects &&
-                        course.courseSubjects.map((subject, index) => (
-                            <Form.Group
-                                controlId={`formSubject${index}`}
-                                key={index}
-                                className="mt-3 mb-3"
-                            >
-                                <TextField
-                                    fullWidth
-                                    type="text"
-                                    label={`Subject #${index + 1}`}
-                                    id="outlined-size-normal"
-                                    defaultValue=""
-                                    value={subject}
-                                    onChange={(e) => handleSubjectsChange(e, index)}
-                                />
-                                {index >= 0 && (
-                                    <Button
-                                        variant="danger"
-                                        className="mt-2"
-                                        onClick={() =>
-                                            setCourse((prevCourse) => {
-                                                const updatedSubjects = [...prevCourse.courseSubjects];
-                                                updatedSubjects.splice(index, 1);
-                                                return {
-                                                    ...prevCourse,
-                                                    courseSubjects: updatedSubjects,
-                                                };
-                                            })
-                                        }
-                                    >
-                                        Remove Subject
-                                    </Button>
-                                )}
-                            </Form.Group>
-                        ))}
-                    <Button
-                        variant="secondary"
-                        className="mt-2 mr-2 add-subject-btn"
-                        onClick={() =>
-                            setCourse((prevCourse) => ({
-                                ...prevCourse,
-                                courseSubjects: [...prevCourse.courseSubjects, ""],
-                            }))
-                        }
-                    >
-                        Add Subject
-                    </Button>
+                        <SubjectViewer courseSubjects={course.courseSubjects} handleSubjectsChange={handleSubjectsChange} setCourse={setCourse}> </SubjectViewer>
+                    }
                 </Card>
                 <Button
                     variant="secondary"
                     className="mt-2 mr-2"
+                    style={{marginBottom:"20px"}}
                     onClick={handleCancel}
                 >
                     Go Back
                 </Button>
-                <Button variant="primary" type="submit" className="mt-2">
+                <Button variant="primary"
+                        type="submit"
+                        className="mt-2"
+                        style={{marginBottom:"20px"}}>
                     Save Changes
                 </Button>
             </Form>

@@ -25,6 +25,7 @@ import {
     ERROR_COULD_NOT_CONNECT_TO_SERVER_CODE, ERROR_USER_NOT_FOUND,
     NO_PROBLEM,
 } from "../utill/Constants";
+import PageHeader from "../components/common/PageHeader.jsx";
 
 const ProgressStepper = () => {
     const navigate = useNavigate();
@@ -345,49 +346,53 @@ const ProgressStepper = () => {
     }
 
     return (
-        <Box sx={{width: "50%", margin: "auto"}}>
-            <Stepper activeStep={activeStep}>
-                {steps.map((step, index) => (
-                    <Step key={step} completed={completed[index]}>
-                        <StepLabel>{step}</StepLabel>
-                    </Step>
-                ))}
-            </Stepper>
-            <div>
-                {allStepsCompleted ? (
-                    <>
-                        <Typography sx={{mt: 2, mb: 1}}>All Steps Completed</Typography>
-                        <Box sx={{display: "flex", flexDirection: "row", pt: 2}}>
-                            <Box sx={{flex: "1 1 auto"}}/>
-                            <Button variant="contained" onClick={handleReset}>
-                                Reset
-                            </Button>
-                            <Button onClick={() => navigate("/generate-calendar")} variant="contained" sx={{ml: 2}}>
-                                Create Study Plan
-                            </Button>
-                        </Box>
-                    </>
-                ) : (
-                    <>
-                        {stepDescription[activeStep]}
-                        <Box sx={{display: "flex", flexDirection: "row", pt: 2}}>
-                            <Button
-                                onClick={handleBack}
-                                variant="contained"
-                                disabled={activeStep === 0}
-                                sx={{mr: 1}}
-                            >
-                                Back
-                            </Button>
-                            <Box sx={{flex: "1 1 auto"}}/>
-                            <Button onClick={handleNext} variant="contained">
-                                {activeStep === totalSteps - 1 ? "Finish" : "Next"}
-                            </Button>
-                        </Box>
-                    </>
-                )}
-            </div>
-        </Box>
+        <Container>
+            <PageHeader pageTitle={"Welcome"}> </PageHeader>
+            <Box sx={{width: "50%", margin: "auto"}}>
+                <Stepper activeStep={activeStep}>
+                    {steps.map((step, index) => (
+                        <Step key={step} completed={completed[index]}>
+                            <StepLabel>{step}</StepLabel>
+                        </Step>
+                    ))}
+                </Stepper>
+                <div>
+                    {allStepsCompleted ? (
+                        <>
+                            <Typography sx={{mt: 2, mb: 1}}>All Steps Completed</Typography>
+                            <Box sx={{display: "flex", flexDirection: "row", pt: 2}}>
+                                <Box sx={{flex: "1 1 auto"}}/>
+                                <Button variant="contained" onClick={handleReset}>
+                                    Reset
+                                </Button>
+                                <Button onClick={() => navigate("/generate-calendar")} variant="contained" sx={{ml: 2}}>
+                                    Create Study Plan
+                                </Button>
+                            </Box>
+                        </>
+                    ) : (
+                        <>
+                            {stepDescription[activeStep]}
+                            <Box sx={{display: "flex", flexDirection: "row", pt: 2}}>
+                                <Button
+                                    onClick={handleBack}
+                                    variant="contained"
+                                    disabled={activeStep === 0}
+                                    sx={{mr: 1}}
+                                >
+                                    Back
+                                </Button>
+                                <Box sx={{flex: "1 1 auto"}}/>
+                                <Button onClick={handleNext} variant="contained">
+                                    {activeStep === totalSteps - 1 ? "Finish" : "Next"}
+                                </Button>
+                            </Box>
+                        </>
+                    )}
+                </div>
+            </Box>
+        </Container>
+
     );
 };
 

@@ -25,6 +25,49 @@ import InputLabel from "@mui/material/InputLabel";
 import Slider from "@mui/material/Slider";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
+import PageHeader from "../components/common/PageHeader.jsx";
+import SubjectViewer from "../components/admin/SubjectsViewer.jsx";
+
+export const validateCourseDetails = (isValid, course) => {
+
+    if (course.courseName.trim() === "") {
+        toast.error("Please Enter Course Name !");
+        isValid = false; // Name field is empty
+    }
+
+    if (course.credits < 1 || course.credits > 7) {
+        toast.error("Please Enter credits between 1-7 !");
+        isValid = false; // Credits field is invalid
+    }
+
+    if (course.difficultyLevel < 1 || course.difficultyLevel > 10) {
+        toast.error("Please Enter difficultyLevel between 1-10 !");
+        isValid = false; // Difficulty field is invalid
+    }
+
+    if (course.recommendedStudyTime < 1 || course.recommendedStudyTime > 30) {
+        toast.error("Please Enter recommended Study Time between 1-30 !");
+        isValid = false; // Study time field is invalid
+    }
+
+    if (
+        course.subjectsPracticePercentage < 10 ||
+        course.subjectsPracticePercentage > 100
+    ) {
+        toast.error("Please Enter subjects Practice Percentage between 10-100 !");
+        isValid = false; // Study time field is invalid
+    }
+
+    if (
+        course.courseSubjects.length > 0 &&
+        course.courseSubjects.some((subject) => subject.trim() === "")
+    ) {
+        toast.error("Dont leave empty subjects please !");
+        isValid = false; // Subjects field contains an empty string
+    }
+
+    return isValid; // All fields are valid
+}
 
 function EditCourse() {
     const location = useLocation();
@@ -42,45 +85,13 @@ function EditCourse() {
     const validateForm = () => {
         console.log(course);
 
-        let isValid = true;
+        let isValid;
+
+        isValid = validateCourseDetails(course);
         console.log(course);
-        if (course.courseName.trim() === "") {
-            toast.error("Please Enter Course Name !");
-            isValid = false; // Name field is empty
-        }
 
-        if (course.credits < 1 || course.credits > 7) {
-            toast.error("Please Enter credits between 1-7 !");
-            isValid = false; // Credits field is invalid
-        }
+        return isValid;
 
-        if (course.difficultyLevel < 1 || course.difficultyLevel > 10) {
-            toast.error("Please Enter difficultyLevel between 1-10 !");
-            isValid = false; // Difficulty field is invalid
-        }
-
-        if (course.recommendedStudyTime < 1 || course.recommendedStudyTime > 30) {
-            toast.error("Please Enter recommended Study Time between 1-30 !");
-            isValid = false; // Study time field is invalid
-        }
-
-        if (
-            course.subjectsPracticePercentage < 10 ||
-            course.subjectsPracticePercentage > 100
-        ) {
-            toast.error("Please Enter subjects Practice Percentage between 10-100 !");
-            isValid = false; // Study time field is invalid
-        }
-
-        if (
-            course.courseSubjects.length > 0 &&
-            course.courseSubjects.some((subject) => subject.trim() === "")
-        ) {
-            toast.error("Dont leave empty subjects please !");
-            isValid = false; // Subjects field contains an empty string
-        }
-
-        return isValid; // All fields are valid
     };
     
     useEffect(() => {
@@ -247,10 +258,13 @@ function EditCourse() {
     }
 
     return (
-        <Container className="my-5">
-            <h1>Edit Course</h1>
+        <Container>
+            <PageHeader pageTitle={"Edit Course"}> </PageHeader>
             <Form onSubmit={handleSubmit}>
                 <Card className="card-container">
+
+                    <div className="mb-2 sub-text">Course ID: {course.courseId}</div>
+
                     <Form.Group controlId="formCourseName">
                         <TextField
                             className="mt-2 mb-2"
@@ -364,62 +378,21 @@ function EditCourse() {
                     </Form.Group>
 
                     {course.courseSubjects &&
-                        course.courseSubjects.map((subject, index) => (
-                            <Form.Group
-                                controlId={`formSubject${index}`}
-                                key={index}
-                                className="mt-3 mb-3"
-                            >
-                                <TextField
-                                    fullWidth
-                                    type="text"
-                                    label={`Subject #${index + 1}`}
-                                    id="outlined-size-normal"
-                                    defaultValue=""
-                                    value={subject}
-                                    onChange={(e) => handleSubjectsChange(e, index)}
-                                />
-                                {index >= 0 && (
-                                    <Button
-                                        variant="danger"
-                                        className="mt-2"
-                                        onClick={() =>
-                                            setCourse((prevCourse) => {
-                                                const updatedSubjects = [...prevCourse.courseSubjects];
-                                                updatedSubjects.splice(index, 1);
-                                                return {
-                                                    ...prevCourse,
-                                                    courseSubjects: updatedSubjects,
-                                                };
-                                            })
-                                        }
-                                    >
-                                        Remove Subject
-                                    </Button>
-                                )}
-                            </Form.Group>
-                        ))}
-                    <Button
-                        variant="secondary"
-                        className="mt-2 mr-2 add-subject-btn"
-                        onClick={() =>
-                            setCourse((prevCourse) => ({
-                                ...prevCourse,
-                                courseSubjects: [...prevCourse.courseSubjects, ""],
-                            }))
-                        }
-                    >
-                        Add Subject
-                    </Button>
+                        <SubjectViewer courseSubjects={course.courseSubjects} handleSubjectsChange={handleSubjectsChange} setCourse={setCourse}> </SubjectViewer>
+                    }
                 </Card>
                 <Button
                     variant="secondary"
                     className="mt-2 mr-2"
+                    style={{marginBottom:"20px"}}
                     onClick={handleCancel}
                 >
                     Cancel
                 </Button>
-                <Button variant="primary" type="submit" className="mt-2">
+                <Button variant="primary"
+                        type="submit"
+                        className="mt-2"
+                        style={{marginBottom:"20px"}}>
                     Save Changes
                 </Button>
             </Form>

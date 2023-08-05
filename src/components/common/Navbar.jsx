@@ -4,7 +4,7 @@ import {AiOutlineInfoCircle} from "react-icons/ai";
 import {CgProfile} from "react-icons/cg";
 import {BsCalendar2Range} from "react-icons/bs";
 import {useContext, useEffect} from "react";
-import {UserContext} from "../context/UserContext";
+import {UserContext} from "../../context/UserContext.jsx";
 import {useNavigate} from "react-router-dom";
 import {MdAdminPanelSettings} from "react-icons/md";
 
@@ -39,7 +39,7 @@ function AppNavbar() {
             <Navbar.Brand href="/">
                 <img
                     alt="PlanIT-logo"
-                    src="/PlanIT- with logo white.png"
+                    src="/PlanIT-%20with%20logo%20white.png"
                     width="156"
                     height="50"
                     className="d-inline-block align-top navbar-logo"

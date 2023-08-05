@@ -1,7 +1,7 @@
 import React, {useEffect, useContext, useState} from "react";
 import api from "../api/axiosBackendConfig";
 import {UserContext} from "../context/UserContext";
-import CourseItem from "../components/CourseItem";
+import CourseItem from "../components/admin/CourseItem.jsx";
 import {Container, Row, Col, ListGroup, Button} from "react-bootstrap";
 import {useNavigate} from "react-router-dom";
 import {ClipLoader} from "react-spinners";
@@ -10,6 +10,7 @@ import {
     NO_PROBLEM,
 } from "../utill/Constants";
 import {toast} from "react-toastify";
+import PageHeader from "../components/common/PageHeader.jsx";
 
 function AdminCoursesDashboard() {
     const [isUserAdmin, setIsUserAdmin] = useState(false);
@@ -125,10 +126,12 @@ function AdminCoursesDashboard() {
     };
 
     return (
-        <Container className="mt-4">
+        <Container>
+
+            <PageHeader pageTitle={"Course List"}> </PageHeader>
+
             <Row>
                 <Col>
-                    <h2>Course List</h2>
                 </Col>
                 <Col className="text-end add-course-btn-col">
                     <Button variant="success" onClick={handleAddCourse}>

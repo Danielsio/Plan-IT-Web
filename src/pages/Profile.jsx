@@ -5,12 +5,13 @@ import {Container, Row, Col, Button} from "react-bootstrap";
 import api from "../api/axiosBackendConfig";
 import {ClipLoader} from "react-spinners";
 import {useNavigate} from "react-router-dom";
-import ProfileCard from "../components/ProfileCard";
+import ProfileCard from "../components/profile/ProfileCard.jsx";
 import {
     ERROR_COULD_NOT_CONNECT_TO_SERVER_CODE, ERROR_USER_NOT_FOUND,
     NO_PROBLEM,
 } from "../utill/Constants";
 import {toast} from "react-toastify";
+import PageHeader from "../components/common/PageHeader.jsx";
 
 function Profile() {
     const convertUserStudyTimeToHours = (userStudyTime) => {
@@ -129,7 +130,8 @@ function Profile() {
             size={100}
         />
     ) : (
-        <Container className="mt-5">
+        <Container>
+            <PageHeader pageTitle={"Your Profile"}> </PageHeader>
             <Row>
                 <Col>
                     <ProfileCard
