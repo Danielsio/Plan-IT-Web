@@ -3,7 +3,7 @@ import React from "react";
 import CourseItem from "./CourseItem.jsx";
 import {FiChevronDown, FiChevronUp} from "react-icons/fi";
 
-function DeleteCourseConfirmationModal({showDeleteModal, handleCancelDelete, handleConfirmDelete}) {
+function DeleteCourseConfirmationModal({courseId, courseName, showDeleteModal, handleCancelDelete, handleConfirmDelete}) {
 
 
     return (
@@ -12,7 +12,8 @@ function DeleteCourseConfirmationModal({showDeleteModal, handleCancelDelete, han
                 <Modal.Title>Confirm Deletion</Modal.Title>
             </Modal.Header>
             <Modal.Body>
-                Are you sure you want to delete this course?
+                <p>Are you sure you want to delete this course? </p>
+                <p>{courseName} (ID:{courseId}) </p>
             </Modal.Body>
             <Modal.Footer>
                 <Button variant="secondary" onClick={handleCancelDelete}>

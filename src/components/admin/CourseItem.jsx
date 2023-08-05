@@ -145,7 +145,9 @@ function CourseItem({course}) {
                 <ShowMoreLessButton showDetails={showDetails} setShowDetails={setShowDetails}> </ShowMoreLessButton>
 
                 {/* Delete Confirmation Modal */}
-                <DeleteCourseConfirmationModal showDeleteModal={showDeleteModal}
+                <DeleteCourseConfirmationModal courseId={course.courseId}
+                                               courseName={course.courseName}
+                                               showDeleteModal={showDeleteModal}
                                                handleCancelDelete={handleCancelDelete}
                                                handleConfirmDelete={handleConfirmDelete}>
                 </DeleteCourseConfirmationModal>
