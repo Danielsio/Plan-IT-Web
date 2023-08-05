@@ -398,7 +398,7 @@ function EditCourse() {
                                             })
                                         }
                                     >
-                                        Remove Subject
+                                        Remove This Subject
                                     </Button>
                                 )}
                             </Form.Group>
@@ -413,17 +413,21 @@ function EditCourse() {
                             }))
                         }
                     >
-                        Add Subject
+                        Add A Subject
                     </Button>
                 </Card>
                 <Button
                     variant="secondary"
                     className="mt-2 mr-2"
+                    style={{marginBottom:"20px"}}
                     onClick={handleCancel}
                 >
                     Cancel
                 </Button>
-                <Button variant="primary" type="submit" className="mt-2">
+                <Button variant="primary"
+                        type="submit"
+                        className="mt-2"
+                        style={{marginBottom:"20px"}}>
                     Save Changes
                 </Button>
             </Form>
