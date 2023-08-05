@@ -1,7 +1,5 @@
-import {Button, Card, Collapse, Modal} from "react-bootstrap";
+import {Button, Modal} from "react-bootstrap";
 import React from "react";
-import CourseItem from "./CourseItem.jsx";
-import {FiChevronDown, FiChevronUp} from "react-icons/fi";
 
 function DeleteCourseConfirmationModal({courseId, courseName, showDeleteModal, handleCancelDelete, handleConfirmDelete}) {
 

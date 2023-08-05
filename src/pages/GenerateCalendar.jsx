@@ -488,7 +488,7 @@ const GenerateCalendar = () => {
                         loading={loading}
                     />
 
-                    <GoogleCalendarButton handleOpenCalendar={{handleOpenCalendar}}/>
+                    <GoogleCalendarButton handleOpenCalendar={handleOpenCalendar}/>
                 </Col>
 
                 {showModal && (

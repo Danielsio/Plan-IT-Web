@@ -1,7 +1,7 @@
 import React, {useContext, useState} from "react";
-import {Card, Button, Collapse, Modal, Col, Row} from "react-bootstrap";
+import {Card, Button, Collapse, Col, Row} from "react-bootstrap";
 import {useNavigate} from "react-router-dom";
-import {FiChevronDown, FiChevronUp} from "react-icons/fi"; // Import icons for Show More/Show Less
+
 import "../../styles/adminDashboard.css";
 import api from "../../api/axiosBackendConfig.js";
 import {UserContext} from "../../context/UserContext.jsx";

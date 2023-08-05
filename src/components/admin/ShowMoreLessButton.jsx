@@ -1,12 +1,7 @@
-import React, {useContext, useState} from "react";
-import {Card, Button, Collapse, Modal} from "react-bootstrap";
-import {useNavigate} from "react-router-dom";
+import React from "react";
+import {Button} from "react-bootstrap";
 import {FiChevronDown, FiChevronUp} from "react-icons/fi"; // Import icons for Show More/Show Less
 import "../../styles/adminDashboard.css";
-import api from "../../api/axiosBackendConfig.js";
-import {UserContext} from "../../context/UserContext.jsx";
-import {toast} from "react-toastify";
-import DeleteCourseConfirmationModal from "./DeleteCourseConfirmationModal.jsx";
 
 
 function ShowMoreLessButton({showDetails, setShowDetails}) {

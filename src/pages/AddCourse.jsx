@@ -8,6 +8,7 @@ import {
 import {useNavigate} from "react-router-dom";
 import api from "../api/axiosBackendConfig";
 import {UserContext} from "../context/UserContext";
+import {validateCourseDetails} from "./EditCourse.jsx"
 import {ClipLoader} from "react-spinners";
 import {
     NO_PROBLEM,
@@ -52,53 +53,19 @@ function EditCourse() {
     const validateForm = () => {
         console.log(course);
 
-        let isValid = true;
+        let isValid ;
 
-        if (!isCousreIdValid(course.courseId.trim())) {
+        if (!isCourseIdValid(course.courseId.trim())) {
             toast.error("Please Enter Valid Course Id! (6 digits only)");
             isValid = false; // Id field is invalid
         }
 
-        if (course.courseName.trim() === "") {
-            toast.error("Please Enter Course Name !");
-            isValid = false; // Name field is empty
-        }
+        isValid = validateCourseDetails(isValid, course);
 
-        if (course.credits < 1 || course.credits > 7) {
-            toast.error("Please Enter credits between 1-7 !");
-            isValid = false; // Credits field is invalid
-        }
-
-        if (course.difficultyLevel < 1 || course.difficultyLevel > 10) {
-            toast.error("Please Enter difficultyLevel between 1-10 !");
-            isValid = false; // Difficulty field is invalid
-        }
-
-        if (course.recommendedStudyTime < 1 || course.recommendedStudyTime > 30) {
-            toast.error("Please Enter recommended Study Time between 1-30 !");
-            isValid = false; // Study time field is invalid
-        }
-
-        if (
-            course.subjectsPracticePercentage < 10 ||
-            course.subjectsPracticePercentage > 100
-        ) {
-            toast.error("Please Enter subjects Practice Percentage between 10-100 !");
-            isValid = false; // Study time field is invalid
-        }
-
-        if (
-            course.courseSubjects.length > 0 &&
-            course.courseSubjects.some((subject) => subject.trim() === "")
-        ) {
-            toast.error("Dont leave empty subjects please !");
-            isValid = false; // Subjects field contains an empty string
-        }
-
-        return isValid; // All fields are valid
+        return isValid;
     };
 
-    function isCousreIdValid(str) {
+    function isCourseIdValid(str) {
         if (str.length !== 6) {
             return false;
         }
