@@ -52,7 +52,7 @@ function CourseItem({course}) {
                 <Row className="d-flex justify-content-between">
                     <Col>
                         <Card.Title className="mb-0">{course.courseName}</Card.Title>
-                        <div className="sub-text">Course ID: {}</div>
+                        <div className="sub-text">Course ID: {course.courseId}</div>
                     </Col>
                     <Col style={{textAlign: "end"}}>
                         {/* Edit and Delete buttons */}

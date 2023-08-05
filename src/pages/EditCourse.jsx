@@ -252,6 +252,9 @@ function EditCourse() {
             <PageHeader pageTitle={"Edit Course"}> </PageHeader>
             <Form onSubmit={handleSubmit}>
                 <Card className="card-container">
+
+                    <div className="mb-2 sub-text">Course ID: {course.courseId}</div>
+
                     <Form.Group controlId="formCourseName">
                         <TextField
                             className="mt-2 mb-2"
