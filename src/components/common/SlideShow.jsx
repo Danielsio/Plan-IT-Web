@@ -2,18 +2,19 @@ import React from 'react';
 import {Fade} from 'react-slideshow-image';
 import 'react-slideshow-image/dist/styles.css'
 
-const fadeImages = [
-    {
-        url: 'readme_objects/googleCalendarBefore.png',
-        caption: 'Before'
-    },
-    {
-        url: 'readme_objects/googleCalendarAfter.png',
-        caption: 'After'
-    },
-];
-
 export const Slideshow = () => {
+
+    const fadeImages = [
+        {
+            url: import.meta.env.DEV ? 'readme_objects/googleCalendarBefore.png' : '../Before.png',
+            caption: 'Before'
+        },
+        {
+            url: import.meta.env.DEV ? 'readme_objects/googleCalendarAfter.png' : '../After.png',
+            caption: 'After'
+        },
+    ];
+
     return (
         <div className="slide-container">
             <Fade>
