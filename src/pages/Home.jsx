@@ -6,6 +6,7 @@ import {Link} from "react-router-dom";
 import {UserContext} from "../context/UserContext";
 import {FaCalendarAlt} from "react-icons/fa";
 import "../styles/home.css";
+import {Slideshow} from "../components/common/SlideShow.jsx";
 
 const Home = () => {
     const {handleLogin, isAuthenticated} = useContext(UserContext);
@@ -50,13 +51,13 @@ const Home = () => {
                                 and uncertainty of exam season alone.
                             </p>
                         </div>
+
+                        <Slideshow/>
+
                     </animated.div>
                     {isAuthenticated ? (
                         <animated.div style={buttonAnimation}>
                             <div>
-                                <p className="lead mb-4">
-                                    To generate your plan for the next exams
-                                </p>
                                 <Link to="/generate-calendar">
                                     <Button variant="success" size="lg" className="my-3">
                                         Generate My Study Plan <FaCalendarAlt className="ml-2"/>
