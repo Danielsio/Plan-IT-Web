@@ -1,30 +1,34 @@
-import React from 'react';
-import {Fade} from 'react-slideshow-image';
-import 'react-slideshow-image/dist/styles.css'
+import Carousel from 'react-bootstrap/Carousel';
 
-export const Slideshow = () => {
-
-    const fadeImages = [
-        {
-            url: import.meta.env.DEV ? 'readme_objects/googleCalendarBefore.png' : '../Before.png',
-            caption: 'Before'
-        },
-        {
-            url: import.meta.env.DEV ? 'readme_objects/googleCalendarAfter.png' : '../After.png',
-            caption: 'After'
-        },
-    ];
-
+function Slideshow() {
     return (
-        <div className="slide-container">
-            <Fade>
-                {fadeImages.map((fadeImage, index) => (
-                    <div key={index}>
-                        <img style={{width: '100%'}} src={fadeImage.url}/>
-                        <h2>{fadeImage.caption}</h2>
-                    </div>
-                ))}
-            </Fade>
-        </div>
-    )
+        <Carousel fade data-bs-theme="dark">
+            <Carousel.Item>
+                <div>
+                    <img
+                        className="d-block w-100"
+                        src={import.meta.env.DEV ? "public/Before.png" : "../Before.png"}
+                        alt="before-calendar"
+                    />
+                </div>
+                <Carousel.Caption style={{color: "black"}}>
+                    <h2>Before</h2>
+                </Carousel.Caption>
+            </Carousel.Item>
+            <Carousel.Item>
+                <div>
+                    <img
+                        className="d-block w-100"
+                        src={import.meta.env.DEV ? "public/After.png" : "../After.png"}
+                        alt="after-calendar"
+                    />
+                </div>
+                <Carousel.Caption>
+                    <h2 style={{color: "black"}}>After</h2>
+                </Carousel.Caption>
+            </Carousel.Item>
+        </Carousel>
+    );
 }
+
+export default Slideshow;

@@ -6,7 +6,7 @@ import {Link} from "react-router-dom";
 import {UserContext} from "../context/UserContext";
 import {FaCalendarAlt} from "react-icons/fa";
 import "../styles/home.css";
-import {Slideshow} from "../components/common/SlideShow.jsx";
+import Slideshow from "../components/common/SlideShow.jsx";
 
 const Home = () => {
     const {handleLogin, isAuthenticated} = useContext(UserContext);
