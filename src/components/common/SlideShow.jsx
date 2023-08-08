@@ -1,34 +1,32 @@
-import Carousel from 'react-bootstrap/Carousel';
+import React from 'react';
+import {Fade} from 'react-slideshow-image';
+import 'react-slideshow-image/dist/styles.css';
+import '../../styles/SlideShow.css';
 
-function Slideshow() {
+const SlideShow = () => {
+
     return (
-        <Carousel fade data-bs-theme="dark">
-            <Carousel.Item>
-                <div>
-                    <img
-                        className="d-block w-100"
-                        src={import.meta.env.DEV ? "public/Before.png" : "../Before.png"}
-                        alt="before-calendar"
-                    />
+        <div>
+            <Fade>
+                <div className="each-slide">
+                    <div>
+                        <img className="slide-image"
+                             src={import.meta.env.DEV ? "Before.png" : "../Before.png"}
+                             alt="image-before"/>
+                    </div>
+                    <p>Before:<br/><br/>Unorganized Schedule</p>
                 </div>
-                <Carousel.Caption style={{color: "black"}}>
-                    <h2>Before</h2>
-                </Carousel.Caption>
-            </Carousel.Item>
-            <Carousel.Item>
-                <div>
-                    <img
-                        className="d-block w-100"
-                        src={import.meta.env.DEV ? "public/After.png" : "../After.png"}
-                        alt="after-calendar"
-                    />
+                <div className="each-slide">
+                    <p>After: <br/><br/>A Smart Study Plan <br/>based on your preferences</p>
+                    <div>
+                        <img className="slide-image"
+                             src={import.meta.env.DEV ? "After.png" : "../After.png"}
+                             alt="image-After"/>
+                    </div>
                 </div>
-                <Carousel.Caption>
-                    <h2 style={{color: "black"}}>After</h2>
-                </Carousel.Caption>
-            </Carousel.Item>
-        </Carousel>
+            </Fade>
+        </div>
     );
-}
+};
 
-export default Slideshow;
+export default SlideShow;
