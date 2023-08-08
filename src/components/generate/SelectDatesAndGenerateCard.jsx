@@ -7,9 +7,12 @@ const SelectDatesCardComponent = ({startDate, endDate, setStartDate, setEndDate,
     return (
         <Card className="card-container generate-plan-card select-dates-card">
             <Card.Body>
-                <h2>Select the start and end of your study period.</h2>
+                <Card.Title>Generate A New Study Plan</Card.Title>
+
+                <div className="sub-text" style={{marginBottom: "10px"}}>Select the beginning and the end of your study period.
+                    A new study plan will be generated within those boundaries.</div>
                 <div className="mb-3">
-                    <label htmlFor="start-date-picker">Start Date:</label>
+                    <label htmlFor="start-date-picker">Start date:</label>
                     <DatePicker
                         id="start-date-picker"
                         selected={startDate}
@@ -18,7 +21,7 @@ const SelectDatesCardComponent = ({startDate, endDate, setStartDate, setEndDate,
                     />
                 </div>
                 <div className="mb-3">
-                    <label htmlFor="end-date-picker">End Date:</label>
+                    <label htmlFor="end-date-picker">End date:</label>
                     <DatePicker
                         id="end-date-picker"
                         selected={endDate}
@@ -26,8 +29,8 @@ const SelectDatesCardComponent = ({startDate, endDate, setStartDate, setEndDate,
                         className="form-control"
                     />
                 </div>
-                <Button variant="primary" size="lg" onClick={handleGenerate}>
-                    Generate New Plan
+                <Button variant="primary" style={{width: "100%"}} size="lg" onClick={handleGenerate}>
+                    Generate A New Plan
                 </Button>
 
                 {loading && (

@@ -4,10 +4,17 @@ import ExamItem from './Exam.jsx';
 import {Skeleton} from "@mui/material";
 
 const StudyPlanCard = ({loadingStudyDetails, studyPlan, handleReGenerate}) => {
+    const studyPlanStartTimeAsString = studyPlan ?
+        new Date(studyPlan.startDateTimeOfPlan).toLocaleDateString() :
+        "";
+    const studyPlanEndTimeAsString = studyPlan ?
+        new Date(studyPlan.endDateTimeOfPlan).toLocaleDateString():
+        "";
+
     return (
         <Card className="card-container generate-plan-card">
             <Card.Body>
-                <Card.Title>Generated Study Plan:</Card.Title>
+                <Card.Title>Latest Generated Study Plan:</Card.Title>
 
                 {loadingStudyDetails ? (
                     <>
@@ -30,72 +37,70 @@ const StudyPlanCard = ({loadingStudyDetails, studyPlan, handleReGenerate}) => {
                     <>
                         {studyPlan ? (
                             <>
+                                <div style={{marginBottom:"20px"}}>
+                                    <div>
+                                        <div className="container-of-from-to-plan">
+                                            <div className="sub-text">From:</div>
+                                            <div className="container-of-date-plan">
+                                                {studyPlanStartTimeAsString}
+                                            </div>
+                                        </div>
+
+                                        <div style={{padding:"10px", display:"inline-block", fontWeight:"bold"}}>{"--->"}</div>
+
+                                        <div className="container-of-from-to-plan">
+                                            <div className="sub-text">To:</div>
+                                            <div className="container-of-date-plan">
+                                                {studyPlanEndTimeAsString}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+
+                                <div style={{marginBottom: "25px"}}>
+                                    <div style={{display: "inline-block", whiteSpace: "break-spaces"}} className="title-in-preferences">
+                                        {studyPlan.totalNumberOfStudySessions}{" "}
+                                    </div>
+                                    <div style={{display: "inline-block"}} className="mb-0">
+                                        study sessions were generated.
+                                    </div>
+
+                                </div>
+
+
+
+                                <hr></hr>
+
                                 {studyPlan ? (
                                     <>
-                                        <div className="title-in-preferences">
-                                            Scanned Exams:{" "}
-                                            <ul>
-                                                {studyPlan.scannedExams.map((exam) => {
-                                                    return (
-                                                        <li key={exam.dateTimeISO}>
-                                                            <ExamItem
-                                                                courseName={exam.courseName}
-                                                                dateTimeISO={exam.dateTimeISO}
-                                                            />
-                                                        </li>
-                                                    );
-                                                })}
-                                            </ul>
-                                        </div>
-                                        <hr></hr>
-                                        <Row className="mb-2 row-preferences">
-                                            <Col xs={6}>
-                                                <h6 className="mb-0 title-in-preferences">
-                                                    Start Date Time of Plan:
-                                                </h6>
-                                            </Col>
-                                            <Col xs={6}>
-                                                <h6 className="mb-0 generated-plan-value">
-                                                    {new Date(
-                                                        studyPlan.startDateTimeOfPlan
-                                                    ).toLocaleDateString()}
-                                                </h6>
-                                            </Col>
-                                        </Row>
-                                        <Row className="mb-2 row-preferences">
-                                            <Col xs={6}>
-                                                <h6 className="mb-0 title-in-preferences">
-                                                    End Date Time of Plan:
-                                                </h6>
-                                            </Col>
-                                            <Col xs={6}>
-                                                <h6 className="mb-0 generated-plan-value">
-                                                    {new Date(
-                                                        studyPlan.endDateTimeOfPlan
-                                                    ).toLocaleDateString()}
-                                                </h6>
-                                            </Col>
-                                        </Row>
-                                        <Row className="mb-2">
-                                            <Col xs={6}>
-                                                <h6 className="mb-0 title-in-preferences">
-                                                    Total Number of Study Sessions:
-                                                </h6>
-                                            </Col>
-                                            <Col xs={6}>
-                                                <h6 className="mb-0 generated-plan-value">
-                                                    {studyPlan.totalNumberOfStudySessions}
-                                                </h6>
-                                            </Col>
-                                        </Row>
+                                        <Card.Title style={{ marginTop: "25px"}}>
+                                            Recognized Exams:{" "}
+                                        </Card.Title>
+                                        <div style={{marginBottom: "25px"}}>
+                                            {studyPlan.scannedExams.map((exam) => {
+                                                return (
+                                                    <ExamItem
+                                                        courseName={exam.courseName}
+                                                        dateTimeISO={exam.dateTimeISO}
+                                                    />
 
+                                                );
+                                            })}
+                                        </div>
+
+                                        <hr></hr>
+
+                                        <Card.Title style={{marginTop: "25px"}}>Any Changes To Your Calendar?</Card.Title>
+                                        <div className="sub-text" style={{marginBottom: "10px"}}>The study plan between {studyPlanStartTimeAsString} and {studyPlanEndTimeAsString} will be refreshed.</div>
                                         <Button
-                                            className="mt-3"
                                             variant="warning"
                                             size="lg"
                                             onClick={handleReGenerate}
                                         >
-                                            Re-Generate Existing Plan
+                                            Re-Generate The Existing Plan
                                         </Button>
                                     </>
                                 ) : (

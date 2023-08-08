@@ -77,6 +77,17 @@
     max-width: 100%;
 }
 
+.container-of-from-to-plan {
+    display: inline-block;
+}
+
+.container-of-date-plan {
+    background-color: #eeeeee;
+    display: inline-block;
+    border-radius: 10px;
+    padding: 10px;
+}
+
 .card-container.generate-plan-card {
     margin: 10px auto;
     width: 100%;
@@ -87,6 +98,17 @@
     font-size: 1rem;
 }
 
+.sub-text-a {
+    color: gray;
+    font-size: 1rem;
+}
+
+.sub-text-b {
+    color: green;
+    font-size: 1rem;
+}
+
 .generated-plan-value {
-    text-align: right;
+    display: flex;
+    align-items: center;
 }
