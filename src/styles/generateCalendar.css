@@ -98,14 +98,10 @@
     font-size: 1rem;
 }
 
-.sub-text-a {
-    color: gray;
-    font-size: 1rem;
-}
-
-.sub-text-b {
-    color: green;
-    font-size: 1rem;
+.box-event-line {
+    background-color: #4279d1;
+    height: 100%;
+    width: 4px;
 }
 
 .generated-plan-value {

@@ -7,12 +7,7 @@ function ExamItem({courseName, dateTimeISO}) {
 
         <Row style={{marginBottom:"10px"}}>
             <Col style={{flexGrow: 0}}>
-                <Box
-                    sx={{
-                        backgroundColor: "#4279d1"
-                    }}
-                    style={{width: "4px", height: "100%"}}
-                />
+                <Box className="box-event-line"/>
             </Col>
             <Col>
                 <div className="mb-0 title-in-preferences">
