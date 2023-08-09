@@ -14,6 +14,7 @@
     --body_background: white;
     --card_color: white;
     --body_color: Black;
+    --sub_body_color: #gray;
     --link_color: navy;
 }
 
@@ -21,6 +22,7 @@
     --mainColor: #003e8d;
     --body_background: #282c34;
     --card_color: #4a4f57;
+    --sub_body_color: #b8bac7;
     --body_color: white;
     --link_color: cyan;
 }

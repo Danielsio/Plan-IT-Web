@@ -80,7 +80,7 @@ function AppNavbar() {
                         <AiOutlineInfoCircle className="mb-1 mr-1"/>
                         About
                     </Nav.Link>
-
+                    <DarkModeToggle/>
                     {isAuthenticated ? (
                         <Button variant="outline-light" onClick={handleLogout}>
                             Logout
@@ -90,7 +90,6 @@ function AppNavbar() {
                             Login
                         </Button>
                     )}
-                    <DarkModeToggle/>
                 </Nav>
             </Navbar.Collapse>
         </Navbar>
