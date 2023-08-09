@@ -1,18 +1,26 @@
 import React from "react";
 import {Row, Col} from "react-bootstrap";
+import Box from "@mui/material/Box";
 
 function ExamItem({courseName, dateTimeISO}) {
     return (
-        <Row className="mb-2 row-preferences">
-            <Col xs={6}>
-                <h6 className="mb-0 title-in-preferences">{courseName}</h6>
+
+        <Row style={{marginBottom:"10px"}}>
+            <Col style={{flexGrow: 0}}>
+                <Box className="box-event-line"/>
             </Col>
-            <Col xs={6}>
-                <h6 className="mb-0 generated-plan-value">
+            <Col>
+                <div className="mb-0 title-in-preferences">
+                    {courseName}
+                </div>
+            </Col>
+            <Col className="generated-plan-value" style={{maxWidth: "fit-content"}}>
+                <div className="sub-text">
                     {new Date(dateTimeISO).toLocaleDateString()}
-                </h6>
+                </div>
             </Col>
         </Row>
+
     );
 }
 
