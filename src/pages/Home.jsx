@@ -60,7 +60,7 @@ const Home = () => {
                             <div>
                                 <Link to="/generate-calendar">
                                     <Button variant="success" size="lg" className="my-3">
-                                        Generate My Study Plan <FaCalendarAlt className="ml-2"/>
+                                        Generate My Study Plan <FaCalendarAlt className="ml-2 mb-1"/>
                                     </Button>
                                 </Link>
                             </div>
