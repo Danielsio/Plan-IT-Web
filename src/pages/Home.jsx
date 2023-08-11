@@ -58,7 +58,7 @@ const Home = () => {
                                     To generate your plan for the next exams
                                 </p>
                                 <Link to="/generate-calendar">
-                                    <Button variant="success" size="lg" className="my-3">
+                                    <Button variant="success" size="lg" className="my-3 btn-green-planit">
                                         Generate My Study Plan <FaCalendarAlt className="ml-2"/>
                                     </Button>
                                 </Link>

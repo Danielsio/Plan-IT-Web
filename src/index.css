@@ -10,6 +10,11 @@
 :root {
   --mainColor: #4279d1;
   /* maybe use #277bff better more primary blue */
+  --mainColorDark: #3362a7;
+  --mainColorDarker: #254e86;
+  --secondaryColor: #77d63f;
+  --secondaryColorDark: #63b236;
+  --secondaryColorDarker: #508f2b;
   --textColor: #eee;
 }
 

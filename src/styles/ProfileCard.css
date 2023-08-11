@@ -102,5 +102,20 @@ h4 {
 .title-in-preferences {
   font-weight: bold;
 }
+
+.btn-blue-planit {
+  background-color: var(--mainColor);
+  border-color: var(--mainColorDark);
+}
+
+.btn-blue-planit:hover {
+  background-color: var(--mainColorDark);
+  border-color: var(--mainColorDark);
+}
+
+.btn-primary:not(:disabled):not(.disabled):active.btn-blue-planit:active {
+  background-color: var(--mainColorDarker);
+  border-color: var(--mainColorDarker);
+}
  
 
