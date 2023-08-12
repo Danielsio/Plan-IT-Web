@@ -23,7 +23,7 @@ function SubjectViewer({courseSubjects, handleSubjectsChange, setCourse}) {
                 {index >= 0 && (
                     <Button
                         variant="danger"
-                        className="mt-2"
+                        className="mt-2 btn-red-planit"
                         onClick={() =>
                             setCourse((prevCourse) => {
                                 const updatedSubjects = [...prevCourse.courseSubjects];
@@ -43,7 +43,7 @@ function SubjectViewer({courseSubjects, handleSubjectsChange, setCourse}) {
 
             <Button
                 variant="secondary"
-                className="mt-2 mr-2 add-subject-btn"
+                className="mt-2 mr-2 add-subject-btn btn-grey-planit"
                 onClick={() =>
                     setCourse((prevCourse) => ({
                         ...prevCourse,

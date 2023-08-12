@@ -51,7 +51,7 @@ function AdminDashboardPage() {
                             <div>
                                 <span>Session has expired, Please Sign-in</span>
                                 <Button
-                                    className="google-calendar-btn col-lg-3 mt-3"
+                                    className="google-calendar-btn col-lg-3 mt-3 btn-grey-planit"
                                     variant="secondary"
                                     size="lg"
                                     onClick={clearStateAndRedirect}
@@ -104,7 +104,7 @@ function AdminDashboardPage() {
                             <div>
                                 <span>Session has expired, Please Sign-in</span>
                                 <Button
-                                    className="google-calendar-btn col-lg-3 mt-3"
+                                    className="google-calendar-btn col-lg-3 mt-3 btn-grey-planit"
                                     variant="secondary"
                                     size="lg"
                                     onClick={clearStateAndRedirect}
@@ -136,7 +136,7 @@ function AdminDashboardPage() {
                 <Button
                     size="lg"
                     variant="primary"
-                    className="btn-admin-dashboard mb-3 mx-2"
+                    className="btn-admin-dashboard mb-3 mx-2 btn-blue-planit"
                     onClick={navigateToCoursesDashboard}
                 ><MenuBookIcon sx={{ fontSize: 40 }}/>
                     Courses
@@ -144,7 +144,7 @@ function AdminDashboardPage() {
                 <Button
                     size="lg"
                     variant="secondary"
-                    className="btn-admin-dashboard mb-3 mx-2"
+                    className="btn-admin-dashboard mb-3 mx-2 btn-grey-planit"
                     onClick={navigateToUsersDashboard}
                 > <SupervisorAccountIcon sx={{ fontSize: 40 }}/>
                     Users
@@ -152,7 +152,7 @@ function AdminDashboardPage() {
                 <Button
                     size="lg"
                     variant="success"
-                    className="btn-admin-dashboard mb-3 mx-2"
+                    className="btn-admin-dashboard mb-3 mx-2 btn-green-planit"
                     onClick={handleUpdateHolidays}
                 ><BeachAccessIcon sx={{ fontSize: 40 }}/>
                     Update Holidays

@@ -56,10 +56,10 @@ function CourseItem({course}) {
                     </Col>
                     <Col style={{textAlign: "end"}}>
                         {/* Edit and Delete buttons */}
-                                <Button variant="primary" className="me-2 mb-2" onClick={handleEditClick}>
+                                <Button variant="primary" className="me-2 mb-2 btn-blue-planit" onClick={handleEditClick}>
                                     Edit Course Details
                                 </Button>
-                                <Button className="ml-2 mb-2" variant="danger" onClick={handleDeleteClick}>
+                                <Button className="ml-2 mb-2 btn-red-planit" variant="danger" onClick={handleDeleteClick}>
                                     Delete Course
                                 </Button>
                     </Col>

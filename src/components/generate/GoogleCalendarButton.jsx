@@ -4,7 +4,7 @@ import React from "react";
 
 const GoogleCalendarButton = ({handleOpenCalendar}) => {
     return <Button
-        className="google-calendar-btn col-lg-3 mt-3"
+        className="btn-grey-planit google-calendar-btn col-lg-3 mt-3"
         variant="secondary"
         size="lg"
         onClick={handleOpenCalendar}

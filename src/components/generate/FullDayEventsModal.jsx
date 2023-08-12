@@ -22,7 +22,7 @@ const FullDayEventsModalComponent = ({showModal, handleCloseModal, fullDayEvents
                 </ul>
             </Modal.Body>
             <Modal.Footer>
-                <Button variant="secondary" onClick={handleCloseModal}>
+                <Button className="btn-grey-planit" variant="secondary" onClick={handleCloseModal}>
                     Continue Generate My Plan !
                 </Button>
             </Modal.Footer>

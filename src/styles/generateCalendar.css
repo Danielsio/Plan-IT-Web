@@ -104,6 +104,36 @@
     width: 4px;
 }
 
+.btn-yellow-planit {
+    background-color: var(--importantColor);
+    border-color: var(--importantColorDark);
+}
+
+.btn-yellow-planit:hover {
+    background-color: var(--importantColorDark);
+    border-color: var(--importantColorDark);
+}
+
+.btn-warning:not(:disabled):not(.disabled):active.btn-yellow-planit:active {
+    background-color: var(--importantColorDarker);
+    border-color: var(--importantColorDarker);
+}
+
+.btn-grey-planit {
+    background-color: var(--infoColor);
+    border-color: var(--infoColorDark);
+}
+
+.btn-grey-planit:hover{
+    background-color: var(--infoColorDark);
+    border-color:var(--infoColorDark);
+}
+
+.btn-secondary:not(:disabled):not(.disabled):active.btn-grey-planit:active {
+    background-color: var(--infoColorDarker);
+    border-color: var(--infoColorDarker);
+}
+
 .generated-plan-value {
     display: flex;
     align-items: center;

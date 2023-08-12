@@ -157,7 +157,7 @@ const ProgressStepper = () => {
                                 <div>
                                     <span>Session has expired, Please Sign-in</span>
                                     <Button
-                                        className="google-calendar-btn col-lg-3 mt-3"
+                                        className="google-calendar-btn col-lg-3 mt-3 btn-grey-planit"
                                         variant="secondary"
                                         size="lg"
                                         onClick={clearStateAndRedirect}
@@ -185,7 +185,7 @@ const ProgressStepper = () => {
                     Please enter your preferred study start and end times:
                 </Typography>
                 <Box sx={{display: "block", justifyContent: "space-between"}}>
-                    <Box sx={{width: "30%", margin: "auto"}}>
+                    <Box sx={{width: "30%", margin: "25px auto"}}>
                         <Form.Label htmlFor="userStudyStartTime">Study Start Time:</Form.Label>
                         <Form.Control
                             type="time"
@@ -348,6 +348,7 @@ const ProgressStepper = () => {
     return (
         <Container>
             <PageHeader pageTitle={"Welcome"}> </PageHeader>
+            <Typography style={{marginBottom: "25px"}}>Choose you study preferences in order to create a customized study plan.</Typography>
             <Box sx={{width: "50%", margin: "auto"}}>
                 <Stepper activeStep={activeStep}>
                     {steps.map((step, index) => (
@@ -359,14 +360,14 @@ const ProgressStepper = () => {
                 <div>
                     {allStepsCompleted ? (
                         <>
-                            <Typography sx={{mt: 2, mb: 1}}>All Steps Completed</Typography>
+                            <Typography sx={{mt: 2, mb: 1}}>You've Completed The First Setup.</Typography>
                             <Box sx={{display: "flex", flexDirection: "row", pt: 2}}>
                                 <Box sx={{flex: "1 1 auto"}}/>
                                 <Button variant="contained" onClick={handleReset}>
                                     Reset
                                 </Button>
                                 <Button onClick={() => navigate("/generate-calendar")} variant="contained" sx={{ml: 2}}>
-                                    Create Study Plan
+                                    Create Your Study Plan
                                 </Button>
                             </Box>
                         </>

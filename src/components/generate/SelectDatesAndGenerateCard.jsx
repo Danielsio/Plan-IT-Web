@@ -29,7 +29,7 @@ const SelectDatesCardComponent = ({startDate, endDate, setStartDate, setEndDate,
                         className="form-control"
                     />
                 </div>
-                <Button variant="primary" style={{width: "100%"}} size="lg" onClick={handleGenerate}>
+                <Button className="btn-blue-planit" variant="primary" style={{width: "100%"}} size="lg" onClick={handleGenerate}>
                     Generate A New Plan
                 </Button>
 

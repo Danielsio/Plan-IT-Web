@@ -4,7 +4,7 @@
   height: auto;
   background: white;
   border-radius: 10px;
-  box-shadow: 0px 1px 10px 1px black;
+  box-shadow: 0 1px 10px 1px black;
   overflow: hidden;
   margin: 2rem auto;
 }
@@ -101,6 +101,10 @@ h4 {
 
 .title-in-preferences {
   font-weight: bold;
+}
+
+.checkbox-holidays {
+
 }
 
 .btn-blue-planit {

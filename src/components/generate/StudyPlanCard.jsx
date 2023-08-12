@@ -1,5 +1,5 @@
 import React from 'react';
-import {Card, Button, Row, Col} from 'react-bootstrap';
+import {Card, Button} from 'react-bootstrap';
 import ExamItem from './Exam.jsx';
 import {Skeleton} from "@mui/material";
 
@@ -97,6 +97,7 @@ const StudyPlanCard = ({loadingStudyDetails, studyPlan, handleReGenerate}) => {
                                         <div className="sub-text" style={{marginBottom: "10px"}}>The study plan between {studyPlanStartTimeAsString} and {studyPlanEndTimeAsString} will be refreshed.</div>
                                         <Button
                                             variant="warning"
+                                            className="btn-yellow-planit"
                                             size="lg"
                                             onClick={handleReGenerate}
                                         >

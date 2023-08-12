@@ -34,3 +34,36 @@
 .add-course-btn-col {
     max-width: fit-content;
 }
+
+.btn-show-more-less-button {
+    color: var(--mainColor);
+}
+
+.btn-show-more-less-button:hover {
+    color: var(--mainColorDark);
+}
+
+.btn-show-more-less-button:active {
+    color: var(--mainColorDarker);
+}
+
+.btn-show-more-less-button:focus {
+    box-shadow: none;
+}
+
+.btn-red-planit {
+    background-color: var(--dangerColor);
+    border-color: var(--dangerColorDark);
+}
+
+.btn-red-planit:hover {
+    background-color: var(--dangerColorDark);
+    border-color: var(--dangerColorDark);
+}
+
+.btn-danger:not(:disabled):not(.disabled):active.btn-red-planit:active {
+    background-color: var(--dangerColorDarker);
+    border-color: var(--dangerColorDarker);
+}
+
+

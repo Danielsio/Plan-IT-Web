@@ -139,7 +139,7 @@ function EditCourse() {
                             <div>
                                 <span>Session has expired, Please Sign-in</span>
                                 <Button
-                                    className="google-calendar-btn col-lg-3 mt-3"
+                                    className="google-calendar-btn col-lg-3 mt-3 btn-grey-planit"
                                     variant="secondary"
                                     size="lg"
                                     onClick={clearStateAndRedirect}
@@ -194,7 +194,7 @@ function EditCourse() {
                 params: {sub: subjectID},
             });
             console.log(response.data);
-            if (response.data.succeed == true) {
+            if (response.data.succeed === true) {
                 toast.success(
                     `Success! The Course ${course.courseName} Has Updated Succefully.`
                 );
@@ -228,7 +228,7 @@ function EditCourse() {
                         <div>
                             <span>Session has expired, Please Sign-in</span>
                             <Button
-                                className="google-calendar-btn col-lg-3 mt-3"
+                                className="google-calendar-btn col-lg-3 mt-3 btn-grey-planit"
                                 variant="secondary"
                                 size="lg"
                                 onClick={clearStateAndRedirect}
@@ -383,7 +383,7 @@ function EditCourse() {
                 </Card>
                 <Button
                     variant="secondary"
-                    className="mt-2 mr-2"
+                    className="mt-2 mr-2 btn-grey-planit"
                     style={{marginBottom:"20px"}}
                     onClick={handleCancel}
                 >
@@ -391,7 +391,7 @@ function EditCourse() {
                 </Button>
                 <Button variant="primary"
                         type="submit"
-                        className="mt-2"
+                        className="mt-2 btn-blue-planit"
                         style={{marginBottom:"20px"}}>
                     Save Changes
                 </Button>
