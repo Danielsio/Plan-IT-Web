@@ -6,11 +6,13 @@ const FullDayEventsModalComponent = ({showModal, handleCloseModal, fullDayEvents
     return (
         <Modal show={showModal} onHide={handleCloseModal} backdrop="static" keyboard={false}>
             <Modal.Header>
-                <Modal.Title>We Found Full Day Events !</Modal.Title>
+                <Modal.Title>Decide on full-day events and holidays</Modal.Title>
             </Modal.Header>
             <Modal.Body>
-                <h5>Please Choose:</h5>
-                <ul>
+                <div>The following events are full-day events from your calendars, or holidays occurring within the selected dates.</div>
+                <div>You need to specify on which of those you are willing to study.</div>
+                <div>Mark all the days, where you <div style={{display: "inline-block", fontWeight: "bold"}}>do</div> want to study in:</div>
+                <div>
                     {fullDayEvents.map((event) => (
                         <FullDayEventItem
                             key={event.start.date.value}
@@ -19,7 +21,7 @@ const FullDayEventsModalComponent = ({showModal, handleCloseModal, fullDayEvents
                             handleDecision={handleDecision}
                         />
                     ))}
-                </ul>
+                </div>
             </Modal.Body>
             <Modal.Footer>
                 <Button className="btn-grey-planit" variant="secondary" onClick={handleCloseModal}>
