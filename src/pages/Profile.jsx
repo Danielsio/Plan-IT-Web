@@ -85,7 +85,7 @@ function Profile() {
                             <div>
                                 <span>Session has expired, Please Sign-in</span>
                                 <Button
-                                    className="google-calendar-btn col-lg-3 mt-3"
+                                    className="google-calendar-btn col-lg-3 mt-3 btn-grey-planit"
                                     variant="secondary"
                                     size="lg"
                                     onClick={clearStateAndRedirect}

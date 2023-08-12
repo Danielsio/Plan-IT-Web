@@ -51,7 +51,7 @@ function AdminCoursesDashboard() {
                             <div>
                                 <span>Session has expired, Please Sign-in</span>
                                 <Button
-                                    className="google-calendar-btn col-lg-3 mt-3"
+                                    className="google-calendar-btn col-lg-3 mt-3 btn-grey-planit"
                                     variant="secondary"
                                     size="lg"
                                     onClick={clearStateAndRedirect}
@@ -102,7 +102,7 @@ function AdminCoursesDashboard() {
                                 <div>
                                     <span>Session has expired, Please Sign-in</span>
                                     <Button
-                                        className="google-calendar-btn col-lg-3 mt-3"
+                                        className="google-calendar-btn col-lg-3 mt-3 btn-grey-planit"
                                         variant="secondary"
                                         size="lg"
                                         onClick={clearStateAndRedirect}
@@ -134,7 +134,7 @@ function AdminCoursesDashboard() {
                 <Col>
                 </Col>
                 <Col className="text-end add-course-btn-col">
-                    <Button variant="success" onClick={handleAddCourse}>
+                    <Button className="btn-green-planit" variant="success" onClick={handleAddCourse}>
                         New Course
                     </Button>
                 </Col>

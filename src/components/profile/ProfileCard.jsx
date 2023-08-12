@@ -105,7 +105,7 @@ const ProfileCard = ({
 
                                 <Button
                                     size="lg"
-                                    className="mt-2 edit-preference-btn mx-auto"
+                                    className="mt-2 btn-blue-planit edit-preference-btn mx-auto"
                                     onClick={onClick}
                                 >
                                     Edit Preferences

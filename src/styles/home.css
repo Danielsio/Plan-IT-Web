@@ -1,0 +1,14 @@
+.btn-green-planit {
+    background-color: var(--secondaryColor);
+    border-color: var(--secondaryColorDark);
+}
+
+.btn-green-planit:hover {
+    background-color: var(--secondaryColorDark);
+    border-color: var(--secondaryColorDark);
+}
+
+.btn-success:not(:disabled):not(.disabled):active.btn-green-planit:active {
+    background-color: var(--secondaryColorDarker);
+    border-color: var(--secondaryColorDarker);
+}

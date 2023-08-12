@@ -17,8 +17,6 @@ import {
 } from "../utill/Constants";
 import {useNavigate} from "react-router-dom";
 import {toast} from "react-toastify";
-import {Skeleton} from "@mui/material";
-import RegularEventItem from "../components/generate/RegularEventItem.jsx";
 import PageHeader from "../components/common/PageHeader.jsx";
 import UpcomingStudySessionCard from "../components/generate/UpcomingStudySessionCard.jsx";
 import StudyPlanCard from "../components/generate/StudyPlanCard.jsx";
@@ -82,7 +80,7 @@ const GenerateCalendar = () => {
                             <div>
                                 <span>Session has expired, Please Sign-in</span>
                                 <Button
-                                    className="google-calendar-btn col-lg-3 mt-3"
+                                    className="google-calendar-btn col-lg-3 mt-3 btn-grey-planit"
                                     variant="secondary"
                                     size="lg"
                                     onClick={clearStateAndRedirect}
@@ -150,7 +148,7 @@ const GenerateCalendar = () => {
                   your plan in Google Calendar."
                 </span>
                                 <Button
-                                    className="google-calendar-btn col-lg-3 mt-3"
+                                    className="google-calendar-btn col-lg-3 mt-3 btn-grey-planit"
                                     variant="secondary"
                                     size="lg"
                                     onClick={handleOpenCalendar}
@@ -201,7 +199,7 @@ const GenerateCalendar = () => {
                                 <div>
                                     <span>Session has expired, Please Sign-in</span>
                                     <Button
-                                        className="google-calendar-btn col-lg-3 mt-3"
+                                        className="google-calendar-btn col-lg-3 mt-3 btn-grey-planit"
                                         variant="secondary"
                                         size="lg"
                                         onClick={clearStateAndRedirect}
@@ -258,7 +256,7 @@ const GenerateCalendar = () => {
                   your plan in Google Calendar."
                 </span>
                             <Button
-                                className="google-calendar-btn col-lg-3 mt-3"
+                                className="google-calendar-btn col-lg-3 mt-3 btn-grey-planit"
                                 variant="secondary"
                                 size="lg"
                                 onClick={handleOpenCalendar}
@@ -299,7 +297,7 @@ const GenerateCalendar = () => {
                             <div>
                                 <span>Session has expired, Please Sign-in</span>
                                 <Button
-                                    className="google-calendar-btn col-lg-3 mt-3"
+                                    className="google-calendar-btn col-lg-3 mt-3 btn-grey-planit"
                                     variant="secondary"
                                     size="lg"
                                     onClick={clearStateAndRedirect}
@@ -373,7 +371,7 @@ const GenerateCalendar = () => {
                 your plan in Google Calendar."
               </span>
                             <Button
-                                className="google-calendar-btn col-lg-3 mt-3"
+                                className="google-calendar-btn col-lg-3 mt-3 btn-grey-planit"
                                 variant="secondary"
                                 size="lg"
                                 onClick={handleOpenCalendar}
@@ -413,7 +411,7 @@ const GenerateCalendar = () => {
                             <div>
                                 <span>Session has expired, Please Sign-in</span>
                                 <Button
-                                    className="google-calendar-btn col-lg-3 mt-3"
+                                    className="google-calendar-btn col-lg-3 mt-3 btn-grey-planit"
                                     variant="secondary"
                                     size="lg"
                                     onClick={clearStateAndRedirect}

@@ -14,10 +14,10 @@ function DeleteCourseConfirmationModal({courseId, courseName, showDeleteModal, h
                 <p>{courseName} (ID:{courseId}) </p>
             </Modal.Body>
             <Modal.Footer>
-                <Button variant="secondary" onClick={handleCancelDelete}>
+                <Button className="btn-grey-planit" variant="secondary" onClick={handleCancelDelete}>
                     Cancel
                 </Button>
-                <Button variant="danger" onClick={handleConfirmDelete}>
+                <Button variant="danger" className="btn-red-planit" onClick={handleConfirmDelete}>
                     Yes, Delete This Course
                 </Button>
             </Modal.Footer>

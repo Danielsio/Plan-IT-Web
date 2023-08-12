@@ -174,7 +174,7 @@ function EditPreferences() {
                             <div>
                                 <span>Session has expired, Please Sign-in</span>
                                 <Button
-                                    className="google-calendar-btn col-lg-3 mt-3"
+                                    className="google-calendar-btn col-lg-3 mt-3 btn-grey-planit"
                                     variant="secondary"
                                     size="lg"
                                     onClick={clearStateAndRedirect}
@@ -308,7 +308,7 @@ function EditPreferences() {
                     </Form.Group>
                     <Form.Group>
                         <Form.Check
-                            className="mt-2 mb-2"
+                            className="mt-2 mb-2 checkbox-holidays"
                             type="checkbox"
                             name="studyOnWeekends"
                             checked={userPreferences.studyOnWeekends}
@@ -318,14 +318,14 @@ function EditPreferences() {
                     </Form.Group>
                 </Card>
                 <Button
-                    className="mt-2 mr-2"
+                    className="mt-2 mr-2 btn-grey-planit"
                     style={{marginBottom:"20px"}}
                     variant="secondary"
                     onClick={handleCancel}
                 >
                     Cancel
                 </Button>
-                <Button className="mt-2"
+                <Button className="mt-2 btn-blue-planit"
                         style={{marginBottom:"20px"}}
                         variant="primary"
                         type="submit">

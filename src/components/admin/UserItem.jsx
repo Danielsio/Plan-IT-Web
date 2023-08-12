@@ -40,7 +40,7 @@ function UserItem({profile, admin, id}) {
     const renderButton = () => {
         if (admin) {
             return (
-                <Button variant="secondary" className="me-2" disabled>
+                <Button variant="secondary" className="me-2 btn-grey-planit" disabled>
                     User is Admin
                 </Button>
             );
@@ -48,7 +48,7 @@ function UserItem({profile, admin, id}) {
             return (
                 <Button
                     variant="primary"
-                    className="me-2"
+                    className="me-2 btn-blue-planit"
                     onClick={handleMakeAdminClick}
                 >
                     Make Admin
@@ -64,7 +64,7 @@ function UserItem({profile, admin, id}) {
                 <Card.Text>Email: {profile.email}</Card.Text>
                 <Card.Text>Admin: {admin ? "Yes" : "No"}</Card.Text>
                 {renderButton()}
-                <Button variant="danger" className="ml-2">
+                <Button variant="danger" className="ml-2 btn-red-planit">
                     Delete
                 </Button>
             </Card.Body>
