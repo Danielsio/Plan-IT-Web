@@ -2,7 +2,7 @@ import React, {useState, useContext, useEffect} from "react";
 import "react-datepicker/dist/react-datepicker.css";
 import api from "../api/axiosBackendConfig";
 import {UserContext} from "../context/UserContext";
-import {Row, Button, Col, Container} from "react-bootstrap";
+import {Row, Button, Col, Container, Card} from "react-bootstrap";
 import {ClipLoader} from "react-spinners";
 import "../styles/generateCalendar.css";
 import {
@@ -17,6 +17,7 @@ import {
 } from "../utill/Constants";
 import {useNavigate} from "react-router-dom";
 import {toast} from "react-toastify";
+import {Backdrop} from "@mui/material";
 import PageHeader from "../components/common/PageHeader.jsx";
 import UpcomingStudySessionCard from "../components/generate/UpcomingStudySessionCard.jsx";
 import StudyPlanCard from "../components/generate/StudyPlanCard.jsx";
@@ -484,6 +485,28 @@ const GenerateCalendar = () => {
 
                     <GoogleCalendarButton handleOpenCalendar={handleOpenCalendar}/>
                 </Col>
+
+                {loading && (
+                    <div>
+                        <Backdrop
+                            sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+                            open={loading}
+                            /*onClick={handleClose}*/>
+                            <div style={{display: "flex", flexDirection: "column", alignItems: "center"}}>
+                                <Card.Title style={{marginBottom: "25px"}}>Working on it..</Card.Title>
+                                <Card.Body style={{marginBottom: "25px"}}>
+                                    <div style={{marginBottom: "25px"}}>We are creating you study plan. This might take a minute or two.</div>
+                                    <div>What is going on?
+                                        <div> <ClipLoader color="#fff" loading={loading} size={10}/> We scan your Google Calendar.</div>
+                                        <div> <ClipLoader color="#fff" loading={loading} size={10}/> We Fetch the latest data from Planning DB.</div>
+                                        <div> <ClipLoader color="#fff" loading={loading} size={10}/> We Formulate the best study plan, just for you.</div>
+                                    </div>
+                                </Card.Body>
+                                <ClipLoader color="#fff" loading={loading} size={100}/>
+                            </div>
+                        </Backdrop>
+                    </div>
+                )}
 
                 {showModal && (
                     <FullDayEventsModalComponent
