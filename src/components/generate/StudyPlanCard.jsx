@@ -1,9 +1,12 @@
 import React from 'react';
-import {Card, Button} from 'react-bootstrap';
+import {Card, Button, Row, Col} from 'react-bootstrap';
 import ExamItem from './Exam.jsx';
-import {Skeleton} from "@mui/material";
+import {IconButton, Menu, Skeleton} from "@mui/material";
+import MenuItem from "@mui/material/MenuItem";
+import MoreVertIcon from '@mui/icons-material/MoreVert';
+import * as PropTypes from "prop-types";
 
-const StudyPlanCard = ({loadingStudyDetails, studyPlan, handleReGenerate}) => {
+const StudyPlanCard = ({loadingStudyDetails, studyPlan, handleReGenerate, handleRemoveStudyPlanButtonClick}) => {
     const studyPlanStartTimeAsString = studyPlan ?
         new Date(studyPlan.startDateTimeOfPlan).toLocaleDateString() :
         "";
@@ -11,10 +14,55 @@ const StudyPlanCard = ({loadingStudyDetails, studyPlan, handleReGenerate}) => {
         new Date(studyPlan.endDateTimeOfPlan).toLocaleDateString():
         "";
 
+    const [anchorEl, setAnchorEl] = React.useState(null);
+    const openMoreMenu = Boolean(anchorEl);
+    const handleClickMoreMenu = (event) => {
+        setAnchorEl(event.currentTarget);
+    };
+    const handleCloseMoreMenu = () => {
+        setAnchorEl(null);
+    };
+
+    function handleRemoveStudyPlanAndCloseMenu() {
+        handleRemoveStudyPlanButtonClick();
+        handleCloseMoreMenu();
+    }
+
     return (
         <Card className="card-container generate-plan-card">
             <Card.Body>
-                <Card.Title>Latest Generated Study Plan:</Card.Title>
+                <Row>
+                    <Col style={{flexGrow: "1"}}>
+                        <Card.Title>Latest Generated Study Plan:</Card.Title>
+                    </Col>
+                    <Col style={{flexGrow: "0"}}>
+                        {studyPlan ? (<div>
+                            <IconButton
+                                id="basic-button"
+                                aria-controls={openMoreMenu ? 'basic-menu' : undefined}
+                                aria-haspopup="true"
+                                aria-expanded={openMoreMenu ? 'true' : undefined}
+                                onClick={handleClickMoreMenu}
+                            >
+                                <MoreVertIcon/>
+                            </IconButton>
+                            <Menu
+                                id="basic-menu"
+                                anchorEl={anchorEl}
+                                open={openMoreMenu}
+                                onClose={handleCloseMoreMenu}
+                                MenuListProps={{
+                                    'aria-labelledby': 'basic-button',
+                                }}
+                            >
+                                <MenuItem onClick={handleRemoveStudyPlanAndCloseMenu}>Remove This Plan</MenuItem>
+                            </Menu>
+                        </div>) : (<div></div>)}
+                    </Col>
+                </Row>
+
+
+
 
                 {loadingStudyDetails ? (
                     <>
