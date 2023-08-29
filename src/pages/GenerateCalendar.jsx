@@ -77,7 +77,7 @@ const GenerateCalendar = () => {
                 } else {
                     const problem = error.response.data.details;
                     const status = error.response.status;
-                    if (status === 400 && problem === ERROR_USER_NOT_FOUND) {
+                    if (status === 400 && (problem === ERROR_USER_NOT_FOUND || problem === ERROR_INVALID_GRANT)) {
                         toast.error(
                             <div>
                                 <span>Session has expired, Please Sign-in</span>
@@ -227,7 +227,7 @@ const GenerateCalendar = () => {
                 });
 
             toast.info(
-                "We are creating you study plan. This might take a minute or two.",
+                "We are creating your study plan. This might take a minute or two.",
                 {autoClose: false}
             );
         }
@@ -325,9 +325,63 @@ const GenerateCalendar = () => {
             });
 
         toast.info(
-            "We are creating you study plan. This might take a minute or two.",
+            "We are creating your study plan. This might take a minute or two.",
             {autoClose: false}
         );
+    };
+
+    const handleRemoveStudyPlan = async () => {
+        toast.info(
+            "We are removing the latest study plan. This might take a minute or two.",
+            {autoClose: false}
+        );
+        try {
+            setLoadingStudyDetails(true);
+            const response = await api.delete("/study-plan", {
+                params: {
+                    sub: subjectID,
+                },
+            });
+            dismissAllToastMessages();
+            console.log(response.data);
+
+            toast.success(`The latest study plan between ${new Date(studyPlan.startDateTimeOfPlan).toLocaleDateString()} and ${new Date(studyPlan.endDateTimeOfPlan).toLocaleDateString()}
+            was successfully removed from your Google Calendar.`)
+            setStudyPlan(null);
+            setUpComingSession(null);
+            setLoadingStudyDetails(false);
+        } catch (error) {
+            dismissAllToastMessages();
+            console.error(error);
+
+            if (error.code === ERROR_COULD_NOT_CONNECT_TO_SERVER_CODE) {
+                toast.error(
+                    "Service Unavailable. It looks that we have some problems right now. Please try again later."
+                );
+            } else {
+                const problem = error.response.data.details;
+                const status = error.response.status;
+                if (status === 400 && (problem === ERROR_USER_NOT_FOUND || problem === ERROR_INVALID_GRANT)) {
+                    toast.error(
+                        <div>
+                            <span>Session has expired, Please Sign-in</span>
+                            <Button
+                                className="google-calendar-btn col-lg-3 mt-3 btn-grey-planit"
+                                variant="secondary"
+                                size="lg"
+                                onClick={clearStateAndRedirect}
+                            >
+                                Go to Home
+                            </Button>
+                        </div>
+                    );
+                } else {
+                    toast.error(
+                        "Service Unavailable. It looks that we have some problems right now. Please try again later."
+                    );
+                }
+            }
+        }
     };
 
     const handleOpenCalendar = () => {
@@ -475,6 +529,7 @@ const GenerateCalendar = () => {
                         loadingStudyDetails={loadingStudyDetails}
                         studyPlan={studyPlan}
                         handleReGenerate={handleReGenerate}
+                        handleRemoveStudyPlanButtonClick={handleRemoveStudyPlan}
                     />
                     <UpcomingStudySessionCard
                         loadingStudyDetails={loadingStudyDetails}
