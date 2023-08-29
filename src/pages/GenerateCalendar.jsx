@@ -34,6 +34,7 @@ const GenerateCalendar = () => {
     const [decisions, setDecisions] = useState([]);
     const [loadingStudyDetails, setLoadingStudyDetails] = useState(true);
     const [studyPlan, setStudyPlan] = useState(null);
+    const [newGenerate, setNewGenerate] = useState(true);
     const [upComingSession, setUpComingSession] = useState(null);
     const {subjectID, isAuthenticated, isAuthLoading, clearStateAndRedirect} = useContext(UserContext);
 
@@ -123,6 +124,7 @@ const GenerateCalendar = () => {
             end.setHours(23, 59, 59, 0);
 
             setLoading(true);
+            setNewGenerate(true);
             api
                 .post(
                     "/scan",
@@ -233,6 +235,7 @@ const GenerateCalendar = () => {
 
     const handleReGenerate = () => {
         setLoading(true);
+        setNewGenerate(false);
         api
             .post(
                 "/re-generate",
@@ -271,6 +274,12 @@ const GenerateCalendar = () => {
                             </Button>
                         </div>
                     );
+                } else if (
+                    response.status === 200 &&
+                    response.data.details === ERROR_FULL_DAY_EVENTS
+                ) {
+                    console.log(response.data);
+                    handleShowModal(response.data.fullDayEvents);
                 } else {
                     toast.error(
                         "Service Unavailable. It looks that we have some problems right now. Please try again later."
@@ -341,17 +350,19 @@ const GenerateCalendar = () => {
     const handleCloseModal = () => {
         setShowModal(false);
         setLoading(true);
-        const start = new Date(startDate);
+        const start = newGenerate ? new Date(startDate) : new Date(studyPlan.startDateTimeOfPlan);
         start.setHours(0, 0, 0, 0);
 
-        const end = new Date(endDate);
+        const end = newGenerate ? new Date(endDate) : new Date(studyPlan.endDateTimeOfPlan);
         end.setHours(23, 59, 59, 0);
 
         console.log(typeof decisions);
         console.log(JSON.stringify(decisions));
 
+        const url = newGenerate ? "/scan" : "/re-generate";
+
         api
-            .post("/scan", decisions, {
+            .post(url, decisions, {
                 params: {
                     sub: subjectID,
 
@@ -434,7 +445,7 @@ const GenerateCalendar = () => {
             });
 
         toast.info(
-            "We are creating you study plan. This might take a minute or two.",
+            "We are creating your study plan. This might take a minute or two.",
             {autoClose: false}
         );
     };
