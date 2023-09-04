@@ -430,6 +430,7 @@ const GenerateCalendar = () => {
                 if (response.status === 201) {
                     console.log("Calendar Has Been Created Successfully !! Hooray !!");
                     setStudyPlan(response.data.studyPlan);
+                    setUpComingSession(response.data.upComingSession);
                     toast.success(
                         <div>
               <span>
