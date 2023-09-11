@@ -28,7 +28,7 @@ import Typography from "@mui/material/Typography";
 import PageHeader from "../components/common/PageHeader.jsx";
 import SubjectViewer from "../components/admin/SubjectsViewer.jsx";
 
-export const validateCourseDetails = (isValid, course) => {
+export const validateCourseDetails = (course, isValid) => {
 
     if (course.courseName.trim() === "") {
         toast.error("Please Enter Course Name !");
@@ -85,9 +85,9 @@ function EditCourse() {
     const validateForm = () => {
         console.log(course);
 
-        let isValid;
+        let isValid = true;
 
-        isValid = validateCourseDetails(course);
+        isValid = validateCourseDetails(course, isValid);
         console.log(course);
 
         return isValid;
