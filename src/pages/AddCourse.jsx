@@ -53,14 +53,14 @@ function EditCourse() {
     const validateForm = () => {
         console.log(course);
 
-        let isValid ;
+        let isValid = true;
 
         if (!isCourseIdValid(course.courseId.trim())) {
             toast.error("Please Enter Valid Course Id! (6 digits only)");
             isValid = false; // Id field is invalid
         }
 
-        isValid = validateCourseDetails(isValid, course);
+        isValid = validateCourseDetails(course, isValid);
 
         return isValid;
     };
